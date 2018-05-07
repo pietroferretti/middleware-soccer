@@ -5,7 +5,7 @@
 
 #define GAME_START 10753295594424116
 #define GAME_END 14879639146403495
-#define DATASET_PATH "/home/nicole/CLionProjects/middleware-soccer/full-game"
+#define DATASET_PATH "full-game" //selezionare la working directory dalle config di build per farlo funzionare
 
 typedef struct event {
     unsigned sid;
@@ -42,9 +42,18 @@ int main() {
 
     while (!feof(fp)) {
         readEvent(fp, &test);
-        print(test);
+
+        if (test.ts < GAME_START) {
+            printf("\nnot yet");
+
+        } else
+            print(test);
     }
 
+
+    readEvent(fp, &test);
+    print(test);
+    printf("\n%lu", (uint64_t) test.ts);
 
     fclose(fp);
 
