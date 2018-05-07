@@ -75,6 +75,8 @@ void readEvent(FILE *file, event *new) {
 
 void print_statistics() {
     // leggi array intervallo (players team 1, players team 2)
+    // stampare statistiche sia intervallo che totali?
+
 }
 
 
@@ -101,11 +103,38 @@ int main() {
 
     fclose(fp);
 
-    // output
+    // TODO leggere da eventi sensori e referee events allo stesso tempo
 
-    // TODO variabile timestamp precedente
-    // se timestamp > timestamp precedente + T, output
 
+    // read first event (after the game start)
+    // next_output_ts = event timestamp + T
+    // poss_player = event player
+    // poss_timestamp = event timestamp
+    // poss_distance = distance event position from ball
+
+    // while the game has not ended
+        // read one event
+        // check timestamp:
+            // check if after game start and before game end (and not during interval <- questo è fatto da referee events?)
+        // get player from sensore
+        // se player è poss_player:
+            // aggiorna poss_distance
+        // altrimenti:
+            // calcola distanza da palla
+            // se nuova distanza < poss_distance
+                // calcola il tempo di possesso palla del giocatore precedente
+                // aggiorna interval_possession e total_possession
+                // aggiorna poss_player, poss_timestamp, poss_distance
+        // se il timestamp >= next_output_ts:
+            // print output
+            // next_output_ts = next_output_ts + T
+
+    /// referee events
+    // quando leggo un game interruption
+    // clear tutti i possessi palla attuali, calcola il tempo di possesso dell'ultimo giocatore per liberare
+    // setto una flag,ignoro tutti gli eventi fino al prossimo game resuming da referee events
+    // ricomincio leggendo il primo evento
+    
 
     return 0;
 }
