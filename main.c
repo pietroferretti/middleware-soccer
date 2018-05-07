@@ -1,6 +1,11 @@
 
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
+
+#define GAME_START 10753295594424116
+#define GAME_END 14879639146403495
+#define DATASET_PATH "/home/nicole/CLionProjects/middleware-soccer/full-game"
 
 /*
 #define TEAM_A_SIDS {13, 14, 97, 98, 47, 16, 49, 88, 19, 52, 53, 54, 23, 24, 57, 58, 59, 28}
@@ -14,11 +19,20 @@ typedef uint8_t player_t;
 typedef enum {PLAYER, REFEREE, BALL, NONE} sensor_type_t;
 typedef enum {TEAM_A, TEAM_B} team_t;
 
+typedef struct event {
+    sid_t sid;
+    uint64_t ts;
+    int x;
+    int y;
+    int z;
+} event;
+
+
 sensor_type_t sensor_type_list[] = {NONE, NONE, NONE, NONE, BALL, NONE, NONE, NONE, BALL, NONE, BALL, NONE, BALL, PLAYER, PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, NONE, NONE, NONE, PLAYER, PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, NONE, PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, NONE, PLAYER, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, REFEREE, REFEREE};
-player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 4, 0, 0, 0, 6, 6, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 14, 0, 0, 0, 16, 0, 0, 2, 0, 3, 0, 0, 4, 5, 5, 0, 0, 7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 15, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 9}
+player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 4, 0, 0, 0, 6, 6, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 14, 0, 0, 0, 16, 0, 0, 2, 0, 3, 0, 0, 4, 5, 5, 0, 0, 7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 15, 15, 16, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 9};
 
 sensor_type_t get_sensor_type(sid_t sid) {
-    sensor_type_t type = sensor_type_list[sid]
+    sensor_type_t type = sensor_type_list[sid];
     if (type != -1) {
         return type;
     }
@@ -49,9 +63,20 @@ team_t get_player_team(player_t player) {
     }
 }
 
+
+void print(event e) {
+    printf("\n%u %lu %d %d %d", e.sid, e.ts, e.x, e.y, e.z);
+}
+
+void readEvent(FILE *file, event *new) {
+    fscanf(file, "%u%*c %lu%*c %d%*c %d%*c %d%*c %*s %*s %*s %*s %*s %*s %*s %*s", &(new->sid), &new->ts, &new->x,
+           &new->y, &new->z);
+}
+
 void print_statistics() {
     // leggi array intervallo (players team 1, players team 2)
 }
+
 
 int main() {
 
@@ -59,8 +84,22 @@ int main() {
                                                                                                    0};
     uint64_t interval_possession_team2[8] = {0, 0, 0, 0, 0, 0, 0, 0}, total_possession_team2[8] = {0, 0, 0, 0, 0, 0, 0,
                                                                                                    0};
+    FILE *fp = fopen(DATASET_PATH, "r");
+
+    if (fp == NULL) {
+        printf("Error: file pointer is null.");
+        exit(1);
+    }
+
+    event test;
+
+    while (!feof(fp)) {
+        readEvent(fp, &test);
+        print(test);
+    }
 
 
+    fclose(fp);
 
     // output
 
