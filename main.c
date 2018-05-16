@@ -147,13 +147,13 @@ void readInterruptionEvent(FILE *file, struct interruption_event *new, picosecon
     double seconds;
     int a;
 
-    int read = fscanf(file, "%*31c:%d:%lf;%*s\n", &minutes, &seconds);
+    int read = fscanf(file, "%*31c:%lu:%lf;%*s\n", &minutes, &seconds);
 
     if (read) {
         new->start = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nSTART INTERR %d,%f", minutes, seconds));
 
-        fscanf(file, "%*29c:%d:%lf;%*s\n", &minutes, &seconds);
+        fscanf(file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
 
 
         DBG(("\nEND INTERR %d,%f", minutes, seconds));
@@ -164,7 +164,7 @@ void readInterruptionEvent(FILE *file, struct interruption_event *new, picosecon
         file = fopen(SECOND_INTERRUPTIONS, "r");
         fscanf(file, "%*s\n");
         fscanf(file, "%*s %*s %*s\n");
-        fscanf(file, "%*29c%d:%d:%lf;%*s\n", &minutes, &seconds);
+        fscanf(file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
         new->start = start;
         DBG(("\nmin %lu, sec %lf", hours, minutes, seconds));
         new->end =
@@ -175,9 +175,6 @@ void readInterruptionEvent(FILE *file, struct interruption_event *new, picosecon
 }
 
 
-
-
-
 void print_statistics(picoseconds const interval_possession[], picoseconds const total_possession[]) {
     // statistics for the interval
 
@@ -185,7 +182,8 @@ void print_statistics(picoseconds const interval_possession[], picoseconds const
     for (int j = 1; j < 17; ++j) {
         time_played += interval_possession[j];
     }
-    printf("\n\n== Current Interval ==");
+
+    printf("\n\n== Current Interval ==\n  %lu",time_played);
     double team_a_interval_poss = 0;
     double team_b_interval_poss = 0;
     printf("\nBall possession team A\n");
@@ -226,6 +224,7 @@ void print_statistics(picoseconds const interval_possession[], picoseconds const
     }
     printf("\nTotal: %5.2f%%\n", team_b_total_poss);
 }
+
 
 void update_possession(picoseconds interval_possession[], event e, hold_event last_ball_holder) {
     // update array with possession times
@@ -308,12 +307,12 @@ int main() {
         // fetch one update
         readEvent(fp_game, &current_event);
 
-        if (current_event.ts < GAME_START) {
+        if (current_event.ts < GAME_START || (current_event.ts > FIRST_END && current_event.ts < SECOND_START)) {
             // skip until the game starts
             continue;
         }
 
-        if (current_event.ts > GAME_END || (current_event.ts > FIRST_END && current_event.ts < SECOND_START)) {
+        if (current_event.ts > GAME_END) {
             // the game has ended
             break;
         }
@@ -366,7 +365,7 @@ int main() {
                 readInterruptionEvent(fp_interruption, &next_interruption, SECOND_START);
 
             first_event = 1;
-            DBG(("\nnext interruption at: %lu", next_interruption.start));
+            printf("\nnext interruption at: %lu", next_interruption.start);
 
         }
 
