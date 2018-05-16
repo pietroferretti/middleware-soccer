@@ -141,36 +141,41 @@ void readEvent(FILE *file, event *new) {
            &new->p.y, &new->p.z);
 }
 
-void readInterruptionEvent(FILE *file, struct interruption_event *new, picoseconds start) {
+void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
     //fixme fine file è diverso
     picoseconds minutes;
     double seconds;
     int a;
 
-    int read = fscanf(file, "%*31c:%lu:%lf;%*s\n", &minutes, &seconds);
+    int read = fscanf(*file, "%*31c:%lu:%lf;%*s\n", &minutes, &seconds);
 
     if (read) {
         new->start = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nSTART INTERR %d,%f", minutes, seconds));
 
-        fscanf(file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
+        fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
 
 
         DBG(("\nEND INTERR %d,%f", minutes, seconds));
 
         new->end = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
+    } else if (start == SECOND_START) {
+//        fclose(*file);
+        new->start = GAME_END;
+        new->end = GAME_END;
+        return;
+
     } else {
-        fclose(file);
-        file = fopen(SECOND_INTERRUPTIONS, "r");
-        fscanf(file, "%*s\n");
-        fscanf(file, "%*s %*s %*s\n");
-        fscanf(file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
+        fclose(*file);
+        *file = fopen(SECOND_INTERRUPTIONS, "r");
+        fscanf(*file, "%*s\n");
+        fscanf(*file, "%*s %*s %*s\n");
+        fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
         new->start = start;
-        DBG(("\nmin %lu, sec %lf", hours, minutes, seconds));
         new->end =
                 start + (picoseconds) (seconds * SECTOPIC) + (picoseconds) (minutes * 60) * SECTOPIC;
 
-        DBG(("\nend interr %lu", next_interruption.end));
+
     }
 }
 
@@ -183,7 +188,14 @@ void print_statistics(picoseconds const interval_possession[], picoseconds const
         time_played += interval_possession[j];
     }
 
-    printf("\n\n== Current Interval ==\n  %lu",time_played);
+    if (time_played == 0) {
+        printf("\nGame interrupted. (in print)");
+
+        return;
+    }
+
+
+    printf("\n\n== Current Interval ==\n  %lu", time_played);
     double team_a_interval_poss = 0;
     double team_b_interval_poss = 0;
     printf("\nBall possession team A\n");
@@ -288,7 +300,7 @@ int main() {
     double seconds;
     fscanf(fp_interruption, "%*s\n");
     fscanf(fp_interruption, "%*s %*s %*s\n");
-    fscanf(fp_interruption, "%*29c:%d:%lf;%*s\n", &minutes, &seconds);
+    fscanf(fp_interruption, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
     next_interruption.start = GAME_START;
     DBG(("\nmin %lu, sec %lf", minutes, seconds));
     next_interruption.end =
@@ -299,7 +311,7 @@ int main() {
     DBG(("\nball starting position: %d, %d, %d", ball_last_position.x, ball_last_position.y, ball_last_position.z));
 
 #ifdef PRGDEBUG
-    for (int j = 0; j < 100000; ++j) {
+    for (int j = 0; j < 10; ++j) {
 #else
     while (!feof(fp_game)) {
 #endif
@@ -360,9 +372,9 @@ int main() {
 
             printf("\nGame resume at %lu", next_interruption.end);
             if (current_event.ts < FIRST_END)
-                readInterruptionEvent(fp_interruption, &next_interruption, GAME_START);
+                readInterruptionEvent(&fp_interruption, &next_interruption, GAME_START);
             else if (current_event.ts > SECOND_START)
-                readInterruptionEvent(fp_interruption, &next_interruption, SECOND_START);
+                readInterruptionEvent(&fp_interruption, &next_interruption, SECOND_START);
 
             first_event = 1;
             printf("\nnext interruption at: %lu", next_interruption.start);
@@ -394,7 +406,7 @@ int main() {
                         // someone else, check if they can get possession of the ball
                         double event_distance = squareDistanceFromBall(current_event.p, ball_last_position);
                         double holder_distance = squareDistanceFromBall(last_ball_holder.p, ball_last_position);
-                        if (event_distance < K && event_distance < holder_distance) {
+                        if (event_distance < K * K && event_distance < holder_distance) {
                             // update possession statistics
                             update_possession(interval_possession, current_event, last_ball_holder);
                             // update ball holder
@@ -435,13 +447,12 @@ int main() {
 
     // close event file
     fclose(fp_game);
+    fclose(fp_interruption);
 
     printf("\n** Done! **");
     return 0;
 }
 
-
-// TODO leggere da eventi sensori e referee events allo stesso tempo
 
 
 // read first event (after the game start)
