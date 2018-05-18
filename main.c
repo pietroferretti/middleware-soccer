@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <mpi/mpi.h>
+#include <stddef.h>
 
 //#define PRGDEBUG
 
@@ -263,6 +265,28 @@ bool ball_is_in_play(position p) {
 
 int main() {
 
+    // inizializza mpi
+    MPI_Init(NULL, NULL);
+
+    // create struct for position
+    int blocklengths[3] = {1, 1, 1};
+    MPI_Datatype types[3] = {MPI_INT32_T, MPI_INT32_T, MPI_INT32_T};
+    MPI_Datatype mpi_position_type;
+    MPI_Aint offsets[3] = {offsetof(position, x), offsetof(position, y), offsetof(position, z)};
+
+    MPI_Type_create_struct(3, blocklengths, offsets, types, &mpi_position_type);
+    MPI_Type_commit(&mpi_position_type);
+
+// create struct for event
+    int array_of_blocklengths[3] = {1, 1, 1};//    - number of elements in each block (array of integer)
+    MPI_Aint offsets2[3] = {offsetof(event, sid), offsetof(event, ts), offsetof(event, p)};
+    MPI_Datatype array_of_types[3] = {MPI_UNSIGNED_CHAR, MPI_UNSIGNED_LONG, mpi_position_type};
+    MPI_Datatype mpi_event_type;
+
+    MPI_Type_create_struct(3, array_of_blocklengths, offsets2, array_of_types, &mpi_event_type);
+    MPI_Type_commit(&mpi_event_type);
+
+    
     // open dataset
     FILE *fp_game = fopen(FULLGAME_PATH, "r");
 
