@@ -268,6 +268,7 @@ int main() {
     // inizializza mpi
     MPI_Init(NULL, NULL);
 
+
     // create struct for position
     int blocklengths[3] = {1, 1, 1};
     MPI_Datatype types[3] = {MPI_INT32_T, MPI_INT32_T, MPI_INT32_T};
@@ -286,7 +287,7 @@ int main() {
     MPI_Type_create_struct(3, array_of_blocklengths, offsets2, array_of_types, &mpi_event_type);
     MPI_Type_commit(&mpi_event_type);
 
-    
+
     // open dataset
     FILE *fp_game = fopen(FULLGAME_PATH, "r");
 
