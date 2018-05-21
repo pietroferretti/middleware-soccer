@@ -3,11 +3,12 @@ project(middleware-soccer)
 
 set(CMAKE_C_STANDARD 99)
 
-set(CMAKE_C_COMPILER "/home/nicole/mpich-install/bin/mpicc")
+#set(CMAKE_C_COMPILER "/home/nicole/mpich-install/bin/mpicc")
 
-#set(CMAKE_C_COMPILER "/home/.../mpich-install/bin/mpicc") tutta tua :)
+set(CMAKE_C_COMPILER "mpicc")  # se dà problemi posso mettere il file nel .gitignore
 
-set(SOURCE_FILES main.c)
+include_directories(include/)
+set(SOURCE_FILES main.c parser.c onevent.c possession.c output.c include/parser.h include/onevent.h include/possession.h include/output.h)
 add_executable(soccer ${SOURCE_FILES})
 
 #target_link_libraries(m)

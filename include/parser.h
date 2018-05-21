@@ -1,0 +1,6 @@
+#ifndef MIDDLEWARE_SOCCER_PARSER_H
+#define MIDDLEWARE_SOCCER_PARSER_H
+
+void parser_run();
+
+#endif //MIDDLEWARE_SOCCER_PARSER_H

@@ -1,0 +1,6 @@
+#ifndef MIDDLEWARE_SOCCER_ONEVENT_H
+#define MIDDLEWARE_SOCCER_ONEVENT_H
+
+void onevent_run();
+
+#endif //MIDDLEWARE_SOCCER_ONEVENT_H
