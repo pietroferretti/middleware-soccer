@@ -7,10 +7,11 @@
 #include <mpi.h>
 #include <stddef.h>
 
-#include "include/parser.h"
-#include "include/onevent.h"
-#include "include/possession.h"
-#include "include/output.h"
+#include "common.h"
+#include "parser.h"
+#include "onevent.h"
+#include "possession.h"
+#include "output.h"
 
 //#define PRGDEBUG
 
@@ -27,51 +28,12 @@
 #define FULLGAME_PATH "full-game" //selezionare la working directory dalle config di build per farlo funzionare
 #endif
 
-
-#define FIRST_INTERRUPTIONS "referee-events/Game Interruption/1st Half.csv"
-#define SECOND_INTERRUPTIONS "referee-events/Game Interruption/2nd Half.csv"
-
-#define INTERVAL 60000000000000  // 60 seconds
-#define K 1000  // 1 meter
-
-#define SECTOPIC 1000000000000
-
-
-typedef uint8_t sid_t;
-typedef uint8_t player_t;
-typedef uint64_t picoseconds;
-typedef enum {
-    PLAYER, REFEREE, BALL, NONE
-} sensor_type_t;
-
-typedef struct position {
-    int32_t x;
-    int32_t y;
-    int32_t z;
-} position;
-
-typedef struct event {
-    sid_t sid;
-    picoseconds ts;
-    position p;
-} event;
-
-typedef struct hold_event {
-    player_t player;
-    picoseconds ts;
-    position p;
-} hold_event;
-
-typedef struct interruption_event {
-    picoseconds start;
-    picoseconds end;
-} interruption_event;
-
+// TODO spostare tutte le macro in un header unico usato da tutti
 
 
 int main() {
 
-    // inizializza mpi
+    // initialize mpi
     MPI_Init(NULL, NULL);
 
 
@@ -93,7 +55,15 @@ int main() {
     MPI_Type_create_struct(3, array_of_blocklengths, offsets2, array_of_types, &mpi_event_type);
     MPI_Type_commit(&mpi_event_type);
 
-    // TODO gli altri tipi che mancano (solo interruption_event?)
+
+    // create envelope for messages sent to output
+    // message type + unsigned value
+    MPI_Datatype mpi_output_envelope;
+    MPI_Type_contiguous(2, MPI_UINT32_T, &mpi_output_envelope);
+    MPI_Type_commit(&mpi_output_envelope);
+
+
+    // TODO gli altri tipi che possono essere inviati
 
 
     // check number of processes
@@ -110,23 +80,25 @@ int main() {
 
     // dispatch correct function
     switch (process_rank) {
-        case 0:
+        case PARSER_RANK:
             parser_run();
             break;
-        case 1:
+        case ONEVENT_RANK:
             onevent_run();
             break;
-        case 2:
+        case POSSESSION_RANK:
             possession_run();
             break;
-        case 3:
-            output_run();
+        case OUTPUT_RANK:
+            output_run(mpi_output_envelope);
             break;
         default:
             // nothing to do
             break;
     }
 
+
+    // TODO big barrier here?
 
     // clear the MPI environment
     MPI_Finalize();
@@ -219,7 +191,7 @@ int main() {
 
 // altro:
     // usare più di un buffer per le send non-blocking, in modo da parallelizzare meglio (ad es. 2 buffer swappati ogni volta)
-    // per le recv di output, fare due receive non bloccanti e poi waitany su entrambe
-    // quando mpi_finalize viene chiamata non devono più esserci send o receive unmatchati
+    // (per le recv di output, fare due receive non bloccanti e poi waitany su entrambe) nah
+    // quando mpi_finalize viene chiamata non dovrebbero più esserci send o receive unmatchati
     // per ricevere due tipi di messaggio, prima ricevere il tipo (con tag tipo), poi fare una recv con il tipo e tag giusto
         // ^ il tag verrebbe usato sia per tipi che per il counter intervallo, credo si possano fare magheggi con gli shift

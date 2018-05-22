@@ -54,5 +54,5 @@ dkms.conf
 # CLion
 .idea/
 cmake-build-debug
-
+notes
 datasets/
