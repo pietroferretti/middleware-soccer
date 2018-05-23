@@ -2,6 +2,16 @@
 #define MIDDLEWARE_SOCCER_COMMON_H
 
 #include <stdint.h>
+#include <stdbool.h>
+
+
+#define PRGDEBUG 1
+
+#ifdef PRGDEBUG
+#define DBG(x) printf x
+#else
+#define DBG(x) /*nothing*/
+#endif
 
 #define PARSER_RANK 0
 #define ONEVENT_RANK 1
@@ -15,8 +25,6 @@
 #define POSSESSION_MESSAGE 4
 #define ENDOFGAME_MESSAGE 5
 
-#define FIRST_INTERRUPTIONS "referee-events/Game Interruption/1st Half.csv"
-#define SECOND_INTERRUPTIONS "referee-events/Game Interruption/2nd Half.csv"
 
 #define INTERVAL 60000000000000  // 60 seconds
 #define K 1000  // 1 meter
@@ -52,7 +60,6 @@ typedef struct interruption_event {
     picoseconds start;
     picoseconds end;
 } interruption_event;
-
 
 
 #endif //MIDDLEWARE_SOCCER_COMMON_H
