@@ -107,7 +107,6 @@ void output_run(MPI_Datatype mpi_output_envelope) {
     int last_received = -1;
 
     while (1) {
-        MPI_Recv(&data, 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
         switch (last_received) {
             case -1:
