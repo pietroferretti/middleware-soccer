@@ -7,7 +7,7 @@
 typedef struct {
     uint32_t type;
     uint32_t content;
-} out_envelope;
+} msg_envelope;
 
 
 void print_statistics(unsigned const interval_possession[], unsigned const total_possession[]) {
@@ -102,18 +102,40 @@ void output_run(MPI_Datatype mpi_output_envelope) {
     unsigned num_processes;
 
     // declare mpi related variables
-    out_envelope data;      // used to receive a message, same size as the mpi datatype
+    msg_envelope data[2];      // used to receive a message, same size as the mpi datatype
+    MPI_Request requests[2];
+    int last_received = -1;
 
     while (1) {
-        // wait for a message from the possession or the onevent process
-        // accept only messages for this interval
         MPI_Recv(&data, 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
 
+        switch (last_received) {
+            case -1:
+                // wait for a message from the possession or the onevent process
+                // accept only messages for this interval
+                MPI_Irecv(&data[0], 1, mpi_output_envelope, ONEVENT_RANK, interval, MPI_COMM_WORLD, &requests[0]);
+                MPI_Irecv(&data[1], 1, mpi_output_envelope, POSSESSION_RANK, interval, MPI_COMM_WORLD, &requests[1]);
+                break;
+            case 0:
+                // make a new request for the onevent processs
+                MPI_Irecv(&data[0], 1, mpi_output_envelope, ONEVENT_RANK, interval, MPI_COMM_WORLD, &requests[0]);
+                break;
+            case 1:
+                // make a new request for the possession processs
+                MPI_Irecv(&data[1], 1, mpi_output_envelope, POSSESSION_RANK, interval, MPI_COMM_WORLD, &requests[1]);
+                break;
+            default:
+                break;
+        }
+
+        // match the first process with a message
+        MPI_Waitany(2, requests, &last_received, MPI_STATUS_IGNORE);
+
         // check type of message
-        switch (data.type) {
+        switch (data[last_received].type) {
             case POSSESSION_MESSAGE:
                 // get player with possession for this sample
-                holder = data.content;
+                holder = data[last_received].content;
 
                 // update possession arrays
                 interval_possession[holder] += 1;
@@ -125,14 +147,14 @@ void output_run(MPI_Datatype mpi_output_envelope) {
 
             case PRINT_MESSAGE:
                 // get number of possession updates we need to wait for
-                num_processes = data.content;
+                num_processes = data[last_received].content;
 
                 // collect messages from all pending processes
                 while (num_read < num_processes) {
                     // wait for any possession process for this interval
                     MPI_Recv(&data, 1, mpi_output_envelope, POSSESSION_RANK, interval, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                     // get player with possession for this sample
-                    holder = data.content;
+                    holder = data[last_received].content;
                     // update possession arrays
                     interval_possession[holder] += 1;
                     total_possession[holder] += 1;
@@ -149,14 +171,20 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 }
                 num_read = 0;
                 interval += 1;
+
+                // stop waiting for possession updates on this interval
+                MPI_Request_free(&requests[1]);
                 break;
 
             case ENDOFGAME_MESSAGE:
+                // remove useless pending requests (nothing will be sent after this message)
+                MPI_Request_free(&requests[1]);
+
                 // exit from the process
                 return;
 
             default:
-                printf("Message with wrong type %u in the \"output\" process!\n", data.type);
+                printf("Message with wrong type %u in the \"output\" process!\n", data[last_received].type);
                 printf("Aborting.\n");
                 MPI_Abort(MPI_COMM_WORLD, 1);
         }
