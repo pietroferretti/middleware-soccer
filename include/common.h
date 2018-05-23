@@ -61,5 +61,11 @@ typedef struct interruption_event {
     picoseconds end;
 } interruption_event;
 
+typedef struct position_event {
+    position players[17];      // 0=discard, 1-16 = player
+    position ball;
+    int32_t interval_id;
+} position_event;
+
 
 #endif //MIDDLEWARE_SOCCER_COMMON_H

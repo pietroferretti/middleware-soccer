@@ -71,6 +71,14 @@ int main() {
     MPI_Type_commit(&mpi_output_envelope);
 
 
+    int blocklengths3[3] = {17, 1, 1};
+    MPI_Datatype types3[3] = {mpi_position_type, mpi_position_type, MPI_INT32_T};
+    MPI_Datatype mpi_position_for_possession_type;
+    MPI_Aint offsets3[3] = {offsetof(position_event, players), offsetof(position_event, ball),
+                            offsetof(position_event, interval_id)};
+
+    MPI_Type_create_struct(3, blocklengths3, offsets3, types3, &mpi_position_for_possession_type);
+    MPI_Type_commit(&mpi_position_for_possession_type);
 
 
     // TODO gli altri tipi che possono essere inviati
@@ -131,77 +139,77 @@ int main() {
 // mpi_init
 // definisci i datatype
 // check if nprocesses == 4
-    // MPI_COMM_SIZE(MPI_COMM_WORLD, count)
+// MPI_COMM_SIZE(MPI_COMM_WORLD, count)
 // create 4 processes
 // check on MPI_COMM_RANK(MPI_COMM_WORLD, myid)
 // process 0: parser
-    // parser_p()
+// parser_p()
 // process 1: onevent
-    // onevent_p()
+// onevent_p()
 // process 2: possession
-    // possession_p()
+// possession_p()
 // process 3: output
-    // output_p()
+// output_p()
 
 // parser:
-    // apri file eventi e interruzioni
-    // read evento o interruzione
-    // send evento o interruzione/resume
-    // if game has ended:
-        // send "end of game" to onevent
-        // return
+// apri file eventi e interruzioni
+// read evento o interruzione
+// send evento o interruzione/resume
+// if game has ended:
+// send "end of game" to onevent
+// return
 // onevent:
-    // event = player/ball, posizione
-    // if player:
-        // update player position
-    // if ball:
-        // TODO per ora ogni volta, se è troppo lento, ogni n volte
-        // find possession
-        // send messaggio a possession_p
-            // messaggio = posizione palla + tutte posizioni player + counter intervallo
-        // numero calcoli possesso += 1
-    // if finito intervallo (timestamp > interval_end):
-        // send messaggio a output
-            // messaggio = "print", numero calcoli possesso (quelli che dovrà aspettare)
-        // interval_end += T
-        // counter intervallo += 1
-        // numero calcoli possesso = 0
-    // if "end of game":
-        // send "end of game" to possession
-        // return
+// event = player/ball, posizione
+// if player:
+// update player position
+// if ball:
+// TODO per ora ogni volta, se è troppo lento, ogni n volte
+// find possession
+// send messaggio a possession_p
+// messaggio = posizione palla + tutte posizioni player + counter intervallo
+// numero calcoli possesso += 1
+// if finito intervallo (timestamp > interval_end):
+// send messaggio a output
+// messaggio = "print", numero calcoli possesso (quelli che dovrà aspettare)
+// interval_end += T
+// counter intervallo += 1
+// numero calcoli possesso = 0
+// if "end of game":
+// send "end of game" to possession
+// return
 // possession:
-    // messaggio = posizione palla + tutte posizioni player + counter intervallo
-    // for each player:
-        // calcola distanza ball-player
-    // find player with minimum distance
-    // if min_distance < K**2:
-        // send player_id of holder to output, tag = counter intervallo
-    // else:
-        // send 0 to output -> nessuno ha possesso, tag = counter intervallo
-    // if "end of game":
-        // send "end of game" to output
-        // return
+// messaggio = posizione palla + tutte posizioni player + counter intervallo
+// for each player:
+// calcola distanza ball-player
+// find player with minimum distance
+// if min_distance < K**2:
+// send player_id of holder to output, tag = counter intervallo
+// else:
+// send 0 to output -> nessuno ha possesso, tag = counter intervallo
+// if "end of game":
+// send "end of game" to output
+// return
 // output:
-    // if messaggio = possesso, tag=num intervallo
-        // arrayintervallo[player_id] += 1
-        // arraycumulativo[player_id] += 1
-        // nread += 1
-    // if messaggio = print, num calcoli
-        // while nread < num calcoli:
-            // receive from possession
-        // letti tutti
-        // print statistics
-        // annulla array intervallo
-        // nread = 0
-    // if "end of game"
-        // return
+// if messaggio = possesso, tag=num intervallo
+// arrayintervallo[player_id] += 1
+// arraycumulativo[player_id] += 1
+// nread += 1
+// if messaggio = print, num calcoli
+// while nread < num calcoli:
+// receive from possession
+// letti tutti
+// print statistics
+// annulla array intervallo
+// nread = 0
+// if "end of game"
+// return
 
 // mpi_finalize
 
 
 // altro:
-    // usare più di un buffer per le send non-blocking, in modo da parallelizzare meglio (ad es. 2 buffer swappati ogni volta)
-    // (per le recv di output, fare due receive non bloccanti e poi waitany su entrambe) nah
-    // quando mpi_finalize viene chiamata non dovrebbero più esserci send o receive unmatchati
-    // per ricevere due tipi di messaggio, prima ricevere il tipo (con tag tipo), poi fare una recv con il tipo e tag giusto
-        // ^ il tag verrebbe usato sia per tipi che per il counter intervallo, credo si possano fare magheggi con gli shift
+// usare più di un buffer per le send non-blocking, in modo da parallelizzare meglio (ad es. 2 buffer swappati ogni volta)
+// (per le recv di output, fare due receive non bloccanti e poi waitany su entrambe) nah
+// quando mpi_finalize viene chiamata non dovrebbero più esserci send o receive unmatchati
+// per ricevere due tipi di messaggio, prima ricevere il tipo (con tag tipo), poi fare una recv con il tipo e tag giusto
+// ^ il tag verrebbe usato sia per tipi che per il counter intervallo, credo si possano fare magheggi con gli shift
