@@ -55,12 +55,22 @@ int main() {
     MPI_Type_create_struct(3, array_of_blocklengths, offsets2, array_of_types, &mpi_event_type);
     MPI_Type_commit(&mpi_event_type);
 
+    // create struct for interruption_event
+    int aob[2] = {1, 1};//    - number of elements in each block (array of integer)
+    MPI_Aint o[2] = {offsetof(interruption_event, start), offsetof(interruption_event, end)};
+    MPI_Datatype aot[2] = {MPI_UNSIGNED_LONG, MPI_UNSIGNED_LONG};
+    MPI_Datatype mpi_interruption_event_type;
+    MPI_Type_create_struct(2, aob, o, aot, &mpi_interruption_event_type);
+    MPI_Type_commit(&mpi_interruption_event_type);
+
 
     // create envelope for messages sent to output
     // message type + unsigned value
     MPI_Datatype mpi_output_envelope;
     MPI_Type_contiguous(2, MPI_UINT32_T, &mpi_output_envelope);
     MPI_Type_commit(&mpi_output_envelope);
+
+
 
 
     // TODO gli altri tipi che possono essere inviati
@@ -81,7 +91,7 @@ int main() {
     // dispatch correct function
     switch (process_rank) {
         case PARSER_RANK:
-            parser_run();
+            parser_run(mpi_event_type, mpi_interruption_event_type);
             break;
         case ONEVENT_RANK:
             onevent_run();
