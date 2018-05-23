@@ -71,6 +71,12 @@ int main() {
     MPI_Type_commit(&mpi_output_envelope);
 
 
+    // 0=discard, 1-16 = player, 17 = ball
+    MPI_Datatype mpi_position_for_possession_type;
+    MPI_Type_contiguous(18, mpi_position_type, &mpi_position_for_possession_type);
+    MPI_Type_commit(&mpi_position_for_possession_type);
+
+
 
 
     // TODO gli altri tipi che possono essere inviati
