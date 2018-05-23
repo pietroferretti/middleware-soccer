@@ -105,7 +105,7 @@ int main() {
             onevent_run();
             break;
         case POSSESSION_RANK:
-            possession_run();
+            possession_run(mpi_position_for_possession_type, mpi_output_envelope);
             break;
         case OUTPUT_RANK:
             output_run(mpi_output_envelope);

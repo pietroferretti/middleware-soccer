@@ -4,12 +4,6 @@
 #include "common.h"
 
 
-typedef struct {
-    uint32_t type;
-    uint32_t content;
-} msg_envelope;
-
-
 void print_statistics(unsigned const interval_possession[], unsigned const total_possession[]) {
     // output statistics
 
@@ -102,7 +96,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
     unsigned num_processes;
 
     // declare mpi related variables
-    msg_envelope data[2];      // used to receive a message, same size as the mpi datatype
+    output_envelope data[2];      // used to receive a message, same size as the mpi datatype
     MPI_Request requests[2];
     int last_received = -1;
 

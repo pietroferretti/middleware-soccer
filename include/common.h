@@ -25,6 +25,7 @@
 #define POSSESSION_MESSAGE 4
 #define ENDOFGAME_MESSAGE 5
 
+#define POSSESSION_BUFFER_SIZE 100
 
 #define INTERVAL 60000000000000  // 60 seconds
 #define K 1000  // 1 meter
@@ -62,10 +63,16 @@ typedef struct interruption_event {
 } interruption_event;
 
 typedef struct position_event {
-    position players[17];      // 0=discard, 1-16 = player
+    position players[17];      // 0 = discard, 1-16 = player
     position ball;
     int32_t interval_id;
 } position_event;
+
+typedef struct {
+    uint32_t type;
+    uint32_t content;
+} output_envelope;
+
 
 
 #endif //MIDDLEWARE_SOCCER_COMMON_H
