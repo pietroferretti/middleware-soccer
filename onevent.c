@@ -103,7 +103,7 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
 
     int req_index;
 
-    MPI_Status status;
+    MPI_Status status[ONEVENT_BUFFER_SIZE];
     int numsent = 0;
     int request_complete = 1;
 

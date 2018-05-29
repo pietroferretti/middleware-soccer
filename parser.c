@@ -80,8 +80,15 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 
 
     // event cursor
-    bool first_event = 1;
+//    bool first_event = 1;
     event current_event;
+    event send_buf[PARSER_BUFFER_SIZE];
+    MPI_Request send_req[PARSER_BUFFER_SIZE];
+    MPI_Status status[PARSER_BUFFER_SIZE];
+    int req_index;
+    int numsent = 0;
+    int msg = -1;
+
     interruption_event next_interruption;
     picoseconds minutes;
     double seconds;
@@ -111,24 +118,24 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 
         if (current_event.ts > GAME_END) {
             // the game has ended
+            MPI_Waitall(numsent, send_req, status)
             MPI_Send(&current_event, 1, mpi_event_type, ONEVENT_RANK, ENDOFGAME_MESSAGE,
                      MPI_COMM_WORLD);
+
             break;
-//fixme forse meglio MPI_Sendrecv
         }
 
         if (current_event.ts >= next_interruption.start && current_event.ts <= next_interruption.end) {
             // skip until the game restarts
 //            DBG(("\nevent during interruption"));
-            if (first_event) {
-//                DBG(("\nGame interrupted at %lu", next_interruption.start));
-                first_event = 0;
-//                al primo evento dopo l'interruzione avviso onevent
-                MPI_Send(&next_interruption, 1, mpi_interruption_event_type, ONEVENT_RANK, INTERRUPTION_MESSAGE,
-                         MPI_COMM_WORLD);
-                //fixme forse meglio MPI_Sendrecv
-
-            }
+//            if (first_event) {
+////                DBG(("\nGame interrupted at %lu", next_interruption.start));
+//                first_event = 0;
+////                al primo evento dopo l'interruzione avviso onevent
+//                MPI_Send(&next_interruption, 1, mpi_interruption_event_type, ONEVENT_RANK, INTERRUPTION_MESSAGE,
+//                         MPI_COMM_WORLD);
+//
+//            }
 
             continue;
         } else if (current_event.ts > next_interruption.end) {
@@ -139,11 +146,29 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
             else if (current_event.ts > SECOND_START)
                 readInterruptionEvent(&fp_interruption, &next_interruption, SECOND_START);
 
-            first_event = 1;
+//            first_event = 1;
             DBG(("\nnext interruption at: %lu", next_interruption.start));
 
-            MPI_Send(&current_event, 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
-                     MPI_COMM_WORLD);
+            if (numsent < PARSER_BUFFER_SIZE) {
+                // update ball position and send everything to possession
+
+                send_buf[numsent] = current_event;
+
+                // non-blocking send
+                MPI_Isend(&send_buf[numsent], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
+                          MPI_COMM_WORLD, &send_req[numsent]);
+                // keep track of the number of used cells in requests
+                numsent += 1;
+            } else {
+                // find a usable index in the buffer
+                MPI_Waitany(PARSER_BUFFER_SIZE, send_req, &req_index, MPI_STATUS_IGNORE);
+                // prepare message in buffer
+                send_buf[numsent] = current_event;
+                // non-blocking send
+                MPI_Isend(&send_buf[req_index], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
+                          MPI_COMM_WORLD, &send_req[req_index]);
+            }
+
         }
 
 

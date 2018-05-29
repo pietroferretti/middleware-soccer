@@ -32,6 +32,7 @@
 
 #define POSSESSION_BUFFER_SIZE 100
 #define ONEVENT_BUFFER_SIZE 100
+#define PARSER_BUFFER_SIZE 100
 
 #define INTERVAL 60000000000000  // 60 seconds
 #define K 1000  // 1 meter
