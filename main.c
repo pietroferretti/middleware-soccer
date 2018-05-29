@@ -102,7 +102,7 @@ int main() {
             parser_run(mpi_event_type, mpi_interruption_event_type);
             break;
         case ONEVENT_RANK:
-            onevent_run();
+            onevent_run(mpi_event_type, mpi_position_for_possession_type, mpi_output_envelope);
             break;
         case POSSESSION_RANK:
             possession_run(mpi_position_for_possession_type, mpi_output_envelope);

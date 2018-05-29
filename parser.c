@@ -10,8 +10,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <mpi.h>
-#include <lzma.h>
 #include "common.h"
 
 #define FULLGAME_PATH "../full-game" //selezionare la working directory dalle config di build per farlo funzionare
@@ -19,10 +17,7 @@
 #define FIRST_INTERRUPTIONS "../referee-events/Game Interruption/1st Half.csv"
 #define SECOND_INTERRUPTIONS "../referee-events/Game Interruption/2nd Half.csv"
 
-#define GAME_START 10753295594424116
-#define FIRST_END 12557295594424116
-#define SECOND_START 13086639146403495
-#define GAME_END 14879639146403495
+
 
 
 void readEvent(FILE *file, event *new) {
@@ -119,7 +114,7 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
             MPI_Send(&current_event, 1, mpi_event_type, ONEVENT_RANK, ENDOFGAME_MESSAGE,
                      MPI_COMM_WORLD);
             break;
-
+//fixme forse meglio MPI_Sendrecv
         }
 
         if (current_event.ts >= next_interruption.start && current_event.ts <= next_interruption.end) {
@@ -131,6 +126,8 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 //                al primo evento dopo l'interruzione avviso onevent
                 MPI_Send(&next_interruption, 1, mpi_interruption_event_type, ONEVENT_RANK, INTERRUPTION_MESSAGE,
                          MPI_COMM_WORLD);
+                //fixme forse meglio MPI_Sendrecv
+
             }
 
             continue;
