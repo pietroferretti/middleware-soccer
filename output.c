@@ -136,7 +136,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 // update possession arrays
                 interval_possession[holder] += 1;
                 total_possession[holder] += 1;
-
+                DBG(("OUTPUT: new possession for %d=%d", holder, interval_possession[holder]));
                 // update count of possession processed for this interval
                 num_read += 1;
                 break;
@@ -174,6 +174,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
 
                 // stop waiting for possession updates on this interval
 //                MPI_Request_free(&requests[1]); // FIXME
+
                 break;
 
             case ENDOFGAME_MESSAGE:
