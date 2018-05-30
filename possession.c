@@ -98,3 +98,11 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
         }
     }
 }
+
+
+// TODO: il waitany sul buffer è un po' inutile, perché output legge sequenzialmente
+// possiamo utilizzare index per ciclare 0-99
+    // usa index uguale
+    // togli waitany, metti wait
+    // dopo la wait, (index += 1) % 100
+// il codice può essere riutilizzato da onevent quando avremo n processi possession

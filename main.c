@@ -49,7 +49,7 @@ int main() {
     // create struct for event
     int array_of_blocklengths[3] = {1, 1, 1};//    - number of elements in each block (array of integer)
     MPI_Aint offsets2[3] = {offsetof(event, sid), offsetof(event, ts), offsetof(event, p)};
-    MPI_Datatype array_of_types[3] = {MPI_UNSIGNED_CHAR, MPI_UNSIGNED_LONG, mpi_position_type};
+    MPI_Datatype array_of_types[3] = {MPI_UINT32_T, MPI_UINT64_T, mpi_position_type};
     MPI_Datatype mpi_event_type;
 
     MPI_Type_create_struct(3, array_of_blocklengths, offsets2, array_of_types, &mpi_event_type);
@@ -58,7 +58,7 @@ int main() {
     // create struct for interruption_event
     int aob[2] = {1, 1};//    - number of elements in each block (array of integer)
     MPI_Aint o[2] = {offsetof(interruption_event, start), offsetof(interruption_event, end)};
-    MPI_Datatype aot[2] = {MPI_UNSIGNED_LONG, MPI_UNSIGNED_LONG};
+    MPI_Datatype aot[2] = {MPI_UINT64_T, MPI_UINT64_T};
     MPI_Datatype mpi_interruption_event_type;
     MPI_Type_create_struct(2, aob, o, aot, &mpi_interruption_event_type);
     MPI_Type_commit(&mpi_interruption_event_type);

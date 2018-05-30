@@ -64,7 +64,7 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
 }
 
 void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event_type) {
-    printf("----------------- PARSER -----------------");
+    printf("----------------- PARSER -----------------\n");
 
     // open dataset
     FILE *fp_game = fopen(FULLGAME_PATH, "r");
@@ -72,8 +72,9 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
     FILE *fp_interruption = fopen(FIRST_INTERRUPTIONS, "r");
 
     if (fp_game == NULL || fp_interruption == NULL) {
-        printf("Error: couldn't open file.");
-        exit(1);
+        printf("Error: couldn't open file.\n");
+        printf("Aborting.\n");
+        MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
     printf("\nGame starting..");
@@ -118,7 +119,7 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 
         if (current_event.ts > GAME_END) {
             // the game has ended
-            MPI_Waitall(numsent, send_req, status)
+            MPI_Waitall(numsent, send_req, status);
             MPI_Send(&current_event, 1, mpi_event_type, ONEVENT_RANK, ENDOFGAME_MESSAGE,
                      MPI_COMM_WORLD);
 

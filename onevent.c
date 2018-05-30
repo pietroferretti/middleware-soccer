@@ -103,36 +103,48 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
 
     int req_index;
 
-    MPI_Status status[ONEVENT_BUFFER_SIZE];
+    MPI_Status status;
     int numsent = 0;
-    int request_complete = 1;
+//    int request_complete = 1;
 
 
     while (1) {
 
-        MPI_Recv(&current_event, 1, mpi_event_type, PARSER_RANK, EVENT_MESSAGE, MPI_COMM_WORLD, &status);
+        MPI_Recv(&current_event, 1, mpi_event_type, PARSER_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+
+        printf("fuuuuuuccck %d\n", status.MPI_TAG);
+        printf("%lu, %lu\n", 1,2);
+        printf("%lu, %lu\n", current_event.sid,3);
+
 
         switch (status.MPI_TAG) {
             case EVENT_MESSAGE:
                 // check who generated this new event
+                printf("%lu, %lu\n", current_event.sid, get_sensor_type(current_event.sid));
+
                 if (current_event.ts > interval_ends) {
-                    if (!request_complete)
+                    printf("printtttt %lu %lu\n", current_event.ts, interval_ends);
+//                    if (!request_complete)
                         MPI_Wait(&print_request, &status);
 
-                    interval_id++;
                     interval_ends += INTERVAL;
                     send_print.content = possession_counter;
+//                    send_print.type = PRINT_MESSAGE;
                     possession_counter = 0;
-                    MPI_Isend(&send_print, 1, mpi_output_envelope, OUTPUT_RANK,
-                              PRINT_MESSAGE,
-                              MPI_COMM_WORLD, &print_request);
+                    printf("%lu, %lu\n", current_event.sid, get_sensor_type(current_event.sid));
 
-                    request_complete = 0;
+                    MPI_Isend(&send_print, 1, mpi_output_envelope, OUTPUT_RANK,
+                              interval_id,
+                              MPI_COMM_WORLD, &print_request);
+                    interval_id++;
+
+//                    request_complete = 0;
 
                 }
+                printf("%lu, %lu\n", current_event.sid, get_sensor_type(current_event.sid));
                 switch (get_sensor_type(current_event.sid)) {
-
                     case BALL:
+                        printf("ball type\n");
                         if (ball_is_in_play(current_event.p)) {
 
                             if (numsent < ONEVENT_BUFFER_SIZE) {
@@ -172,6 +184,8 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                         break;
 
                     case PLAYER:
+                        printf("player type\n");
+
                         players[get_sensor_player(current_event.sid)] = current_event.p;
                         break;
                     default:
@@ -179,13 +193,14 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                         DBG(("\ndefault %d", get_sensor_type(current_event.sid)));
                         break;
                 }
-
+                break;
 
             case ENDOFGAME_MESSAGE:
 
                 MPI_Send(&send_data, 1, mpi_position_for_possession_type, POSSESSION_RANK, ENDOFGAME_MESSAGE,
                          MPI_COMM_WORLD);
                 MPI_Waitall(numsent, possession_request, MPI_STATUS_IGNORE);
+                return;
 
             default:
                 printf("Message with wrong tag %u in the \"onevent\" process!\n", status.MPI_TAG);
@@ -193,9 +208,9 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                 MPI_Abort(MPI_COMM_WORLD, 1);
 
         }
-
-        if (!request_complete)
-            MPI_Test(&print_request, &request_complete, &status);
+//
+//        if (!request_complete)
+//            MPI_Test(&print_request, &request_complete, &status);
     }
 
 }
