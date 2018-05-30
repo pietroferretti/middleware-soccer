@@ -18,8 +18,6 @@
 #define SECOND_INTERRUPTIONS "../referee-events/Game Interruption/2nd Half.csv"
 
 
-
-
 void readEvent(FILE *file, event *new) {
     fscanf(file, "%u,%lu,%d,%d,%d,%*s\n", &new->sid, &new->ts, &new->p.x,
            &new->p.y, &new->p.z);
@@ -29,36 +27,43 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
     //fixme fine file è diverso
     picoseconds minutes;
     double seconds;
-    int a;
 
+    // read one line from the referee events file
     int read = fscanf(*file, "%*31c:%lu:%lf;%*s\n", &minutes, &seconds);
 
     if (read) {
+        // we manage to read one event (the start of an interruption
+
         new->start = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nSTART INTERR %lu,%f", minutes, seconds));
 
+        // get the corresponding end of the interruption
         fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
-
-
+        new->end = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nEND INTERR %lu,%f", minutes, seconds));
 
-        new->end = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
     } else if (start == SECOND_START) {
+        // we're in the second half of the game, and the second file has ended
+        // i.e. the game has ended
 //        fclose(*file);
         new->start = GAME_END;
         new->end = GAME_END;
         return;
 
     } else {
+        // we're still in the first half of the game, and the first file has ended
+        // change the file we need to read from
         fclose(*file);
         *file = fopen(SECOND_INTERRUPTIONS, "r");
+        // skip csv header
         fscanf(*file, "%*s\n");
+        // skip interruption start
         fscanf(*file, "%*s %*s %*s\n");
+        // get interruption end
         fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
         new->start = start;
         new->end =
                 start + (picoseconds) (seconds * SECTOPIC) + (picoseconds) (minutes * 60) * SECTOPIC;
-
 
     }
 }
