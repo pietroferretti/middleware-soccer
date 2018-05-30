@@ -119,11 +119,17 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 
         if (current_event.ts > GAME_END) {
             // the game has ended
+            DBG(("\nPARSER: END OF GAME:"));
+            DBG(("\nPARSER: wait for all sends"));
             MPI_Waitall(numsent, send_req, status);
+            DBG(("\nPARSER: waited done"));
+            DBG(("\nPARSER: sending ENDOFGAME_MESSAGE"));
             MPI_Send(&current_event, 1, mpi_event_type, ONEVENT_RANK, ENDOFGAME_MESSAGE,
                      MPI_COMM_WORLD);
+            DBG(("\nPARSER: ENDOFGAME_MESSAGE sent!"));
+            DBG(("\nPARSER: returning to main"));
 
-            break;
+            return;
         }
 
         if (current_event.ts >= next_interruption.start && current_event.ts <= next_interruption.end) {
@@ -154,6 +160,8 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
                 // update ball position and send everything to possession
 
                 send_buf[numsent] = current_event;
+                DBG(("\nPARSER: sending EVENT_MESSAGE nonblocking"));
+                DBG(("\nPARSER: numsent=%d", numsent));
 
                 // non-blocking send
                 MPI_Isend(&send_buf[numsent], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
@@ -162,10 +170,14 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
                 numsent += 1;
             } else {
                 // find a usable index in the buffer
+                DBG(("\nPARSER: waiting for a free buffer index"));
+
                 MPI_Waitany(PARSER_BUFFER_SIZE, send_req, &req_index, MPI_STATUS_IGNORE);
                 // prepare message in buffer
-                send_buf[numsent] = current_event;
+                send_buf[req_index] = current_event;
                 // non-blocking send
+                DBG(("\nPARSER: sending EVENT_MESSAGE nonblocking index=%d", req_index));
+
                 MPI_Isend(&send_buf[req_index], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
                           MPI_COMM_WORLD, &send_req[req_index]);
             }
