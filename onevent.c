@@ -135,7 +135,7 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                     if (!first_print) {
                         MPI_Wait(&print_request, &status);
                     } else {
-                        first_print = 1;
+                        first_print = 0;
                     }
 
                     interval_ends += INTERVAL;

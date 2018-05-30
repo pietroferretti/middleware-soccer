@@ -58,12 +58,6 @@ typedef struct event {
     position p;
 } event;
 
-typedef struct hold_event {
-    player_t player;
-    picoseconds ts;
-    position p;
-} hold_event;
-
 typedef struct interruption_event {
     picoseconds start;
     picoseconds end;

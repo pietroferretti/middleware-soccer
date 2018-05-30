@@ -127,6 +127,8 @@ void output_run(MPI_Datatype mpi_output_envelope) {
         // check type of message
         switch (data[last_received].type) {
             case POSSESSION_MESSAGE:
+                DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
+
                 // get player with possession for this sample
                 holder = data[last_received].content;
 
@@ -139,6 +141,8 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 break;
 
             case PRINT_MESSAGE:
+                DBG(("OUTPUT: print message received from ONEVENT, interval %d, numthreads %d\n", interval, data[last_received].content));
+
                 // get number of possession updates we need to wait for
                 num_processes = data[last_received].content;
 
@@ -146,6 +150,8 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 while (num_read < num_processes) {
                     // wait for any possession process for this interval
                     MPI_Recv(&data, 1, mpi_output_envelope, POSSESSION_RANK, interval, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                    DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
+
                     // get player with possession for this sample
                     holder = data[last_received].content;
                     // update possession arrays
@@ -170,6 +176,8 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 break;
 
             case ENDOFGAME_MESSAGE:
+                DBG(("OUTPUT: endofgame message received from ONEVENT\n"));
+
                 // remove useless pending requests (nothing will be sent after this message)
                 MPI_Request_free(&requests[1]);
 

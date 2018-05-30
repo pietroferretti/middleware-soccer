@@ -45,6 +45,8 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
 
         switch (status.MPI_TAG) {
             case POSITIONS_MESSAGE:
+                DBG(("POSSESSION: positions message received from ONEVENT, interval %d\n", data.interval_id));
+
                 // initialize variables for minimum computation
                 mindistance = INFINITY;
                 closestplayer = 0;
@@ -86,6 +88,8 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                 break;
 
             case ENDOFGAME_MESSAGE:
+                DBG(("POSSESSION: endofgame message received from ONEVENT\n"));
+
                 // wait until all sends complete
                 MPI_Waitall(numsent, requests, MPI_STATUS_IGNORE);
                 // exit from process
