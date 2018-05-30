@@ -39,6 +39,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
     unsigned numsent = 0;   // number of requests present in the requests array
     int index;              // index of a free cell in the array
 
+
     while (1) {
         // receive position update from onevent
         MPI_Recv(&data, 1, mpi_possession_envelope, ONEVENT_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
