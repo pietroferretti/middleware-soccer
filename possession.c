@@ -39,12 +39,14 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
     unsigned numsent = 0;   // number of requests present in the requests array
     int index;              // index of a free cell in the array
 
+
     while (1) {
         // receive position update from onevent
         MPI_Recv(&data, 1, mpi_possession_envelope, ONEVENT_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 
         switch (status.MPI_TAG) {
             case POSITIONS_MESSAGE:
+
                 DBG(("POSSESSION: positions message received from ONEVENT, interval %d\n", data.interval_id));
 
                 // initialize variables for minimum computation
@@ -72,26 +74,31 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                     // prepare message in buffer
                     send_buffer[numsent].type = POSSESSION_MESSAGE;
                     send_buffer[numsent].content = closestplayer;
+
                     // non-blocking send
                     MPI_Isend(&send_buffer[numsent], 1, mpi_output_envelope, OUTPUT_RANK, data.interval_id, MPI_COMM_WORLD, &requests[numsent]);
                     // keep track of the number of used cells in requests
                     numsent += 1;
                 } else {
+
                     // find a usable index in the buffer
                     MPI_Waitany(POSSESSION_BUFFER_SIZE, requests, &index, MPI_STATUS_IGNORE);
                     // prepare message in buffer
                     send_buffer[index].type = POSSESSION_MESSAGE;
                     send_buffer[index].content = closestplayer;
                     // non-blocking send
+
                     MPI_Isend(&send_buffer[index], 1, mpi_output_envelope, OUTPUT_RANK, data.interval_id, MPI_COMM_WORLD, &requests[index]);
                 }
                 break;
 
             case ENDOFGAME_MESSAGE:
+
                 DBG(("POSSESSION: endofgame message received from ONEVENT\n"));
 
                 // wait until all sends complete
                 MPI_Waitall(numsent, requests, MPI_STATUS_IGNORE);
+
                 // exit from process
                 return;
 

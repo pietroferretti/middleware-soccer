@@ -118,7 +118,11 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
 
     while (1) {
 
+        DBG(("\nONEVENT: waiting for a msg from PARSER"));
+
+
         MPI_Recv(&current_event, 1, mpi_event_type, PARSER_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+        DBG(("\nONEVENT: received msg from PARSER"));
 
 //        printf("fuuuuuuccck %d\n", status.MPI_TAG);
 //        printf("%lu, %lu\n", 1,2);
@@ -127,13 +131,19 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
 
         switch (status.MPI_TAG) {
             case EVENT_MESSAGE:
+                DBG(("\nONEVENT: received EVENT_MESSAGE"));
+
                 // check who generated this new event
 //                printf("%lu, %lu\n", current_event.sid, get_sensor_type(current_event.sid));
 
                 if (current_event.ts > interval_ends) {
 //                    printf("printtttt %lu %lu\n", current_event.ts, interval_ends);
                     if (!first_print) {
+                        DBG(("\nONEVENT: waiting for previous print_request"));
+
                         MPI_Wait(&print_request, &status);
+                        DBG(("\nONEVENT: done waiting"));
+
                     } else {
                         first_print = 0;
                     }
@@ -143,11 +153,13 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
 //                    send_print.type = PRINT_MESSAGE;
                     possession_counter = 0;
 //                    printf("%lu, %lu\n", current_event.sid, get_sensor_type(current_event.sid));
+                    DBG(("\nONEVENT: sending nonblocking PRINT to OUTPUT interval=%d", interval_id));
 
                     MPI_Isend(&send_print, 1, mpi_output_envelope, OUTPUT_RANK,
                               interval_id,
                               MPI_COMM_WORLD, &print_request);
                     interval_id++;
+
 
 
 //                    request_complete = 0;
@@ -167,7 +179,8 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                                     send_data[numsent].players[i] = players[i];
                                 }
                                 send_data[numsent].interval_id = interval_id;
-
+                                DBG(("\nONEVENT: sending nonblocking POSSESSION_MESSAGE"));
+                                DBG(("\nONEVENT: numsent=%d", numsent));
                                 // non-blocking send
                                 MPI_Isend(&send_data[numsent], 1, mpi_position_for_possession_type, POSSESSION_RANK,
                                           POSITIONS_MESSAGE,
@@ -175,6 +188,8 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                                 // keep track of the number of used cells in requests
                                 numsent += 1;
                             } else {
+                                DBG(("\nONEVENT: waiting for a free buffer index"));
+
                                 // find a usable index in the buffer
                                 MPI_Waitany(ONEVENT_BUFFER_SIZE, possession_request, &req_index, MPI_STATUS_IGNORE);
                                 // prepare message in buffer
@@ -183,6 +198,8 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                                     send_data[req_index].players[i] = players[i];
                                 }
                                 send_data[req_index].interval_id = interval_id;
+                                DBG(("\nONEVENT: sending POSSESSION_MESSAGE nonblocking index=%d", req_index));
+
                                 // non-blocking send
                                 MPI_Isend(&send_data[req_index], 1, mpi_position_for_possession_type, POSSESSION_RANK,
                                           POSITIONS_MESSAGE,
@@ -208,10 +225,15 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                 break;
 
             case ENDOFGAME_MESSAGE:
+                DBG(("\nONEVENT: END OF GAME:"));
+
+                DBG(("\nONEVENT: SENDING MSG to POSSESSION"));
 
                 MPI_Send(&send_data, 1, mpi_position_for_possession_type, POSSESSION_RANK, ENDOFGAME_MESSAGE,
                          MPI_COMM_WORLD);
                 MPI_Waitall(numsent, possession_request, MPI_STATUS_IGNORE);
+                DBG(("\nONEVENT: wait for all sends"));
+                DBG(("\nONEVENT: wait done"));
                 return;
 
             default:
