@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include <mpi.h>
 
-#define PRGDEBUG 1
+//#define PRGDEBUG 1
 
 #ifdef PRGDEBUG
 #define DBG(x) printf x
@@ -35,7 +35,7 @@
 #define PARSER_BUFFER_SIZE 100
 
 #define INTERVAL 60000000000000  // 60 seconds
-#define K 1000  // 1 meter
+#define K 10000  // 10 meter
 
 #define SECTOPIC 1000000000000
 

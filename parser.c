@@ -82,7 +82,7 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
-    printf("\nGame starting..");
+    printf("Game starting..\n");
 
 
     // event cursor
@@ -119,6 +119,7 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 
         if (current_event.ts < GAME_START || (current_event.ts > FIRST_END && current_event.ts < SECOND_START)) {
             // skip until the game starts
+//            DBG(("PARSER: skipping, out of bounds\n"));
             continue;
         }
 
@@ -138,6 +139,7 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
         }
 
         if (current_event.ts >= next_interruption.start && current_event.ts <= next_interruption.end) {
+            DBG(("PARSER: skipping, interruption\n"));
             // skip until the game restarts
 //            DBG(("\nevent during interruption"));
 //            if (first_event) {
@@ -151,7 +153,7 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 
             continue;
         } else if (current_event.ts > next_interruption.end) {
-
+//        } else {
             DBG(("\nGame resume at %lu", next_interruption.end));
             if (current_event.ts < FIRST_END)
                 readInterruptionEvent(&fp_interruption, &next_interruption, GAME_START);
@@ -160,34 +162,33 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
 
 //            first_event = 1;
             DBG(("\nnext interruption at: %lu", next_interruption.start));
-
-            if (numsent < PARSER_BUFFER_SIZE) {
-                // update ball position and send everything to possession
-
-                send_buf[numsent] = current_event;
-                DBG(("\nPARSER: sending EVENT_MESSAGE nonblocking"));
-                DBG(("\nPARSER: numsent=%d", numsent));
-
-                // non-blocking send
-                MPI_Isend(&send_buf[numsent], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
-                          MPI_COMM_WORLD, &send_req[numsent]);
-                // keep track of the number of used cells in requests
-                numsent += 1;
-            } else {
-                // find a usable index in the buffer
-                DBG(("\nPARSER: waiting for a free buffer index"));
-
-                MPI_Waitany(PARSER_BUFFER_SIZE, send_req, &req_index, MPI_STATUS_IGNORE);
-                // prepare message in buffer
-                send_buf[req_index] = current_event;
-                // non-blocking send
-                DBG(("\nPARSER: sending EVENT_MESSAGE nonblocking index=%d", req_index));
-
-                MPI_Isend(&send_buf[req_index], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
-                          MPI_COMM_WORLD, &send_req[req_index]);
-            }
-
         }
+        if (numsent < PARSER_BUFFER_SIZE) {
+            // update ball position and send everything to possession
+
+            send_buf[numsent] = current_event;
+            DBG(("\nPARSER: sending EVENT_MESSAGE nonblocking"));
+            DBG(("\nPARSER: numsent=%d", numsent));
+
+            // non-blocking send
+            MPI_Isend(&send_buf[numsent], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
+                      MPI_COMM_WORLD, &send_req[numsent]);
+            // keep track of the number of used cells in requests
+            numsent += 1;
+        } else {
+            // find a usable index in the buffer
+            DBG(("\nPARSER: waiting for a free buffer index"));
+
+            MPI_Waitany(PARSER_BUFFER_SIZE, send_req, &req_index, MPI_STATUS_IGNORE);
+            // prepare message in buffer
+            send_buf[req_index] = current_event;
+            // non-blocking send
+            DBG(("\nPARSER: sending EVENT_MESSAGE nonblocking index=%d", req_index));
+
+            MPI_Isend(&send_buf[req_index], 1, mpi_event_type, ONEVENT_RANK, EVENT_MESSAGE,
+                      MPI_COMM_WORLD, &send_req[req_index]);
+        }
+
 
 
     }

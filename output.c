@@ -4,11 +4,11 @@
 #include "common.h"
 
 
-void print_statistics(unsigned const interval_possession[], unsigned const total_possession[]) {
+void print_statistics(unsigned const interval_possession[], unsigned const total_possession[], int interval) {
     // output statistics
 
     // statistics for the current interval
-    printf("\n== Current Interval ==\n\n");
+    printf("\n== Current Interval %d ==\n\n", interval);
 
     // compute total possession for this interval to make percentages
     unsigned interval_total = 0;
@@ -163,7 +163,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 }
 
                 // interval complete, output statistics
-                print_statistics(interval_possession, total_possession);
+                print_statistics(interval_possession, total_possession, interval);
 
                 // reset interval
                 for (int i=0; i<17; i++) {

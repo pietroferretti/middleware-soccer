@@ -177,6 +177,7 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                                 send_data[numsent].ball = current_event.p;
                                 for (int i = 1; i < 17; ++i) {
                                     send_data[numsent].players[i] = players[i];
+                                    DBG(("\nONEVENT: data player i %d, position x %d, y %d, z %d", i, send_data[numsent].players[i].x, send_data[numsent].players[i].y, send_data[numsent].players[i].z));
                                 }
                                 send_data[numsent].interval_id = interval_id;
                                 DBG(("\nONEVENT: sending nonblocking POSSESSION_MESSAGE"));
@@ -196,6 +197,7 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                                 send_data[req_index].ball = current_event.p;
                                 for (int i = 1; i < 17; ++i) {
                                     send_data[req_index].players[i] = players[i];
+                                    DBG(("\nONEVENT: data player i %d, position x %d, y %d, z %d", i, send_data[numsent].players[i].x, send_data[numsent].players[i].y, send_data[numsent].players[i].z));
                                 }
                                 send_data[req_index].interval_id = interval_id;
                                 DBG(("\nONEVENT: sending POSSESSION_MESSAGE nonblocking index=%d", req_index));
@@ -214,8 +216,8 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
 
                     case PLAYER:
 //                        printf("player type\n");
-
                         players[get_sensor_player(current_event.sid)] = current_event.p;
+                        DBG(("ONEVENT: current player %d, sid %d, x %d, y %d, z %d", get_sensor_player(current_event.sid), current_event.sid, players[get_sensor_player(current_event.sid)].x, players[get_sensor_player(current_event.sid)].y, players[get_sensor_player(current_event.sid)].z));
                         break;
                     default:
                         // referee, ignore

@@ -67,6 +67,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                 if (mindistance > (K * K)) {
                     // too far, no one has possession of the ball
                     closestplayer = 0;
+                    DBG(("POSSESSION: mindistance is too big! %lf > %d\n", mindistance, K*K));
                 }
 
                 // send result to output
