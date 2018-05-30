@@ -100,7 +100,7 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
     //todo volendo invio solo dopo posizioni di tutti
 
 //    interval id for possession process
-    int interval_id = 1;
+    int interval_id = 0;
     unsigned possession_counter = 0; //fixme ma se ne perde qualcuno?? può capitare?
 //    contains event from parser
     event current_event;

@@ -122,6 +122,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
         }
 
         // match the first process with a message
+        DBG(("OUTPUT: waiting for a message from ONEVENT or POSSESSION\n"));
         MPI_Waitany(2, requests, &last_received, MPI_STATUS_IGNORE);
 
         // check type of message
@@ -172,14 +173,14 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 interval += 1;
 
                 // stop waiting for possession updates on this interval
-                MPI_Request_free(&requests[1]);
+//                MPI_Request_free(&requests[1]); // FIXME
                 break;
 
             case ENDOFGAME_MESSAGE:
                 DBG(("OUTPUT: endofgame message received from ONEVENT\n"));
 
                 // remove useless pending requests (nothing will be sent after this message)
-                MPI_Request_free(&requests[1]);
+//                MPI_Request_free(&requests[1]); // FIXME
 
                 // exit from the process
                 return;
