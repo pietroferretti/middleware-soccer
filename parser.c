@@ -35,12 +35,12 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
 
     if (read) {
         new->start = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
-        DBG(("\nSTART INTERR %d,%f", minutes, seconds));
+        DBG(("\nSTART INTERR %lu,%f", minutes, seconds));
 
         fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
 
 
-        DBG(("\nEND INTERR %d,%f", minutes, seconds));
+        DBG(("\nEND INTERR %lu,%f", minutes, seconds));
 
         new->end = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
     } else if (start == SECOND_START) {
@@ -88,7 +88,7 @@ void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event
     MPI_Status status[PARSER_BUFFER_SIZE];
     int req_index;
     int numsent = 0;
-    int msg = -1;
+//    int msg = -1;
 
     interruption_event next_interruption;
     picoseconds minutes;
