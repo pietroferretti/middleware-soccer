@@ -135,7 +135,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 // update possession arrays
                 interval_possession[holder] += 1;
                 total_possession[holder] += 1;
-
+                DBG(("OUTPUT: new possession for %d=%d", holder, interval_possession[holder]));
                 // update count of possession processed for this interval
                 num_read += 1;
                 break;
@@ -172,14 +172,14 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 interval += 1;
 
                 // stop waiting for possession updates on this interval
-                MPI_Request_free(&requests[1]);
+//                MPI_Request_free(&requests[1]);
                 break;
 
             case ENDOFGAME_MESSAGE:
                 DBG(("OUTPUT: endofgame message received from ONEVENT\n"));
 
                 // remove useless pending requests (nothing will be sent after this message)
-                MPI_Request_free(&requests[1]);
+//                MPI_Request_free(&requests[1]);
 
                 // exit from the process
                 return;

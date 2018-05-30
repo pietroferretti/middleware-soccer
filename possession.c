@@ -74,7 +74,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                     // prepare message in buffer
                     send_buffer[numsent].type = POSSESSION_MESSAGE;
                     send_buffer[numsent].content = closestplayer;
-
+                    DBG(("POSSESSION: closest_player=%d", closestplayer));
                     // non-blocking send
                     MPI_Isend(&send_buffer[numsent], 1, mpi_output_envelope, OUTPUT_RANK, data.interval_id, MPI_COMM_WORLD, &requests[numsent]);
                     // keep track of the number of used cells in requests
@@ -87,7 +87,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                     send_buffer[index].type = POSSESSION_MESSAGE;
                     send_buffer[index].content = closestplayer;
                     // non-blocking send
-
+                    DBG(("POSSESSION: closest_player=%d", closestplayer));
                     MPI_Isend(&send_buffer[index], 1, mpi_output_envelope, OUTPUT_RANK, data.interval_id, MPI_COMM_WORLD, &requests[index]);
                 }
                 break;

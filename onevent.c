@@ -100,7 +100,7 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
     //todo volendo invio solo dopo posizioni di tutti
 
 //    interval id for possession process
-    int interval_id = 1;
+    int interval_id = 0;
     unsigned possession_counter = 0; //fixme ma se ne perde qualcuno?? può capitare?
 //    contains event from parser
     event current_event;
@@ -230,6 +230,10 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
                 DBG(("\nONEVENT: SENDING MSG to POSSESSION"));
 
                 MPI_Send(&send_data, 1, mpi_position_for_possession_type, POSSESSION_RANK, ENDOFGAME_MESSAGE,
+                         MPI_COMM_WORLD);
+
+                send_print.type = ENDOFGAME_MESSAGE;
+                MPI_Send(&send_print, 1, mpi_output_envelope, OUTPUT_RANK, interval_id,
                          MPI_COMM_WORLD);
                 MPI_Waitall(numsent, possession_request, MPI_STATUS_IGNORE);
                 DBG(("\nONEVENT: wait for all sends"));
