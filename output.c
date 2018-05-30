@@ -107,7 +107,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 // wait for a message from the possession or the onevent process
                 // accept only messages for this interval
                 MPI_Irecv(&data[0], 1, mpi_output_envelope, ONEVENT_RANK, interval, MPI_COMM_WORLD, &requests[0]);
-                MPI_Irecv(&data[1], 1, mpi_output_envelope, POSSESSION_RANK, interval, MPI_COMM_WORLD, &requests[1]);
+                MPI_Irecv(&data[1], 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, &requests[1]);
                 break;
             case 0:
                 // make a new request for the onevent processs
@@ -115,7 +115,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 break;
             case 1:
                 // make a new request for the possession processs
-                MPI_Irecv(&data[1], 1, mpi_output_envelope, POSSESSION_RANK, interval, MPI_COMM_WORLD, &requests[1]);
+                MPI_Irecv(&data[1], 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, &requests[1]);
                 break;
             default:
                 break;
@@ -150,7 +150,8 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 // collect messages from all pending processes
                 while (num_read < num_processes) {
                     // wait for any possession process for this interval
-                    MPI_Recv(&data, 1, mpi_output_envelope, POSSESSION_RANK, interval, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                    MPI_Recv(&data, 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD,
+                             MPI_STATUS_IGNORE);
                     DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
 
                     // get player with possession for this sample

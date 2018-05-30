@@ -20,8 +20,9 @@
 
 #define PARSER_RANK 0
 #define ONEVENT_RANK 1
-#define POSSESSION_RANK 2
-#define OUTPUT_RANK 3
+#define OUTPUT_RANK 2
+#define POSSESSION_RANK 3
+
 
 #define EVENT_MESSAGE 0
 #define INTERRUPTION_MESSAGE 1
@@ -31,7 +32,7 @@
 #define ENDOFGAME_MESSAGE 5
 
 #define POSSESSION_BUFFER_SIZE 100
-#define ONEVENT_BUFFER_SIZE 100
+//#define possession_processes 100
 #define PARSER_BUFFER_SIZE 100
 
 #define INTERVAL 60000000000000  // 60 seconds

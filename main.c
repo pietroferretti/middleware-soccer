@@ -13,20 +13,6 @@
 #include "possession.h"
 #include "output.h"
 
-//#define PRGDEBUG
-
-#ifdef PRGDEBUG
-#define DBG(x) printf x
-#else
-#define DBG(x) /*nothing*/
-#endif
-
-
-#ifdef PRGDEBUG
-#define FULLGAME_PATH "stripped-game" //selezionare la working directory dalle config di build per farlo funzionare
-#else
-#define FULLGAME_PATH "full-game" //selezionare la working directory dalle config di build per farlo funzionare
-#endif
 
 // TODO spostare tutte le macro in un header unico usato da tutti
 
@@ -102,16 +88,15 @@ int main() {
             parser_run(mpi_event_type, mpi_interruption_event_type);
             break;
         case ONEVENT_RANK:
-            onevent_run(mpi_event_type, mpi_position_for_possession_type, mpi_output_envelope);
-            break;
-        case POSSESSION_RANK:
-            possession_run(mpi_position_for_possession_type, mpi_output_envelope);
+            onevent_run(mpi_event_type, mpi_position_for_possession_type, mpi_output_envelope, world_size - 3);
             break;
         case OUTPUT_RANK:
             output_run(mpi_output_envelope);
             break;
+        case POSSESSION_RANK:
         default:
             // nothing to do
+            possession_run(mpi_position_for_possession_type, mpi_output_envelope);
             break;
     }
 

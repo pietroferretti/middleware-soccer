@@ -11,4 +11,6 @@ include_directories(include/)
 set(SOURCE_FILES main.c parser.c onevent.c possession.c output.c include/parser.h include/onevent.h include/possession.h include/output.h include/common.h)
 add_executable(soccer ${SOURCE_FILES})
 
+
+add_executable(sequential_soccer sequential.c)
 #target_link_libraries(m)

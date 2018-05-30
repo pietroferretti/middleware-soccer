@@ -23,10 +23,10 @@
 #ifdef PRGDEBUG
 #define FULLGAME_PATH "stripped-game" //selezionare la working directory dalle config di build per farlo funzionare
 #else
-#define FULLGAME_PATH "full-game" //selezionare la working directory dalle config di build per farlo funzionare
+#define FULLGAME_PATH "/home/nicole/CLionProjects/middleware-soccer/full-game" //selezionare la working directory dalle config di build per farlo funzionare
 #endif
-#define FIRST_INTERRUPTIONS "referee-events/Game Interruption/1st Half.csv"
-#define SECOND_INTERRUPTIONS "referee-events/Game Interruption/2nd Half.csv"
+#define FIRST_INTERRUPTIONS "/home/nicole/CLionProjects/middleware-soccer/referee-events/Game Interruption/1st Half.csv"
+#define SECOND_INTERRUPTIONS "/home/nicole/CLionProjects/middleware-soccer/referee-events/Game Interruption/2nd Half.csv"
 
 #define INTERVAL 60000000000000  // 60 seconds
 #define K 1000  // 1 meter
