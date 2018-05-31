@@ -238,20 +238,24 @@ void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_poss
             case ENDOFGAME_MESSAGE:
                 DBG(("\nONEVENT: END OF GAME:"));
 
-                DBG(("\nONEVENT: SENDING MSG to POSSESSION"));
-
+                DBG(("\nONEVENT: SENDING endofgame msg to the POSSESSION processes"));
                 for (int j = 0; j < possession_processes; ++j) {
                     MPI_Waitany(possession_processes, possession_request, &req_index, MPI_STATUS_IGNORE);
                     MPI_Send(&send_data[req_index], 1, mpi_position_for_possession_type, 3 + j, ENDOFGAME_MESSAGE,
                              MPI_COMM_WORLD);
                 }
 
+                // send a final print to output to close all remaining requests
+                send_print.content = possession_counter;
+                MPI_Send(&send_print, 1, mpi_output_envelope, OUTPUT_RANK, interval_id, MPI_COMM_WORLD);
 
+                // send end-of-game message to output
+                interval_id += 1;
                 send_print.type = ENDOFGAME_MESSAGE;
                 MPI_Send(&send_print, 1, mpi_output_envelope, OUTPUT_RANK, interval_id,
                          MPI_COMM_WORLD);
-                MPI_Waitall(numsent, possession_request, MPI_STATUS_IGNORE);
                 DBG(("\nONEVENT: wait for all sends"));
+                MPI_Waitall(numsent, possession_request, MPI_STATUS_IGNORE);
                 DBG(("\nONEVENT: wait done"));
                 return;
 
