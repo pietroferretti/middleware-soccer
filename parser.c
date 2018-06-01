@@ -1,21 +1,12 @@
 
-
-// parser:
-// apri file eventi e interruzioni
-// read evento o interruzione
-// send evento o interruzione/resume
-// if game has ended:
-// send "end of game" to onevent
-// return
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "common.h"
 
-#define FULLGAME_PATH "../full-game" //selezionare la working directory dalle config di build per farlo funzionare
+#define FULLGAME_PATH "datasets/full-game" //selezionare la working directory dalle config di build per farlo funzionare
 
-#define FIRST_INTERRUPTIONS "../referee-events/Game Interruption/1st Half.csv"
-#define SECOND_INTERRUPTIONS "../referee-events/Game Interruption/2nd Half.csv"
+#define FIRST_INTERRUPTIONS "datasets/referee-events/Game Interruption/1st Half.csv"
+#define SECOND_INTERRUPTIONS "datasets/referee-events/Game Interruption/2nd Half.csv"
 
 
 void readEvent(FILE *file, event *new) {
@@ -32,7 +23,7 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
     int read = fscanf(*file, "%*31c:%lu:%lf;%*s\n", &minutes, &seconds);
 
     if (read) {
-        // we manage to read one event (the start of an interruption
+        // we manage to read one event (the start of an interruption)
 
         new->start = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nSTART INTERR %lu,%f", minutes, seconds));

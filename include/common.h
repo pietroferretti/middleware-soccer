@@ -32,11 +32,7 @@
 #define ENDOFGAME_MESSAGE 5
 
 #define POSSESSION_BUFFER_SIZE 100
-//#define possession_processes 100
 #define PARSER_BUFFER_SIZE 100
-
-#define INTERVAL 60000000000000  // 60 seconds
-#define K 10000  // 10 meter
 
 #define SECTOPIC 1000000000000
 
@@ -74,7 +70,5 @@ typedef struct {
     uint32_t type;
     uint32_t content;
 } output_envelope;
-
-
 
 #endif //MIDDLEWARE_SOCCER_COMMON_H

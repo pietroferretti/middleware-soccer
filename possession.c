@@ -15,10 +15,9 @@ double squareDistanceFromBall(position player_position, position ball_last_posit
 }
 
 
-void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_output_envelope) {
+void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_output_envelope, unsigned long K) {
 
-    // mi serve K
-    // TODO leggere K da terminale
+    unsigned long K2 = K*K;
 
     // variables to compute minimum distance
     double currdistance;
@@ -64,7 +63,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                 }
 
                 // check if the player is close enough
-                if (mindistance > (K * K)) {
+                if (mindistance > K2) {
                     // too far, no one has possession of the ball
                     closestplayer = 0;
                     DBG(("POSSESSION: mindistance is too big! %lf > %d\n", mindistance, K*K));

@@ -1,7 +1,6 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <common.h>
 #include "common.h"
 
 #define XMIN 0
@@ -55,29 +54,8 @@ bool ball_is_in_play(position p) {
 }
 
 
-// onevent:
-// event = player/ball, posizione
-// if player:
-// update player position
-// if ball:
-// TODO per ora ogni volta, se è troppo lento, ogni n volte
-// find possession
-// send messaggio a possession_p
-// messaggio = posizione palla + tutte posizioni player + counter intervallo
-// numero calcoli possesso += 1
-// if finito intervallo (timestamp > interval_end):
-// send messaggio a output
-// messaggio = "print", numero calcoli possesso (quelli che dovrà aspettare)
-// interval_end += T
-// counter intervallo += 1
-// numero calcoli possesso = 0
-// if "end of game":
-// send "end of game" to possession
-// return
-
-
 void onevent_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_position_for_possession_type,
-                 MPI_Datatype mpi_output_envelope, int possession_processes) {
+                 MPI_Datatype mpi_output_envelope, int possession_processes, picoseconds INTERVAL) {
 
     // initialize variables used to check when the interval_id has ended
     picoseconds interval_ends;

@@ -96,42 +96,22 @@ void output_run(MPI_Datatype mpi_output_envelope) {
     unsigned num_processes;
 
     // declare mpi related variables
-    output_envelope data[2];      // used to receive a message, same size as the mpi datatype
-    MPI_Request requests[2];
-    int last_received = -1;
+    output_envelope data;      // used to receive a message, same size as the mpi datatype
 
     while (1) {
 
-        switch (last_received) {
-            case -1:
-                // wait for a message from the possession or the onevent process
-                // accept only messages for this interval
-                MPI_Irecv(&data[0], 1, mpi_output_envelope, ONEVENT_RANK, interval, MPI_COMM_WORLD, &requests[0]);
-                MPI_Irecv(&data[1], 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, &requests[1]);
-                break;
-            case 0:
-                // make a new request for the onevent processs
-                MPI_Irecv(&data[0], 1, mpi_output_envelope, ONEVENT_RANK, interval, MPI_COMM_WORLD, &requests[0]);
-                break;
-            case 1:
-                // make a new request for the possession processs
-                MPI_Irecv(&data[1], 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, &requests[1]);
-                break;
-            default:
-                break;
-        }
-
         // match the first process with a message
         DBG(("OUTPUT: waiting for a message from ONEVENT or POSSESSION\n"));
-        MPI_Waitany(2, requests, &last_received, MPI_STATUS_IGNORE);
+        MPI_Recv(&data, 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
 
         // check type of message
-        switch (data[last_received].type) {
+        switch (data.type) {
             case POSSESSION_MESSAGE:
                 DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
 
                 // get player with possession for this sample
-                holder = data[last_received].content;
+                holder = data.content;
 
                 // update possession arrays
                 interval_possession[holder] += 1;
@@ -145,7 +125,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 DBG(("OUTPUT: print message received from ONEVENT, interval %d, numthreads %d\n", interval, data[last_received].content));
 
                 // get number of possession updates we need to wait for
-                num_processes = data[last_received].content;
+                num_processes = data.content;
 
                 // collect messages from all pending processes
                 while (num_read < num_processes) {
@@ -155,7 +135,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                     DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
 
                     // get player with possession for this sample
-                    holder = data[last_received].content;
+                    holder = data.content;
                     // update possession arrays
                     interval_possession[holder] += 1;
                     total_possession[holder] += 1;
@@ -173,27 +153,17 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 num_read = 0;
                 interval += 1;
 
-                // stop waiting for possession updates on this interval
-//                MPI_Request_free(&requests[1]); // FIXME
-
                 break;
 
             case ENDOFGAME_MESSAGE:
                 DBG(("OUTPUT: endofgame message received from ONEVENT\n"));
-
-                // remove useless pending requests (nothing will be sent after this message)
-//                MPI_Request_free(&requests[1]); // FIXME
-
                 // exit from the process
                 return;
 
             default:
-                printf("Message with wrong type %u in the \"output\" process!\n", data[last_received].type);
+                printf("Message with wrong type %u in the \"output\" process!\n", data.type);
                 printf("Aborting.\n");
                 MPI_Abort(MPI_COMM_WORLD, 1);
         }
     }
 }
-
-// TODO end of game deve fare in modo che consumiamo tutti i processi pendenti da possession e onevent ?
-// basterebbe che venisse mandato come ultimo messaggio una print appena prima dell'end of game

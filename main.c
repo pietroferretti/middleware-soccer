@@ -2,10 +2,7 @@
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-//#include <mpi/mpi.h>  // ? strano, aggiungi a include directories
 #include <mpi.h>
-#include <stddef.h>
 
 #include "common.h"
 #include "parser.h"
@@ -14,21 +11,41 @@
 #include "output.h"
 
 
-// TODO spostare tutte le macro in un header unico usato da tutti
+int main(int argc, char *argv[]) {
 
+    // check command line arguments
+    if (argc < 3) {
+        printf("Usage: %s <T> <K>\n", argv[0]);
+        exit(1);
+    }
 
-int main() {
+    // get interval parameter
+    unsigned long T = strtoul(argv[1], NULL, 10);
+    if (T < 1 || T > 60) {
+        printf("Invalid value for T: %lu\n", T);
+        printf("T must be an integer between 1 and 60!\n");
+        exit(1);
+    }
+    picoseconds INTERVAL = T * SECTOPIC;
+
+    // get K parameter
+    unsigned long K = strtoul(argv[2], NULL, 10);
+    if (K < 1 || K > 5) {
+        printf("Invalid value for K: %lu\n", K);
+        printf("K must be an integer between 1 and 5\n");
+        exit(1);
+    }
+    K = K * 1000;  // convert to millimeters
 
     // initialize mpi
     MPI_Init(NULL, NULL);
 
-
+    // create MPI datatypes
     // create struct for position
     int blocklengths[3] = {1, 1, 1};
     MPI_Datatype types[3] = {MPI_INT32_T, MPI_INT32_T, MPI_INT32_T};
     MPI_Datatype mpi_position_type;
     MPI_Aint offsets[3] = {offsetof(position, x), offsetof(position, y), offsetof(position, z)};
-
     MPI_Type_create_struct(3, blocklengths, offsets, types, &mpi_position_type);
     MPI_Type_commit(&mpi_position_type);
 
@@ -37,7 +54,6 @@ int main() {
     MPI_Aint offsets2[3] = {offsetof(event, sid), offsetof(event, ts), offsetof(event, p)};
     MPI_Datatype array_of_types[3] = {MPI_UINT32_T, MPI_UINT64_T, mpi_position_type};
     MPI_Datatype mpi_event_type;
-
     MPI_Type_create_struct(3, array_of_blocklengths, offsets2, array_of_types, &mpi_event_type);
     MPI_Type_commit(&mpi_event_type);
 
@@ -49,26 +65,20 @@ int main() {
     MPI_Type_create_struct(2, aob, o, aot, &mpi_interruption_event_type);
     MPI_Type_commit(&mpi_interruption_event_type);
 
-
-    // create envelope for messages sent to output
-    // message type + unsigned value
-    MPI_Datatype mpi_output_envelope;
-    MPI_Type_contiguous(2, MPI_UINT32_T, &mpi_output_envelope);
-    MPI_Type_commit(&mpi_output_envelope);
-
-
+    // create struct for an array with every position
     int blocklengths3[3] = {17, 1, 1};
     MPI_Datatype types3[3] = {mpi_position_type, mpi_position_type, MPI_INT32_T};
     MPI_Datatype mpi_position_for_possession_type;
     MPI_Aint offsets3[3] = {offsetof(position_event, players), offsetof(position_event, ball),
                             offsetof(position_event, interval_id)};
-
     MPI_Type_create_struct(3, blocklengths3, offsets3, types3, &mpi_position_for_possession_type);
     MPI_Type_commit(&mpi_position_for_possession_type);
 
-
-    // TODO gli altri tipi che possono essere inviati
-
+    // create envelope for messages sent to output
+    // message type + num_processes or player who has possession
+    MPI_Datatype mpi_output_envelope;
+    MPI_Type_contiguous(2, MPI_UINT32_T, &mpi_output_envelope);
+    MPI_Type_commit(&mpi_output_envelope);
 
     // check number of processes
     int world_size;
@@ -88,113 +98,22 @@ int main() {
             parser_run(mpi_event_type, mpi_interruption_event_type);
             break;
         case ONEVENT_RANK:
-            onevent_run(mpi_event_type, mpi_position_for_possession_type, mpi_output_envelope, world_size - 3);
+            onevent_run(mpi_event_type, mpi_position_for_possession_type, mpi_output_envelope, world_size - 3, INTERVAL);
             break;
         case OUTPUT_RANK:
             output_run(mpi_output_envelope);
             break;
         case POSSESSION_RANK:
         default:
-            // nothing to do
-            possession_run(mpi_position_for_possession_type, mpi_output_envelope);
+            possession_run(mpi_position_for_possession_type, mpi_output_envelope, K);
             break;
     }
-
-
-    // TODO big barrier here?
 
     // clear the MPI environment
     MPI_Finalize();
 
     printf("\n");
-    printf("** Done! **\n");
+    printf("** Process %d done! **\n", process_rank);
     return 0;
 }
 
-
-
-/// cosa dobbiamo fare
-// parte
-// legge
-// fai partire i thread
-// scorri tutti gli eventi fino alla fine
-// ogni tot stampa output
-// fine
-
-// mpi_init
-// definisci i datatype
-// check if nprocesses == 4
-// MPI_COMM_SIZE(MPI_COMM_WORLD, count)
-// create 4 processes
-// check on MPI_COMM_RANK(MPI_COMM_WORLD, myid)
-// process 0: parser
-// parser_p()
-// process 1: onevent
-// onevent_p()
-// process 2: possession
-// possession_p()
-// process 3: output
-// output_p()
-
-// parser:
-// apri file eventi e interruzioni
-// read evento o interruzione
-// send evento o interruzione/resume
-// if game has ended:
-// send "end of game" to onevent
-// return
-// onevent:
-// event = player/ball, posizione
-// if player:
-// update player position
-// if ball:
-// TODO per ora ogni volta, se è troppo lento, ogni n volte
-// find possession
-// send messaggio a possession_p
-// messaggio = posizione palla + tutte posizioni player + counter intervallo
-// numero calcoli possesso += 1
-// if finito intervallo (timestamp > interval_end):
-// send messaggio a output
-// messaggio = "print", numero calcoli possesso (quelli che dovrà aspettare)
-// interval_end += T
-// counter intervallo += 1
-// numero calcoli possesso = 0
-// if "end of game":
-// send "end of game" to possession
-// return
-// possession:
-// messaggio = posizione palla + tutte posizioni player + counter intervallo
-// for each player:
-// calcola distanza ball-player
-// find player with minimum distance
-// if min_distance < K**2:
-// send player_id of holder to output, tag = counter intervallo
-// else:
-// send 0 to output -> nessuno ha possesso, tag = counter intervallo
-// if "end of game":
-// send "end of game" to output
-// return
-// output:
-// if messaggio = possesso, tag=num intervallo
-// arrayintervallo[player_id] += 1
-// arraycumulativo[player_id] += 1
-// nread += 1
-// if messaggio = print, num calcoli
-// while nread < num calcoli:
-// receive from possession
-// letti tutti
-// print statistics
-// annulla array intervallo
-// nread = 0
-// if "end of game"
-// return
-
-// mpi_finalize
-
-
-// altro:
-// usare più di un buffer per le send non-blocking, in modo da parallelizzare meglio (ad es. 2 buffer swappati ogni volta)
-// (per le recv di output, fare due receive non bloccanti e poi waitany su entrambe) nah
-// quando mpi_finalize viene chiamata non dovrebbero più esserci send o receive unmatchati
-// per ricevere due tipi di messaggio, prima ricevere il tipo (con tag tipo), poi fare una recv con il tipo e tag giusto
-// ^ il tag verrebbe usato sia per tipi che per il counter intervallo, credo si possano fare magheggi con gli shift
