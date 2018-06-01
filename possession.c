@@ -17,7 +17,7 @@ double squareDistanceFromBall(position player_position, position ball_last_posit
 
 void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_output_envelope, unsigned long K) {
 
-    unsigned long K2 = K*K;
+    unsigned long K2 = K * K;
 
     // variables to compute minimum distance
     double currdistance;
@@ -36,12 +36,12 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
     // array to keep track of which send buffers are in use
     MPI_Request requests[POSSESSION_BUFFER_SIZE];
     unsigned numsent = 0;   // number of requests present in the requests array
-    int index;              // index of a free cell in the array
+    int index = 0;              // index of a free cell in the array
 
 
     while (1) {
         // receive position update from onevent
-        MPI_Recv(&data, 1, mpi_possession_envelope, ONEVENT_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
+        MPI_Recv(&data, 1, mpi_possession_envelope, PARSER_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 
         switch (status.MPI_TAG) {
             case POSITIONS_MESSAGE:
@@ -53,7 +53,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                 closestplayer = 0;
 
                 // find player with the smallest distance from the ball
-                for (unsigned i=1; i<17; i++) {
+                for (unsigned i = 1; i < 17; i++) {
                     currdistance = squareDistanceFromBall(data.players[i], data.ball);
                     if (currdistance < mindistance) {
                         // update closest player
@@ -66,30 +66,29 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                 if (mindistance > K2) {
                     // too far, no one has possession of the ball
                     closestplayer = 0;
-                    DBG(("POSSESSION: mindistance is too big! %lf > %d\n", mindistance, K*K));
+                    DBG(("POSSESSION: mindistance is too big! %lf > %d\n", mindistance, K * K));
                 }
 
                 // send result to output
+
                 if (numsent < POSSESSION_BUFFER_SIZE) {
-                    // prepare message in buffer
-                    send_buffer[numsent].type = POSSESSION_MESSAGE;
-                    send_buffer[numsent].content = closestplayer;
-                    DBG(("POSSESSION: closest_player=%d", closestplayer));
-                    // non-blocking send
-                    MPI_Isend(&send_buffer[numsent], 1, mpi_output_envelope, OUTPUT_RANK, data.interval_id, MPI_COMM_WORLD, &requests[numsent]);
-                    // keep track of the number of used cells in requests
+                    // get next free buffer
+                    index = numsent;
                     numsent += 1;
                 } else {
-
-                    // find a usable index in the buffer
-                    MPI_Waitany(POSSESSION_BUFFER_SIZE, requests, &index, MPI_STATUS_IGNORE);
-                    // prepare message in buffer
-                    send_buffer[index].type = POSSESSION_MESSAGE;
-                    send_buffer[index].content = closestplayer;
-                    // non-blocking send
-                    DBG(("POSSESSION: closest_player=%d", closestplayer));
-                    MPI_Isend(&send_buffer[index], 1, mpi_output_envelope, OUTPUT_RANK, data.interval_id, MPI_COMM_WORLD, &requests[index]);
+                    // wait for a free buffer
+                    index = (index + 1) % POSSESSION_BUFFER_SIZE;
+                    MPI_Wait(&requests[index], MPI_STATUS_IGNORE);
                 }
+
+                // prepare message in buffer
+                send_buffer[index].type = POSSESSION_MESSAGE;
+                send_buffer[index].content = closestplayer;
+
+                // non-blocking send
+                DBG(("POSSESSION: closest_player=%d", closestplayer));
+                MPI_Isend(&send_buffer[index], 1, mpi_output_envelope, OUTPUT_RANK, data.interval_id, MPI_COMM_WORLD,
+                          &requests[index]);
                 break;
 
             case ENDOFGAME_MESSAGE:
@@ -113,7 +112,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
 
 // TODO: il waitany sul buffer è un po' inutile, perché output legge sequenzialmente
 // possiamo utilizzare index per ciclare 0-99
-    // usa index uguale
-    // togli waitany, metti wait
-    // dopo la wait, (index += 1) % 100
+// usa index uguale
+// togli waitany, metti wait
+// dopo la wait, (index += 1) % 100
 // il codice può essere riutilizzato da onevent quando avremo n processi possession

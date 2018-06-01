@@ -6,7 +6,6 @@
 
 #include "common.h"
 #include "parser.h"
-#include "onevent.h"
 #include "possession.h"
 #include "output.h"
 
@@ -83,8 +82,8 @@ int main(int argc, char *argv[]) {
     // check number of processes
     int world_size;
     MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-    if (world_size < 4) {
-        printf("This program needs at least 4 processes to run.\n");
+    if (world_size < 3) {
+        printf("This program needs at least 3 processes to run.\n");
         exit(1);
     }
 
@@ -95,13 +94,10 @@ int main(int argc, char *argv[]) {
     // dispatch correct function
     switch (process_rank) {
         case PARSER_RANK:
-            parser_run(mpi_event_type, mpi_interruption_event_type);
-            break;
-        case ONEVENT_RANK:
-            onevent_run(mpi_event_type, mpi_position_for_possession_type, mpi_output_envelope, world_size - 3, INTERVAL);
+            parser_run(mpi_position_for_possession_type, mpi_output_envelope, world_size - POSSESSION_RANK, INTERVAL);
             break;
         case OUTPUT_RANK:
-            output_run(mpi_output_envelope);
+            output_run(mpi_output_envelope, INTERVAL);
             break;
         case POSSESSION_RANK:
         default:

@@ -8,7 +8,7 @@ set(CMAKE_C_COMPILER "mpicc")  # se dà problemi posso mettere il file nel .giti
 #set(CMAKE_C_FLAGS "-O3 -g3")
 
 include_directories(include/)
-set(SOURCE_FILES main.c parser.c onevent.c possession.c output.c include/parser.h include/onevent.h include/possession.h include/output.h include/common.h)
+set(SOURCE_FILES main.c parser.c possession.c output.c include/parser.h include/onevent.h include/possession.h include/output.h include/common.h)
 add_executable(soccer ${SOURCE_FILES})
 
 

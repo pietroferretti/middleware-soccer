@@ -3,18 +3,52 @@
 #include <mpi.h>
 #include "common.h"
 
+const char *player_names[] = {"one", "two", "three"};
 
-void print_statistics(unsigned const interval_possession[], unsigned const total_possession[], int interval) {
+const picoseconds FIRST_HALF_DURATION = FIRST_END - GAME_START;
+const picoseconds SECOND_HALF_DURATION = GAME_END - SECOND_START;
+
+void print_interval(int interval, picoseconds T) {
+    // print the interval header with the current game time
+    if (interval < (FIRST_HALF_DURATION / T)) {
+        unsigned elapsed_time = (interval + 1) * (unsigned) (T / SECTOPIC);
+        unsigned minutes = elapsed_time / 60;
+        unsigned seconds = elapsed_time % 60;
+        printf("\n== Current Interval %2d | First Half +%dm:%02ds  ==\n\n", interval, minutes, seconds);
+    } else if (interval == (FIRST_HALF_DURATION / T)) {
+        printf("\n== Current Interval %2d | First Half End  ==\n\n", interval);
+    } else if (interval < (FIRST_HALF_DURATION / T + 1 + SECOND_HALF_DURATION / T)) {
+        unsigned elapsed_time = (interval - (int) (FIRST_HALF_DURATION / T)) * (unsigned) (T / SECTOPIC);
+        unsigned minutes = elapsed_time / 60;
+        unsigned seconds = elapsed_time % 60;
+        printf("\n== Current Interval %2d | Second Half +%dm:%02ds  ==\n\n", interval, minutes, seconds);
+    } else {
+        printf("\n== Current Interval %2d | Game End  ==\n\n", interval);
+    }
+}
+
+void print_statistics(unsigned const interval_possession[], unsigned const total_possession[], int interval,
+                      picoseconds T) {
     // output statistics
 
-    // statistics for the current interval
-    printf("\n== Current Interval %d ==\n\n", interval);
+    //  print interval header
+    print_interval(interval, T);
 
     // compute total possession for this interval to make percentages
     unsigned interval_total = 0;
-    for (int j = 1; j < 17; ++j) {
-        interval_total += interval_possession[j];
+
+#if IGNORE_GOALKEEPER
+    for (int i = 2; i < 9; ++i) {
+        interval_total += interval_possession[i];
     }
+    for (int i = 10; i < 17; ++i) {
+        interval_total += interval_possession[i];
+    }
+#else
+    for (int i = 1; i < 17; ++i) {
+        interval_total += interval_possession[i];
+    }
+#endif
 
     if (interval_total == 0) {
         printf("Game interrupted. Nothing to show for this interval.\n\n");
@@ -22,7 +56,11 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
         // team A
         double team_a_interval_poss = 0;
         printf("Ball possession team A\n");
-        for (int i = 1; i < 9; ++i) {
+#if IGNORE_GOALKEEPER
+        for (int i = 2; i < 9; ++i) {
+#else
+            for (int i = 1; i < 9; ++i) {
+#endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
             // update total team stats
@@ -33,7 +71,11 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
         // team B
         double team_b_interval_poss = 0;
         printf("Ball possession team B:\n");
-        for (int i = 9; i < 17; ++i) {
+#if IGNORE_GOALKEEPER
+        for (int i = 10; i < 17; ++i) {
+#else
+            for (int i = 9; i < 17; ++i) {
+#endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
             // update total team stats
@@ -48,14 +90,27 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
 
     // compute total possession for the game to make percentages
     unsigned game_total = 0;
+#if IGNORE_GOALKEEPER
+    for (int i = 2; i < 9; ++i) {
+        game_total = game_total + total_possession[i];
+    }
+    for (int i = 10; i < 17; ++i) {
+        game_total = game_total + total_possession[i];
+    }
+#else
     for (int i = 1; i < 17; ++i) {
         game_total = game_total + total_possession[i];
     }
+#endif
 
     // team A
     double team_a_total_poss = 0;
     printf("Ball possession team A\n");
-    for (int i = 1; i < 9; ++i) {
+#if IGNORE_GOALKEEPER
+    for (int i = 2; i < 9; ++i) {
+#else
+        for (int i = 1; i < 9; ++i) {
+#endif
         // compute percentage for this player
         double player_possession = (double) total_possession[i] / game_total * 100;
         // update total team stats
@@ -66,7 +121,11 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
     // team B
     double team_b_total_poss = 0;
     printf("Ball possession team B:\n");
-    for (int i = 9; i < 17; ++i) {
+#if IGNORE_GOALKEEPER
+    for (int i = 10; i < 17; ++i) {
+#else
+        for (int i = 9; i < 17; ++i) {
+#endif
         // compute percentage for this player
         double player_possession = (double) total_possession[i] / game_total * 100;
         // update total team stats
@@ -77,7 +136,7 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
 }
 
 
-void output_run(MPI_Datatype mpi_output_envelope) {
+void output_run(MPI_Datatype mpi_output_envelope, picoseconds T) {
     // TODO docs?
     // output process, computes and prints possession statistics for each player and team
 
@@ -108,7 +167,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
         // check type of message
         switch (data.type) {
             case POSSESSION_MESSAGE:
-                DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
+                DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data.content));
 
                 // get player with possession for this sample
                 holder = data.content;
@@ -122,7 +181,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 break;
 
             case PRINT_MESSAGE:
-                DBG(("OUTPUT: print message received from ONEVENT, interval %d, numthreads %d\n", interval, data[last_received].content));
+                DBG(("OUTPUT: print message received from ONEVENT, interval %d, numthreads %d\n", interval, data.content));
 
                 // get number of possession updates we need to wait for
                 num_processes = data.content;
@@ -132,7 +191,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                     // wait for any possession process for this interval
                     MPI_Recv(&data, 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD,
                              MPI_STATUS_IGNORE);
-                    DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
+                    DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data.content));
 
                     // get player with possession for this sample
                     holder = data.content;
@@ -144,10 +203,10 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 }
 
                 // interval complete, output statistics
-                print_statistics(interval_possession, total_possession, interval);
+                print_statistics(interval_possession, total_possession, interval, T);
 
                 // reset interval
-                for (int i=0; i<17; i++) {
+                for (int i = 0; i < 17; i++) {
                     interval_possession[i] = 0;
                 }
                 num_read = 0;
