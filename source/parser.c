@@ -1,4 +1,12 @@
 
+/**
+ * @file parser.c
+ * @authors Nicole Gervasoni, Pietro Ferretti
+ *
+ * @brief This class defines a process whose job is to read game data.
+ *
+ *
+ */
 
 // parser:
 // apri file eventi e interruzioni
@@ -69,7 +77,7 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
 }
 
 void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event_type) {
-    printf("----------------- PARSER -----------------\n");
+    DBG(("----------------- PARSER -----------------\n"));
 
     // open dataset
     FILE *fp_game = fopen(FULLGAME_PATH, "r");

@@ -1,3 +1,5 @@
+
+
 #ifndef MIDDLEWARE_SOCCER_COMMON_H
 #define MIDDLEWARE_SOCCER_COMMON_H
 
@@ -47,6 +49,9 @@ typedef enum {
     PLAYER, REFEREE, BALL, NONE
 } sensor_type_t;
 
+/**
+ * <deafarsefaef
+ */
 typedef struct position {
     int32_t x;
     int32_t y;

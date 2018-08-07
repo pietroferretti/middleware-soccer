@@ -1,9 +1,9 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <common.h>
 #include "common.h"
 
+// game area
 #define XMIN 0
 #define XMAX 52483
 #define YMIN (-33960)
@@ -23,6 +23,7 @@ player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0,
                                  7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 15, 15, 16, 0, 0, 0, 0, 0, 0,
                                  0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 9};
 
+// It returns a
 sensor_type_t get_sensor_type(sid_t sid) {
     if (sid >= 107) {
         fprintf(stderr, "Wrong sensor id %u in get_sensor_type", sid);

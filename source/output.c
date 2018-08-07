@@ -1,8 +1,42 @@
+/**
+ * @file output.c
+ * @authors Nicole Gervasoni, Pietro Ferretti
+ *
+ * @brief This class defines a process, initialize by main.c, whose job is to output the statistic of the game.
+ *
+ *
+ *
+ */
+
+// output:
+// if messaggio = possesso, tag=num intervallo
+// arrayintervallo[player_id] += 1
+// arraycumulativo[player_id] += 1
+// nread += 1
+// if messaggio = print, num calcoli
+// while nread < num calcoli:
+// receive from possession
+// letti tutti
+// print statistics
+// annulla array intervallo
+// nread = 0
+// if "end of game"
+// return
 
 #include <stdio.h>
 #include <mpi.h>
 #include "common.h"
 
+/**
+ * It prints for every team and every member last interval statistic, followed
+ * by current cumulative statistics.
+ * @param interval_possession Array with last interval statistics
+ * for every player (each identified by a constant position in the
+ * array).
+ * @param total_possession Array with cumulative statistics for every
+ * player (each identified by a constant position in the array).
+ * @param interval Incrementing value used to identify each interval of time.
+ */
 
 void print_statistics(unsigned const interval_possession[], unsigned const total_possession[], int interval) {
     // output statistics
@@ -76,7 +110,19 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
     printf("\nTotal: %5.2f%%\n\n", team_b_total_poss);
 }
 
-
+/**
+ * Core of output's job. It keeps waiting for a PRINT_MESSAGE or a
+ * POSSESSION_MESSAGE, from onevent or possession processes, until receiving
+ * the END_OF_GAME message.
+ * After receiving a POSSESSION_MESSAGE, statistics are updated;
+ * after receiving a PRINT_MESSAGE, interval and cumulative statistics are
+ * printed, by calling #print_statistics method, and interval ones are reset;
+ * after receiving the END_OF_GAME message, the process exits, after waiting
+ * for any pending request.
+ * If the received message is of any other type, the process abort.
+ *
+ * @param mpi_output_envelope mpi_datatype of received messages.
+ */
 void output_run(MPI_Datatype mpi_output_envelope) {
     // TODO docs?
     // output process, computes and prints possession statistics for each player and team
@@ -167,7 +213,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 print_statistics(interval_possession, total_possession, interval);
 
                 // reset interval
-                for (int i=0; i<17; i++) {
+                for (int i = 0; i < 17; i++) {
                     interval_possession[i] = 0;
                 }
                 num_read = 0;
