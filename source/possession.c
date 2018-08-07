@@ -1,8 +1,7 @@
 
 #include <stdio.h>
-#include <mpi.h>
 #include <stdint.h>
-#include <common.h>
+#include "common.h"
 #include <math.h>
 
 

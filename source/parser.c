@@ -1,10 +1,7 @@
-
-<<<<<<< HEAD:source/parser.c
 /**
  * @file parser.c
- * @authors Nicole Gervasoni, Pietro Ferretti
  *
- * @brief This class defines a process whose job is to read game data.
+ * @brief This file defines a process, initialize by main.c, whose job is to read game data.
  *
  *
  */
@@ -17,26 +14,22 @@
 // send "end of game" to onevent
 // return
 
-=======
->>>>>>> fcc63cfd29be8071cf2cc2607953848bb6799308:parser.c
 #include <stdio.h>
 #include <stdlib.h>
 #include "common.h"
 
+
 const sensor_type_t sensor_type_list[] = {NONE, NONE, NONE, NONE, BALL, NONE, NONE, NONE, BALL, NONE, BALL, NONE, BALL,
                                           PLAYER, PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, NONE, NONE, NONE, PLAYER,
-                                          PLAYER,
-                                          NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE,
-                                          NONE,
-                                          PLAYER, NONE, PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, PLAYER, NONE,
-                                          PLAYER,
-                                          NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE,
+                                          PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE,
+                                          NONE, NONE, PLAYER, NONE, PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE,
+                                          PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, PLAYER, PLAYER,
+                                          PLAYER, NONE,
                                           PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, NONE,
                                           PLAYER, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE,
+                                          NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE,
                                           NONE,
-                                          NONE, NONE, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE,
-                                          NONE,
-                                          NONE, PLAYER, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, REFEREE,
+                                          NONE, NONE, PLAYER, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, REFEREE,
                                           REFEREE};
 const player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 4, 0, 0, 0, 6, 6, 0, 0,
                                        0, 8,
@@ -122,13 +115,11 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
     }
 }
 
-<<<<<<< HEAD:source/parser.c
-void parser_run(MPI_Datatype mpi_event_type, MPI_Datatype mpi_interruption_event_type) {
-    DBG(("----------------- PARSER -----------------\n"));
-=======
+
 void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_output_envelope,
                 int possession_processes, picoseconds INTERVAL) {
->>>>>>> fcc63cfd29be8071cf2cc2607953848bb6799308:parser.c
+
+    DBG(("----------------- PARSER -----------------\n"));
 
     // open dataset
     FILE *fp_game = fopen(FULLGAME_PATH, "r");
@@ -230,7 +221,8 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
 
                 // send message to the output process
                 DBG(("\nPARSER: sending nonblocking PRINT to OUTPUT interval=%d", interval_id));
-                MPI_Isend(&send_output, 1, mpi_output_envelope, OUTPUT_RANK, interval_id, MPI_COMM_WORLD, &print_request);
+                MPI_Isend(&send_output, 1, mpi_output_envelope, OUTPUT_RANK, interval_id, MPI_COMM_WORLD,
+                          &print_request);
 
                 // reset interval to after the break
                 interval_id++;
