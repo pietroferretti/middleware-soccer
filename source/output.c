@@ -27,6 +27,7 @@
 #include <mpi.h>
 #include "common.h"
 
+<<<<<<< HEAD:source/output.c
 /**
  * It prints for every team and every member last interval statistic, followed
  * by current cumulative statistics.
@@ -37,18 +38,54 @@
  * player (each identified by a constant position in the array).
  * @param interval Incrementing value used to identify each interval of time.
  */
+=======
+const char *player_names[] = {"one", "two", "three"};
 
-void print_statistics(unsigned const interval_possession[], unsigned const total_possession[], int interval) {
+const picoseconds FIRST_HALF_DURATION = FIRST_END - GAME_START;
+const picoseconds SECOND_HALF_DURATION = GAME_END - SECOND_START;
+
+void print_interval(int interval, picoseconds T) {
+    // print the interval header with the current game time
+    if (interval < (FIRST_HALF_DURATION / T)) {
+        unsigned elapsed_time = (interval + 1) * (unsigned) (T / SECTOPIC);
+        unsigned minutes = elapsed_time / 60;
+        unsigned seconds = elapsed_time % 60;
+        printf("\n== Current Interval %2d | First Half +%dm:%02ds  ==\n\n", interval, minutes, seconds);
+    } else if (interval == (FIRST_HALF_DURATION / T)) {
+        printf("\n== Current Interval %2d | First Half End  ==\n\n", interval);
+    } else if (interval < (FIRST_HALF_DURATION / T + 1 + SECOND_HALF_DURATION / T)) {
+        unsigned elapsed_time = (interval - (int) (FIRST_HALF_DURATION / T)) * (unsigned) (T / SECTOPIC);
+        unsigned minutes = elapsed_time / 60;
+        unsigned seconds = elapsed_time % 60;
+        printf("\n== Current Interval %2d | Second Half +%dm:%02ds  ==\n\n", interval, minutes, seconds);
+    } else {
+        printf("\n== Current Interval %2d | Game End  ==\n\n", interval);
+    }
+}
+>>>>>>> fcc63cfd29be8071cf2cc2607953848bb6799308:output.c
+
+void print_statistics(unsigned const interval_possession[], unsigned const total_possession[], int interval,
+                      picoseconds T) {
     // output statistics
 
-    // statistics for the current interval
-    printf("\n== Current Interval %d ==\n\n", interval);
+    //  print interval header
+    print_interval(interval, T);
 
     // compute total possession for this interval to make percentages
     unsigned interval_total = 0;
-    for (int j = 1; j < 17; ++j) {
-        interval_total += interval_possession[j];
+
+#if IGNORE_GOALKEEPER
+    for (int i = 2; i < 9; ++i) {
+        interval_total += interval_possession[i];
     }
+    for (int i = 10; i < 17; ++i) {
+        interval_total += interval_possession[i];
+    }
+#else
+    for (int i = 1; i < 17; ++i) {
+        interval_total += interval_possession[i];
+    }
+#endif
 
     if (interval_total == 0) {
         printf("Game interrupted. Nothing to show for this interval.\n\n");
@@ -56,7 +93,11 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
         // team A
         double team_a_interval_poss = 0;
         printf("Ball possession team A\n");
-        for (int i = 1; i < 9; ++i) {
+#if IGNORE_GOALKEEPER
+        for (int i = 2; i < 9; ++i) {
+#else
+            for (int i = 1; i < 9; ++i) {
+#endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
             // update total team stats
@@ -67,7 +108,11 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
         // team B
         double team_b_interval_poss = 0;
         printf("Ball possession team B:\n");
-        for (int i = 9; i < 17; ++i) {
+#if IGNORE_GOALKEEPER
+        for (int i = 10; i < 17; ++i) {
+#else
+            for (int i = 9; i < 17; ++i) {
+#endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
             // update total team stats
@@ -82,14 +127,27 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
 
     // compute total possession for the game to make percentages
     unsigned game_total = 0;
+#if IGNORE_GOALKEEPER
+    for (int i = 2; i < 9; ++i) {
+        game_total = game_total + total_possession[i];
+    }
+    for (int i = 10; i < 17; ++i) {
+        game_total = game_total + total_possession[i];
+    }
+#else
     for (int i = 1; i < 17; ++i) {
         game_total = game_total + total_possession[i];
     }
+#endif
 
     // team A
     double team_a_total_poss = 0;
     printf("Ball possession team A\n");
-    for (int i = 1; i < 9; ++i) {
+#if IGNORE_GOALKEEPER
+    for (int i = 2; i < 9; ++i) {
+#else
+        for (int i = 1; i < 9; ++i) {
+#endif
         // compute percentage for this player
         double player_possession = (double) total_possession[i] / game_total * 100;
         // update total team stats
@@ -100,7 +158,11 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
     // team B
     double team_b_total_poss = 0;
     printf("Ball possession team B:\n");
-    for (int i = 9; i < 17; ++i) {
+#if IGNORE_GOALKEEPER
+    for (int i = 10; i < 17; ++i) {
+#else
+        for (int i = 9; i < 17; ++i) {
+#endif
         // compute percentage for this player
         double player_possession = (double) total_possession[i] / game_total * 100;
         // update total team stats
@@ -110,6 +172,7 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
     printf("\nTotal: %5.2f%%\n\n", team_b_total_poss);
 }
 
+<<<<<<< HEAD:source/output.c
 /**
  * Core of output's job. It keeps waiting for a PRINT_MESSAGE or a
  * POSSESSION_MESSAGE, from onevent or possession processes, until receiving
@@ -124,6 +187,10 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
  * @param mpi_output_envelope mpi_datatype of received messages.
  */
 void output_run(MPI_Datatype mpi_output_envelope) {
+=======
+
+void output_run(MPI_Datatype mpi_output_envelope, picoseconds T) {
+>>>>>>> fcc63cfd29be8071cf2cc2607953848bb6799308:output.c
     // TODO docs?
     // output process, computes and prints possession statistics for each player and team
 
@@ -142,42 +209,22 @@ void output_run(MPI_Datatype mpi_output_envelope) {
     unsigned num_processes;
 
     // declare mpi related variables
-    output_envelope data[2];      // used to receive a message, same size as the mpi datatype
-    MPI_Request requests[2];
-    int last_received = -1;
+    output_envelope data;      // used to receive a message, same size as the mpi datatype
 
     while (1) {
 
-        switch (last_received) {
-            case -1:
-                // wait for a message from the possession or the onevent process
-                // accept only messages for this interval
-                MPI_Irecv(&data[0], 1, mpi_output_envelope, ONEVENT_RANK, interval, MPI_COMM_WORLD, &requests[0]);
-                MPI_Irecv(&data[1], 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, &requests[1]);
-                break;
-            case 0:
-                // make a new request for the onevent processs
-                MPI_Irecv(&data[0], 1, mpi_output_envelope, ONEVENT_RANK, interval, MPI_COMM_WORLD, &requests[0]);
-                break;
-            case 1:
-                // make a new request for the possession processs
-                MPI_Irecv(&data[1], 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, &requests[1]);
-                break;
-            default:
-                break;
-        }
-
         // match the first process with a message
         DBG(("OUTPUT: waiting for a message from ONEVENT or POSSESSION\n"));
-        MPI_Waitany(2, requests, &last_received, MPI_STATUS_IGNORE);
+        MPI_Recv(&data, 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+
 
         // check type of message
-        switch (data[last_received].type) {
+        switch (data.type) {
             case POSSESSION_MESSAGE:
-                DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
+                DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data.content));
 
                 // get player with possession for this sample
-                holder = data[last_received].content;
+                holder = data.content;
 
                 // update possession arrays
                 interval_possession[holder] += 1;
@@ -188,20 +235,20 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 break;
 
             case PRINT_MESSAGE:
-                DBG(("OUTPUT: print message received from ONEVENT, interval %d, numthreads %d\n", interval, data[last_received].content));
+                DBG(("OUTPUT: print message received from ONEVENT, interval %d, numthreads %d\n", interval, data.content));
 
                 // get number of possession updates we need to wait for
-                num_processes = data[last_received].content;
+                num_processes = data.content;
 
                 // collect messages from all pending processes
                 while (num_read < num_processes) {
                     // wait for any possession process for this interval
                     MPI_Recv(&data, 1, mpi_output_envelope, MPI_ANY_SOURCE, interval, MPI_COMM_WORLD,
                              MPI_STATUS_IGNORE);
-                    DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data[last_received].content));
+                    DBG(("OUTPUT: possession message received from POSSESSION, interval %d, holder %d\n", interval, data.content));
 
                     // get player with possession for this sample
-                    holder = data[last_received].content;
+                    holder = data.content;
                     // update possession arrays
                     interval_possession[holder] += 1;
                     total_possession[holder] += 1;
@@ -210,7 +257,7 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 }
 
                 // interval complete, output statistics
-                print_statistics(interval_possession, total_possession, interval);
+                print_statistics(interval_possession, total_possession, interval, T);
 
                 // reset interval
                 for (int i = 0; i < 17; i++) {
@@ -219,27 +266,17 @@ void output_run(MPI_Datatype mpi_output_envelope) {
                 num_read = 0;
                 interval += 1;
 
-                // stop waiting for possession updates on this interval
-//                MPI_Request_free(&requests[1]); // FIXME
-
                 break;
 
             case ENDOFGAME_MESSAGE:
                 DBG(("OUTPUT: endofgame message received from ONEVENT\n"));
-
-                // remove useless pending requests (nothing will be sent after this message)
-//                MPI_Request_free(&requests[1]); // FIXME
-
                 // exit from the process
                 return;
 
             default:
-                printf("Message with wrong type %u in the \"output\" process!\n", data[last_received].type);
+                printf("Message with wrong type %u in the \"output\" process!\n", data.type);
                 printf("Aborting.\n");
                 MPI_Abort(MPI_COMM_WORLD, 1);
         }
     }
 }
-
-// TODO end of game deve fare in modo che consumiamo tutti i processi pendenti da possession e onevent ?
-// basterebbe che venisse mandato come ultimo messaggio una print appena prima dell'end of game

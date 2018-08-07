@@ -7,13 +7,25 @@
 #include <stdbool.h>
 #include <mpi.h>
 
-//#define PRGDEBUG 1
+#define PRGDEBUG 0
 
-#ifdef PRGDEBUG
+#if PRGDEBUG
 #define DBG(x) printf x
 #else
 #define DBG(x) /*nothing*/
 #endif
+
+#define FULLGAME_PATH "datasets/full-game"
+
+#define FIRST_INTERRUPTIONS "datasets/referee-events/Game Interruption/1st Half.csv"
+#define SECOND_INTERRUPTIONS "datasets/referee-events/Game Interruption/2nd Half.csv"
+
+#define XMIN 0
+#define XMAX 52483
+#define YMIN (-33960)
+#define YMAX 33965
+
+#define SECTOPIC 1000000000000
 
 #define GAME_START 10753295594424116
 #define FIRST_END 12557295594424116
@@ -21,26 +33,17 @@
 #define GAME_END 14879639146403495
 
 #define PARSER_RANK 0
-#define ONEVENT_RANK 1
-#define OUTPUT_RANK 2
-#define POSSESSION_RANK 3
+#define OUTPUT_RANK 1
+#define POSSESSION_RANK 2
 
+#define POSITIONS_MESSAGE 0
+#define PRINT_MESSAGE 1
+#define POSSESSION_MESSAGE 2
+#define ENDOFGAME_MESSAGE 3
 
-#define EVENT_MESSAGE 0
-#define INTERRUPTION_MESSAGE 1
-#define POSITIONS_MESSAGE 2
-#define PRINT_MESSAGE 3
-#define POSSESSION_MESSAGE 4
-#define ENDOFGAME_MESSAGE 5
+#define POSSESSION_BUFFER_SIZE 1
 
-#define POSSESSION_BUFFER_SIZE 100
-//#define possession_processes 100
-#define PARSER_BUFFER_SIZE 100
-
-#define INTERVAL 60000000000000  // 60 seconds
-#define K 10000  // 10 meter
-
-#define SECTOPIC 1000000000000
+#define IGNORE_GOALKEEPER 1
 
 typedef uint32_t sid_t;
 typedef uint32_t player_t;
@@ -49,9 +52,6 @@ typedef enum {
     PLAYER, REFEREE, BALL, NONE
 } sensor_type_t;
 
-/**
- * <deafarsefaef
- */
 typedef struct position {
     int32_t x;
     int32_t y;
@@ -79,7 +79,5 @@ typedef struct {
     uint32_t type;
     uint32_t content;
 } output_envelope;
-
-
 
 #endif //MIDDLEWARE_SOCCER_COMMON_H
