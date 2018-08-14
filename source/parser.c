@@ -1,7 +1,7 @@
 /**
  * @file parser.c
  *
- * @brief This file defines a process, initialize by main.c, whose job is to read game data.
+ * @brief This file defines a process, initialized by main.c, whose job is to read game data.
  *
  *
  */
@@ -18,7 +18,10 @@
 #include <stdlib.h>
 #include "common.h"
 
-
+/**
+ * Indexes correspond to sensor ids: for each sensor its type is stored. Index
+ * without an associated sensor id are stored as NONE.
+ */
 const sensor_type_t sensor_type_list[] = {NONE, NONE, NONE, NONE, BALL, NONE, NONE, NONE, BALL, NONE, BALL, NONE, BALL,
                                           PLAYER, PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, NONE, NONE, NONE, PLAYER,
                                           PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE,
@@ -31,6 +34,11 @@ const sensor_type_t sensor_type_list[] = {NONE, NONE, NONE, NONE, BALL, NONE, NO
                                           NONE,
                                           NONE, NONE, PLAYER, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, REFEREE,
                                           REFEREE};
+
+/**
+ * Indexes correspond to sensor ids: for each sensor its player id is stored. Index
+ * without an associated player id are stored as 0.
+ */
 const player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 4, 0, 0, 0, 6, 6, 0, 0,
                                        0, 8,
                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 14, 0, 0, 0, 16, 0, 0, 2, 0, 3, 0, 0, 4, 5, 5,
@@ -38,6 +46,8 @@ const player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
                                        7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 15, 15, 16, 0, 0, 0, 0,
                                        0, 0,
                                        0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 9};
+
+
 
 sensor_type_t get_sensor_type(sid_t sid) {
     if (sid >= 107) {
@@ -65,14 +75,18 @@ player_t get_sensor_player(sid_t sid) {
     MPI_Abort(MPI_COMM_WORLD, 1);
 }
 
+
 bool ball_is_in_play(position p) {
     return p.x >= XMIN && p.x <= XMAX && p.y >= YMIN && p.y <= YMAX;
 }
+
+
 
 void readEvent(FILE *file, event *new) {
     fscanf(file, "%u,%lu,%d,%d,%d,%*s\n", &new->sid, &new->ts, &new->p.x,
            &new->p.y, &new->p.z);
 }
+
 
 void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
     picoseconds minutes;

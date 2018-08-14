@@ -99,7 +99,12 @@ typedef struct event {
     position p;
 } event;
 
-//usato solo per sequential fixme
+/**
+ * @brief Interruption event.
+ *
+ * Each interruption_event is characterized by: the timestamps of beginning and
+ * end of the interruption. During an interruption event statistics are updated.
+ */
 typedef struct interruption_event {
     picoseconds start;
     picoseconds end;
@@ -118,6 +123,7 @@ typedef struct position_event {
     position ball;
     int32_t interval_id;
 } position_event;
+
 
 typedef struct {
     uint32_t type;
