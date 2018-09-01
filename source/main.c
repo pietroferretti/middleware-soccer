@@ -1,8 +1,19 @@
+/**
+ * @file main.c
+ *
+ * @brief This file contains the main function which starts the program.
+ *
+ * After setting the user-given interval (T in seconds) and possession distance
+ * (K in meters), it initializes the MPI execution environment and the MPI datatypes.
+ * Given the number of runnable process N, it starts the parser and output
+ * processes and N-2 possession process.
+ * After all children process have finished it terminates the MPI execution environment and returns.
+ *
+ */
 
-#include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <mpi.h>
+
 
 #include "common.h"
 #include "parser.h"

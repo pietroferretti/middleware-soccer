@@ -1,19 +1,27 @@
 
+/**
+ * @file possession.c
+ *
+ * @brief This file defines a process, initialized by main.c, whose job is to
+ * establish which player, and thus team,  has the ball, for each game positions
+ * update message from the #parser_run process.
+ */
+
+
 #include <stdio.h>
-#include <mpi.h>
 #include <stdint.h>
-#include <common.h>
+#include "common.h"
 #include <math.h>
 
 
+//fixme ma ci serve controllare anche la z??
 double squareDistanceFromBall(position player_position, position ball_last_position) {
     // d = ((x2 - x1)2 + (y2 - y1)2 + (z2 - z1)2)1/2
-    // we only need this to compare distances, therefore we can skip the square root
+
     return ((player_position.x - ball_last_position.x) * (player_position.x - ball_last_position.x) +
             (player_position.y - ball_last_position.y) * (player_position.y - ball_last_position.y) +
             (player_position.z - ball_last_position.z) * (player_position.z - ball_last_position.z));
 }
-
 
 void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_output_envelope, unsigned long K) {
 
@@ -40,7 +48,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
 
 
     while (1) {
-        // receive position update from onevent
+        // receive position update from parser
         MPI_Recv(&data, 1, mpi_possession_envelope, PARSER_RANK, MPI_ANY_TAG, MPI_COMM_WORLD, &status);
 
         switch (status.MPI_TAG) {
@@ -54,6 +62,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
 
                 // find player with the smallest distance from the ball
                 for (unsigned i = 1; i < 17; i++) {
+                    // we only need this to compare distances, therefore we can skip the square root
                     currdistance = squareDistanceFromBall(data.players[i], data.ball);
                     if (currdistance < mindistance) {
                         // update closest player
@@ -93,7 +102,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
 
             case ENDOFGAME_MESSAGE:
 
-                DBG(("POSSESSION: endofgame message received from ONEVENT\n"));
+                DBG(("POSSESSION: endofgame message received from PARSER\n"));
 
                 // wait until all sends complete
                 MPI_Waitall(numsent, requests, MPI_STATUS_IGNORE);

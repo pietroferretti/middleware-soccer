@@ -1,15 +1,43 @@
+/**
+ * @file output.c
+ *
+ * @brief This file defines a process, initialize by main.c, whose job is to
+ * compute and output the statistic of the game for each team and player.
+ *
+ *
+ *
+ */
+
+// output:
+// if messaggio = possesso, tag=num intervallo
+// arrayintervallo[player_id] += 1
+// arraycumulativo[player_id] += 1
+// nread += 1
+// if messaggio = print, num calcoli
+// while nread < num calcoli:
+// receive from possession
+// letti tutti
+// print statistics
+// annulla array intervallo
+// nread = 0
+// if "end of game"
+// return
 
 #include <stdio.h>
-#include <mpi.h>
+
 #include "common.h"
 
+//fixme
 const char *player_names[] = {"one", "two", "three"};
 
+// Used to print interval header
 const picoseconds FIRST_HALF_DURATION = FIRST_END - GAME_START;
 const picoseconds SECOND_HALF_DURATION = GAME_END - SECOND_START;
 
+
+
 void print_interval(int interval, picoseconds T) {
-    // print the interval header with the current game time
+
     if (interval < (FIRST_HALF_DURATION / T)) {
         unsigned elapsed_time = (interval + 1) * (unsigned) (T / SECTOPIC);
         unsigned minutes = elapsed_time / 60;
@@ -27,7 +55,9 @@ void print_interval(int interval, picoseconds T) {
     }
 }
 
-void print_statistics(unsigned const interval_possession[], unsigned const total_possession[], int interval,
+
+
+void print_statistics(const unsigned int *interval_possession, const unsigned int *total_possession, int interval,
                       picoseconds T) {
     // output statistics
 
@@ -137,8 +167,6 @@ void print_statistics(unsigned const interval_possession[], unsigned const total
 
 
 void output_run(MPI_Datatype mpi_output_envelope, picoseconds T) {
-    // TODO docs?
-    // output process, computes and prints possession statistics for each player and team
 
     // initialize possession arrays, one cell per player
     // each cell counts how many times a player had possession of the ball
