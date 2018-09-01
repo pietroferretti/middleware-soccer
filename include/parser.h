@@ -20,7 +20,8 @@
  */
 void
 parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_output_envelope, int possession_processes,
-           picoseconds INTERVAL);
+           picoseconds INTERVAL, char * fullgame_path, char * interr_path_one, char * interr_path_two);
+// FIXME sistemare la documentazione
 
 /**
  * @brief Given the sensor id it return the sensor type.

@@ -94,7 +94,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #endif
 
     if (interval_total == 0) {
-        printf("Game interrupted. Nothing to show for this interval.\n\n");
+        printf("Nothing to show for this interval.\n\n");
     } else {
         // team A
         double team_a_interval_poss = 0;

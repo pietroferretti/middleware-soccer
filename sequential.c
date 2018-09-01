@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <unistd.h>
 
 #include "common.h"
 #include "output.h"
@@ -74,16 +75,23 @@ void readEvent(FILE *file, event *new) {
 }
 
 
-void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
+int readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
+    // TODO docs everywhere
+    // file = file pointer con cursore aggiornato
+    // new = struct dove mettere il risultato
+    // start = l'offset da aggiungere al timestamp dell'evento (parte da 0 nel file)
+
     picoseconds minutes;
     double seconds;
 
     // read one line from the referee events file
     int read = fscanf(*file, "%*31c:%lu:%lf;%*s\n", &minutes, &seconds);
 
-    if (read) {
+    if (!read) {
+        // return -1 to signal that the file has ended
+        return -1;
+    } else {
         // we manage to read one event (the start of an interruption)
-
         new->start = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nSTART INTERR %lu,%f", minutes, seconds));
 
@@ -91,30 +99,9 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
         fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
         new->end = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nEND INTERR %lu,%f", minutes, seconds));
-
-    } else if (start == SECOND_START) {
-        // we're in the second half of the game, and the second file has ended
-        // i.e. the game has ended
-        new->start = GAME_END;
-        new->end = GAME_END;
-        return;
-
-    } else {
-        // we're still in the first half of the game, and the first file has ended
-        // change the file we need to read from
-        fclose(*file);
-        *file = fopen(SECOND_INTERRUPTIONS, "r");
-        // skip csv header
-        fscanf(*file, "%*s\n");
-        // skip interruption start
-        fscanf(*file, "%*s %*s %*s\n");
-        // get interruption end
-        fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
-        new->start = start;
-        new->end = start + (picoseconds) (seconds * SECTOPIC) + (picoseconds) (minutes * 60) * SECTOPIC;
+        return 0;
     }
 }
-
 
 double squareDistanceFromBall(position player_position, position ball_last_position) {
     // d = ((x2 - x1)2 + (y2 - y1)2 + (z2 - z1)2)1/2
@@ -192,7 +179,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #endif
 
     if (interval_total == 0) {
-        printf("Game interrupted. Nothing to show for this interval.\n\n");
+        printf("Nothing to show for this interval.\n\n");
     } else {
         // team A
         double team_a_interval_poss = 0;
@@ -278,48 +265,75 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 
 
 int main(int argc, char *argv[]) {
+    int opt;
+    unsigned long T = 10;
+    unsigned long K = 3;
 
-    // check command line arguments
-    if (argc < 3) {
-        printf("Usage: %s <T> <K>\n", argv[0]);
-        printf("  T -> time in seconds between each statistics output (min. 1, max. 60)\n");
-        printf("  K -> maximum distance of a player from the ball, in meters, where the player\n");
-        printf("       can be considered to have possession of the ball (min. 1, max. 5)\n");
-        exit(1);
+    char * fullgame_path = FULLGAME_PATH;
+    char * interr_path_one = FIRST_INTERRUPTIONS;
+    char * interr_path_two = SECOND_INTERRUPTIONS;
+
+    while ((opt = getopt(argc, argv, "t:k:e:1:2:")) != -1) {
+        switch (opt) {
+            case 't':
+                // value for the interval T
+                T = strtoul(optarg, NULL, 10);
+                if (T < 1 || T > 60) {
+                    printf("Invalid value for T: %lu\n", T);
+                    printf("T must be an integer between 1 and 60!\n");
+                    exit(1);
+                }
+                break;
+            case 'k':
+                // value for the distance K
+                K = strtoul(optarg, NULL, 10);
+                if (K < 1 || K > 5) {
+                    printf("Invalid value for K: %lu\n", K);
+                    printf("K must be an integer between 1 and 5!\n");
+                    exit(1);
+                }
+                break;
+            case 'e':
+                // path to the events file ("full-game")
+                fullgame_path = optarg;
+                break;
+            case '1':
+                // path to the first interruption events file (".../Game Interruption/1st Half.csv")
+                interr_path_one = optarg;
+                break;
+            case '2':
+                // path to the second interruption events file (".../Game Interruption/2nd Half.csv")
+                interr_path_two = optarg;
+                break;
+            default:
+                printf("Usage: %s [-t <interval>] [-k <distance>] [-e <path to full-game>]\n", argv[0]);
+                printf("          [-1 <path to interruptions (1st half)>] [-2 <path to interruptions (2nd half)>]\n");
+                exit(1);
+        }
     }
 
-    // get interval parameter
-    unsigned long T = strtoul(argv[1], NULL, 10);
-    if (T < 1 || T > 60) {
-        printf("Invalid value for T: %lu\n", T);
-        printf("T must be an integer between 1 and 60!\n");
-        exit(1);
-    }
-    picoseconds INTERVAL = T * SECTOPIC;
-
-    // get K parameter
-    unsigned long K = strtoul(argv[2], NULL, 10);
-    if (K < 1 || K > 5) {
-        printf("Invalid value for K: %lu\n", K);
-        printf("K must be an integer between 1 and 5!\n");
-        exit(1);
-    }
+    picoseconds INTERVAL = T * SECTOPIC;   // convert to picoseconds
     K = K * 1000;  // convert to millimeters
 
+
     // open dataset
-    FILE *fp_game = fopen(FULLGAME_PATH, "r");
+    FILE *fp_game = fopen(fullgame_path, "r");
 
-    FILE *fp_interruption = fopen(FIRST_INTERRUPTIONS, "r");
+    if (fp_game == NULL) {
+        printf("Error: couldn't open events file at %s.\n", fullgame_path);
+        printf("Aborting.\n");
+        MPI_Abort(MPI_COMM_WORLD, 1);
+    }
 
-    if (fp_game == NULL || fp_interruption == NULL) {
-        printf("Error: couldn't open file.\n");
+    FILE *fp_interruption = fopen(interr_path_one, "r");
+
+    if (fp_interruption == NULL) {
+        printf("Error: couldn't open interruption events file %s.\n", interr_path_one);
         printf("Aborting.\n");
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
 
     printf("Game starting..\n");
-
-    // TODO mettere in ordine variabili ecc.
 
     // event cursor
     event current_event;
@@ -452,14 +466,41 @@ int main(int argc, char *argv[]) {
         }
 
         if (current_event.ts > next_interruption.end) {
-            // an interruption has ended, and we don't know when the next will happen
             // fetch the next interruption from the stream
             DBG(("\nGame resume at %lu", next_interruption.end));
-            if (current_event.ts < FIRST_END)
-                readInterruptionEvent(&fp_interruption, &next_interruption, GAME_START);
-            else if (current_event.ts > SECOND_START)
-                readInterruptionEvent(&fp_interruption, &next_interruption, SECOND_START);
-            DBG(("\nnext interruption at: %lu", next_interruption.start));
+            // choose the correct offset to add to the event
+            if (current_event.ts < FIRST_END) {
+                int error = readInterruptionEvent(&fp_interruption, &next_interruption, GAME_START);
+                if (error) {
+                    // we're still in the first half of the game, and the first file has ended
+                    // change the file we need to read from
+                    fclose(fp_interruption);
+                    fp_interruption = fopen(interr_path_two, "r");
+                    if (fp_interruption == NULL) {
+                        printf("Error: couldn't open interruption events file %s.\n", interr_path_two);
+                        printf("Aborting.\n");
+                        MPI_Abort(MPI_COMM_WORLD, 1);
+                    }
+                    // handle the first interruption manually since it is formatted differently
+                    // skip csv header
+                    fscanf(fp_interruption, "%*s\n");
+                    // skip interruption start
+                    fscanf(fp_interruption, "%*s %*s %*s\n");
+                    // get interruption end
+                    fscanf(fp_interruption, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
+                    next_interruption.start = SECOND_START;
+                    next_interruption.end = SECOND_START + (picoseconds) (seconds * SECTOPIC)
+                                            + (picoseconds) (minutes * 60) * SECTOPIC;
+                }
+            } else if (current_event.ts > SECOND_START) {
+                int error = readInterruptionEvent(&fp_interruption, &next_interruption, SECOND_START);
+                if (error) {
+                    // we're in the second half of the game, and the second file has ended
+                    // i.e. the game has ended
+                    next_interruption.start = GAME_END;
+                    next_interruption.end = GAME_END;
+                }
+            }
         }
 
         // handle update

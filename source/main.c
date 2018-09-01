@@ -13,7 +13,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include <unistd.h>
 
 #include "common.h"
 #include "parser.h"
@@ -23,31 +23,54 @@
 
 int main(int argc, char *argv[]) {
 
-    // check command line arguments
-    if (argc < 3) {
-        printf("Usage: %s <T> <K>\n", argv[0]);
-        printf("  T -> time in seconds between each statistics output (min. 1, max. 60)\n");
-        printf("  K -> maximum distance of a player from the ball, in meters, where the player\n");
-        printf("       can be considered to have possession of the ball (min. 1, max. 5)\n");
-        exit(1);
+    int opt;
+    unsigned long T = 10;
+    unsigned long K = 3;
+
+    char * fullgame_path = FULLGAME_PATH;
+    char * interr_path_one = FIRST_INTERRUPTIONS;
+    char * interr_path_two = SECOND_INTERRUPTIONS;
+
+    while ((opt = getopt(argc, argv, "t:k:e:1:2:")) != -1) {
+        switch (opt) {
+            case 't':
+                // value for the interval T
+                T = strtoul(optarg, NULL, 10);
+                if (T < 1 || T > 60) {
+                    printf("Invalid value for T: %lu\n", T);
+                    printf("T must be an integer between 1 and 60!\n");
+                    exit(1);
+                }
+                break;
+            case 'k':
+                // value for the distance K
+                K = strtoul(optarg, NULL, 10);
+                if (K < 1 || K > 5) {
+                    printf("Invalid value for K: %lu\n", K);
+                    printf("K must be an integer between 1 and 5!\n");
+                    exit(1);
+                }
+                break;
+            case 'e':
+                // path to the events file ("full-game")
+                fullgame_path = optarg;
+                break;
+            case '1':
+                // path to the first interruption events file (".../Game Interruption/1st Half.csv")
+                interr_path_one = optarg;
+                break;
+            case '2':
+                // path to the second interruption events file (".../Game Interruption/2nd Half.csv")
+                interr_path_two = optarg;
+                break;
+            default:
+                printf("Usage: %s [-t <interval>] [-k <distance>] [-e <path to full-game>]\n", argv[0]);
+                printf("          [-1 <path to interruptions (1st half)>] [-2 <path to interruptions (2nd half)>]\n");
+                exit(1);
+        }
     }
 
-    // get interval parameter
-    unsigned long T = strtoul(argv[1], NULL, 10);
-    if (T < 1 || T > 60) {
-        printf("Invalid value for T: %lu\n", T);
-        printf("T must be an integer between 1 and 60!\n");
-        exit(1);
-    }
-    picoseconds INTERVAL = T * SECTOPIC;
-
-    // get K parameter
-    unsigned long K = strtoul(argv[2], NULL, 10);
-    if (K < 1 || K > 5) {
-        printf("Invalid value for K: %lu\n", K);
-        printf("K must be an integer between 1 and 5!\n");
-        exit(1);
-    }
+    picoseconds INTERVAL = T * SECTOPIC;   // convert to picoseconds
     K = K * 1000;  // convert to millimeters
 
     // initialize mpi
@@ -105,10 +128,15 @@ int main(int argc, char *argv[]) {
     int process_rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &process_rank);
 
+    if (process_rank == 0) {
+        printf("Running with T = %ld, K = %ld.\n", T, K / 1000);
+    }
+
     // dispatch correct function
     switch (process_rank) {
         case PARSER_RANK:
-            parser_run(mpi_position_for_possession_type, mpi_output_envelope, world_size - POSSESSION_RANK, INTERVAL);
+            parser_run(mpi_position_for_possession_type, mpi_output_envelope, world_size - POSSESSION_RANK, INTERVAL,
+                       fullgame_path, interr_path_one, interr_path_two);
             break;
         case OUTPUT_RANK:
             output_run(mpi_output_envelope, INTERVAL);

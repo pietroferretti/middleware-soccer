@@ -88,16 +88,23 @@ void readEvent(FILE *file, event *new) {
 }
 
 
-void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
+int readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
+    // TODO docs everywhere
+    // file = file pointer con cursore aggiornato
+    // new = struct dove mettere il risultato
+    // start = l'offset da aggiungere al timestamp dell'evento (parte da 0 nel file)
+
     picoseconds minutes;
     double seconds;
 
     // read one line from the referee events file
     int read = fscanf(*file, "%*31c:%lu:%lf;%*s\n", &minutes, &seconds);
 
-    if (read) {
+    if (!read) {
+        // return -1 to signal that the file has ended
+        return -1;
+    } else {
         // we manage to read one event (the start of an interruption)
-
         new->start = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nSTART INTERR %lu,%f", minutes, seconds));
 
@@ -105,43 +112,30 @@ void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseco
         fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
         new->end = start + (picoseconds) (seconds * SECTOPIC) + (minutes * 60) * SECTOPIC;
         DBG(("\nEND INTERR %lu,%f", minutes, seconds));
-
-    } else if (start == SECOND_START) {
-        // we're in the second half of the game, and the second file has ended
-        // i.e. the game has ended
-        new->start = GAME_END;
-        new->end = GAME_END;
-        return;
-
-    } else {
-        // we're still in the first half of the game, and the first file has ended
-        // change the file we need to read from
-        fclose(*file);
-        *file = fopen(SECOND_INTERRUPTIONS, "r");
-        // skip csv header
-        fscanf(*file, "%*s\n");
-        // skip interruption start
-        fscanf(*file, "%*s %*s %*s\n");
-        // get interruption end
-        fscanf(*file, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
-        new->start = start;
-        new->end = start + (picoseconds) (seconds * SECTOPIC) + (picoseconds) (minutes * 60) * SECTOPIC;
+        return 0;
     }
 }
 
 
 void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_output_envelope,
-                int possession_processes, picoseconds INTERVAL) {
+                int possession_processes, picoseconds INTERVAL, char * fullgame_path,
+                char * interr_path_one, char * interr_path_two) {
 
     DBG(("----------------- PARSER -----------------\n"));
 
     // open dataset
-    FILE *fp_game = fopen(FULLGAME_PATH, "r");
+    FILE *fp_game = fopen(fullgame_path, "r");
 
-    FILE *fp_interruption = fopen(FIRST_INTERRUPTIONS, "r");
+    if (fp_game == NULL) {
+        printf("Error: couldn't open events file at %s.\n", fullgame_path);
+        printf("Aborting.\n");
+        MPI_Abort(MPI_COMM_WORLD, 1);
+    }
 
-    if (fp_game == NULL || fp_interruption == NULL) {
-        printf("Error: couldn't open file.\n");
+    FILE *fp_interruption = fopen(interr_path_one, "r");
+
+    if (fp_interruption == NULL) {
+        printf("Error: couldn't open interruption events file %s.\n", interr_path_one);
         printf("Aborting.\n");
         MPI_Abort(MPI_COMM_WORLD, 1);
     }
@@ -157,6 +151,7 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
     picoseconds minutes;
     double seconds;
 
+    // handle the first interruption manually since it is formatted differently
     // discard headers
     fscanf(fp_interruption, "%*s\n");
     fscanf(fp_interruption, "%*s %*s %*s\n");
@@ -298,7 +293,7 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
             send_output.type = PRINT_MESSAGE;
 
             // send message to the output process
-            DBG(("\nPARSER: sending nonblocking PRINT to OUTPUT interval=%d", interval_id));
+            DBG(("\nPARSER: sending non-blocking PRINT to OUTPUT interval=%d", interval_id));
             MPI_Isend(&send_output, 1, mpi_output_envelope, OUTPUT_RANK, interval_id, MPI_COMM_WORLD, &print_request);
 
             // reset interval
@@ -316,10 +311,39 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
         if (current_event.ts > next_interruption.end) {
             // fetch the next interruption from the stream
             DBG(("\nGame resume at %lu", next_interruption.end));
-            if (current_event.ts < FIRST_END)
-                readInterruptionEvent(&fp_interruption, &next_interruption, GAME_START);
-            else if (current_event.ts > SECOND_START)
-                readInterruptionEvent(&fp_interruption, &next_interruption, SECOND_START);
+            // choose the correct offset to add to the event
+            if (current_event.ts < FIRST_END) {
+                int error = readInterruptionEvent(&fp_interruption, &next_interruption, GAME_START);
+                if (error) {
+                    // we're still in the first half of the game, and the first file has ended
+                    // change the file we need to read from
+                    fclose(fp_interruption);
+                    fp_interruption = fopen(interr_path_two, "r");
+                    if (fp_interruption == NULL) {
+                        printf("Error: couldn't open interruption events file %s.\n", interr_path_two);
+                        printf("Aborting.\n");
+                        MPI_Abort(MPI_COMM_WORLD, 1);
+                    }
+                    // handle the first interruption manually since it is formatted differently
+                    // skip csv header
+                    fscanf(fp_interruption, "%*s\n");
+                    // skip interruption start
+                    fscanf(fp_interruption, "%*s %*s %*s\n");
+                    // get interruption end
+                    fscanf(fp_interruption, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
+                    next_interruption.start = SECOND_START;
+                    next_interruption.end = SECOND_START + (picoseconds) (seconds * SECTOPIC)
+                                                         + (picoseconds) (minutes * 60) * SECTOPIC;
+                }
+            } else if (current_event.ts > SECOND_START) {
+                int error = readInterruptionEvent(&fp_interruption, &next_interruption, SECOND_START);
+                if (error) {
+                    // we're in the second half of the game, and the second file has ended
+                    // i.e. the game has ended
+                    next_interruption.start = GAME_END;
+                    next_interruption.end = GAME_END;
+                }
+            }
 
             DBG(("\nnext interruption at: %lu", next_interruption.start));
         }

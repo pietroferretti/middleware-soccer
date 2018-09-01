@@ -15,7 +15,7 @@
 #include "common.h"
 
 
-//fixme ma ci serve controllare anche la z??
+//fixme ma ci serve controllare anche la z?? -> va beh, non fa mai male
 double squareDistanceFromBall(position player_position, position ball_last_position) {
     // d = ((x2 - x1)2 + (y2 - y1)2 + (z2 - z1)2)1/2
 
