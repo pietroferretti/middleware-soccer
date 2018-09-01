@@ -10,7 +10,7 @@
 
 
 /**
- * @brief This method computes the euclidian distance<SUP>2</SUP> between a specific player and the ball.
+ * @brief This method computes the euclidean distance<SUP>2</SUP> between a specific player and the ball.
  *
  * \f$distance^2=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\f$
  *

@@ -50,7 +50,6 @@ const picoseconds FIRST_HALF_DURATION = FIRST_END - GAME_START;
 const picoseconds SECOND_HALF_DURATION = GAME_END - SECOND_START;
 
 
-
 void print_interval(int interval, picoseconds T) {
 
     if (interval < (FIRST_HALF_DURATION / T)) {
@@ -69,7 +68,6 @@ void print_interval(int interval, picoseconds T) {
         printf("\n== Current Interval %2d | Game End  ==\n\n", interval);
     }
 }
-
 
 
 void print_statistics(const unsigned int *interval_possession, const unsigned int *total_possession, int interval,
