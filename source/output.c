@@ -27,8 +27,23 @@
 
 #include "common.h"
 
-//fixme
-const char *player_names[] = {"one", "two", "three"};
+const char *player_names[] = {"None",
+                              "Nick Gertje",
+                              "Dennis Dotterweich",
+                              "Niklas Waelzlein",
+                              "Wili Sommer",
+                              "Philipp Harlass",
+                              "Roman Hartleb",
+                              "Erik Engelhardt",
+                              "Sandro Schneider",
+                              "Leon Krapf",
+                              "Kevin Baer",
+                              "Luca Ziegler",
+                              "Ben Mueller",
+                              "Vale Reitstetter",
+                              "Christopher Lee",
+                              "Leon Heinze",
+                              "Leo Langhans"};
 
 // Used to print interval header
 const picoseconds FIRST_HALF_DURATION = FIRST_END - GAME_START;
@@ -95,7 +110,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
             double player_possession = (double) interval_possession[i] / interval_total * 100;
             // update total team stats
             team_a_interval_poss = team_a_interval_poss + player_possession;
-            printf("Player %2d: %5.2f%%\t", i, player_possession);
+            printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
         }
         printf("\nTotal: %5.2f%%\n\n", team_a_interval_poss);
         // team B
@@ -110,7 +125,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
             double player_possession = (double) interval_possession[i] / interval_total * 100;
             // update total team stats
             team_b_interval_poss = team_b_interval_poss + player_possession;
-            printf("Player %2d: %5.2f%%\t", i, player_possession);
+            printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
         }
         printf("\nTotal: %5.2f%%\n\n", team_b_interval_poss);
     }
@@ -145,7 +160,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
         double player_possession = (double) total_possession[i] / game_total * 100;
         // update total team stats
         team_a_total_poss = team_a_total_poss + player_possession;
-        printf("Player %2d: %5.2f%%\t", i, player_possession);
+        printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
     }
     printf("\nTotal: %5.2f%%\n\n", team_a_total_poss);
     // team B
@@ -160,7 +175,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
         double player_possession = (double) total_possession[i] / game_total * 100;
         // update total team stats
         team_b_total_poss = team_b_total_poss + player_possession;
-        printf("Player %2d: %5.2f%%\t", i, player_possession);
+        printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
     }
     printf("\nTotal: %5.2f%%\n\n", team_b_total_poss);
 }

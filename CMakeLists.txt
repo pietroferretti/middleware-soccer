@@ -7,8 +7,9 @@ set(CMAKE_C_COMPILER "mpicc")
 
 #set(CMAKE_C_FLAGS "-O3 -g3")
 
-include_directories(include/)
-set(SOURCE_FILES ./source/main.c ./source/parser.c ./source/possession.c ./source/output.c)
+include_directories(./include/)
+set(SOURCE_FILES ./source/main.c ./source/parser.c ./source/possession.c ./source/output.c
+                 ./include/common.h ./include/parser.h ./include/output.h ./include/possession.h)
 add_executable(soccer ${SOURCE_FILES})
 
 add_executable(sequential_soccer sequential.c)

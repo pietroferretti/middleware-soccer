@@ -10,8 +10,9 @@
 
 #include <stdio.h>
 #include <stdint.h>
-#include "common.h"
 #include <math.h>
+
+#include "common.h"
 
 
 //fixme ma ci serve controllare anche la z??
