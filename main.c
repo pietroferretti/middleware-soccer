@@ -15,6 +15,9 @@ int main(int argc, char *argv[]) {
     // check command line arguments
     if (argc < 3) {
         printf("Usage: %s <T> <K>\n", argv[0]);
+        printf("  T -> time in seconds between each statistics output (min. 1, max. 60)\n");
+        printf("  K -> maximum distance of a player from the ball, in meters, where the player\n");
+        printf("       can be considered to have possession of the ball (min. 1, max. 5)\n");
         exit(1);
     }
 
@@ -31,7 +34,7 @@ int main(int argc, char *argv[]) {
     unsigned long K = strtoul(argv[2], NULL, 10);
     if (K < 1 || K > 5) {
         printf("Invalid value for K: %lu\n", K);
-        printf("K must be an integer between 1 and 5\n");
+        printf("K must be an integer between 1 and 5!\n");
         exit(1);
     }
     K = K * 1000;  // convert to millimeters
