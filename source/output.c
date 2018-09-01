@@ -146,36 +146,40 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
     }
 #endif
 
-    // team A
-    double team_a_total_poss = 0;
-    printf("Ball possession team A\n");
+    if (game_total == 0) {
+        printf("Waiting for the game to start...\n");
+    } else {
+        // team A
+        double team_a_total_poss = 0;
+        printf("Ball possession team A\n");
 #if IGNORE_GOALKEEPER
-    for (int i = 2; i < 9; ++i) {
+        for (int i = 2; i < 9; ++i) {
 #else
-        for (int i = 1; i < 9; ++i) {
+            for (int i = 1; i < 9; ++i) {
 #endif
-        // compute percentage for this player
-        double player_possession = (double) total_possession[i] / game_total * 100;
-        // update total team stats
-        team_a_total_poss = team_a_total_poss + player_possession;
-        printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
-    }
-    printf("\nTotal: %5.2f%%\n\n", team_a_total_poss);
-    // team B
-    double team_b_total_poss = 0;
-    printf("Ball possession team B:\n");
+            // compute percentage for this player
+            double player_possession = (double) total_possession[i] / game_total * 100;
+            // update total team stats
+            team_a_total_poss = team_a_total_poss + player_possession;
+            printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
+        }
+        printf("\nTotal: %5.2f%%\n\n", team_a_total_poss);
+        // team B
+        double team_b_total_poss = 0;
+        printf("Ball possession team B:\n");
 #if IGNORE_GOALKEEPER
-    for (int i = 10; i < 17; ++i) {
+        for (int i = 10; i < 17; ++i) {
 #else
-        for (int i = 9; i < 17; ++i) {
+            for (int i = 9; i < 17; ++i) {
 #endif
-        // compute percentage for this player
-        double player_possession = (double) total_possession[i] / game_total * 100;
-        // update total team stats
-        team_b_total_poss = team_b_total_poss + player_possession;
-        printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
+            // compute percentage for this player
+            double player_possession = (double) total_possession[i] / game_total * 100;
+            // update total team stats
+            team_b_total_poss = team_b_total_poss + player_possession;
+            printf("%2d) %-20s -> %5.2f%%\n", i, player_names[i], player_possession);
+        }
+        printf("\nTotal: %5.2f%%\n\n", team_b_total_poss);
     }
-    printf("\nTotal: %5.2f%%\n\n", team_b_total_poss);
 }
 
 
