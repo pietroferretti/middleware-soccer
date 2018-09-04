@@ -16,6 +16,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
 #include "common.h"
 
 /**
@@ -26,27 +28,21 @@ const sensor_type_t sensor_type_list[] = {NONE, NONE, NONE, NONE, BALL, NONE, NO
                                           PLAYER, PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, NONE, NONE, NONE, PLAYER,
                                           PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE,
                                           NONE, NONE, PLAYER, NONE, PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE,
-                                          PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, PLAYER, PLAYER,
-                                          PLAYER, NONE,
-                                          PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, NONE,
-                                          PLAYER, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE,
-                                          NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE,
-                                          NONE,
-                                          NONE, NONE, PLAYER, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, REFEREE,
-                                          REFEREE};
+                                          PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, PLAYER,
+                                          PLAYER, PLAYER, NONE, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER,
+                                          PLAYER, PLAYER, NONE, PLAYER, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE,
+                                          NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, NONE, NONE,
+                                          NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, PLAYER, PLAYER, PLAYER, NONE,
+                                          NONE, NONE, NONE, REFEREE, REFEREE};
 
 /**
  * Indexes correspond to sensor ids: for each sensor its player id is stored. Index
  * without an associated player id are stored as 0.
  */
 const player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 4, 0, 0, 0, 6, 6, 0, 0,
-                                       0, 8,
-                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 14, 0, 0, 0, 16, 0, 0, 2, 0, 3, 0, 0, 4, 5, 5,
-                                       0, 0,
-                                       7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 15, 15, 16, 0, 0, 0, 0,
-                                       0, 0,
-                                       0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 9};
-
+                                       0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 14, 0, 0, 0, 16, 0, 0, 2, 0, 3, 0, 0, 4,
+                                       5, 5, 0, 0, 7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 15, 15, 16,
+                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 9};
 
 
 sensor_type_t get_sensor_type(sid_t sid) {
@@ -79,7 +75,6 @@ player_t get_sensor_player(sid_t sid) {
 bool ball_is_in_play(position p) {
     return p.x >= XMIN && p.x <= XMAX && p.y >= YMIN && p.y <= YMAX;
 }
-
 
 
 void readEvent(FILE *file, event *new) {
@@ -118,8 +113,8 @@ int readInterruptionEvent(FILE **file, struct interruption_event *new, picosecon
 
 
 void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_output_envelope,
-                int possession_processes, picoseconds INTERVAL, char * fullgame_path,
-                char * interr_path_one, char * interr_path_two) {
+                int possession_processes, picoseconds INTERVAL, char *fullgame_path,
+                char *interr_path_one, char *interr_path_two) {
 
     DBG(("----------------- PARSER -----------------\n"));
 
@@ -333,7 +328,7 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
                     fscanf(fp_interruption, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
                     next_interruption.start = SECOND_START;
                     next_interruption.end = SECOND_START + (picoseconds) (seconds * SECTOPIC)
-                                                         + (picoseconds) (minutes * 60) * SECTOPIC;
+                                            + (picoseconds) (minutes * 60) * SECTOPIC;
                 }
             } else if (current_event.ts > SECOND_START) {
                 int error = readInterruptionEvent(&fp_interruption, &next_interruption, SECOND_START);

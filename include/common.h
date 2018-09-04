@@ -10,9 +10,7 @@
 #define MIDDLEWARE_SOCCER_COMMON_H
 
 #include <stdint.h>
-#include <stdbool.h>
 #include <mpi.h>
-#include <stddef.h>
 
 #define PRGDEBUG 0
 
@@ -54,7 +52,7 @@
 
 #define POSSESSION_BUFFER_SIZE 1
 
-#define IGNORE_GOALKEEPER 1
+#define IGNORE_GOALKEEPER 0
 
 /**
  * @brief Sensor id type.

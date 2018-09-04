@@ -102,7 +102,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
         for (int i = 2; i < 9; ++i) {
 #else
-            for (int i = 1; i < 9; ++i) {
+        for (int i = 1; i < 9; ++i) {
 #endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
@@ -117,7 +117,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
         for (int i = 10; i < 17; ++i) {
 #else
-            for (int i = 9; i < 17; ++i) {
+        for (int i = 9; i < 17; ++i) {
 #endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
@@ -155,7 +155,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
         for (int i = 2; i < 9; ++i) {
 #else
-            for (int i = 1; i < 9; ++i) {
+        for (int i = 1; i < 9; ++i) {
 #endif
             // compute percentage for this player
             double player_possession = (double) total_possession[i] / game_total * 100;
@@ -170,7 +170,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
         for (int i = 10; i < 17; ++i) {
 #else
-            for (int i = 9; i < 17; ++i) {
+        for (int i = 9; i < 17; ++i) {
 #endif
             // compute percentage for this player
             double player_possession = (double) total_possession[i] / game_total * 100;

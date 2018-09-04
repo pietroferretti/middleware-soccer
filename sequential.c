@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <unistd.h>
+#include <stdbool.h>
 
 #include "common.h"
 #include "output.h"
@@ -14,7 +15,8 @@ const sensor_type_t sensor_type_list[] = {NONE, NONE, NONE, NONE, BALL, NONE, NO
                                           PLAYER, PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, NONE, NONE, NONE, PLAYER,
                                           PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE, NONE,
                                           NONE, NONE, PLAYER, NONE, PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE,
-                                          PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, PLAYER, PLAYER,
+                                          PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, PLAYER,
+                                          PLAYER,
                                           PLAYER, NONE,
                                           PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, NONE,
                                           PLAYER, NONE, PLAYER, PLAYER, PLAYER, NONE, NONE, NONE, NONE, NONE, NONE,
@@ -39,34 +41,33 @@ const player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
 sensor_type_t get_sensor_type(sid_t sid) {
     if (sid >= 107) {
         fprintf(stderr, "Wrong sensor id %u in get_sensor_type", sid);
-        MPI_Abort(MPI_COMM_WORLD, 1);
+        exit(1);
     }
     sensor_type_t type = sensor_type_list[sid];
     if (type != -1) {
         return type;
     }
     fprintf(stderr, "Unknown sensor %u", sid);
-    MPI_Abort(MPI_COMM_WORLD, 1);
+    exit(1);
 }
 
 player_t get_sensor_player(sid_t sid) {
     if (sid >= 101) {
         fprintf(stderr, "Wrong sensor id %u in get_sensor_player", sid);
-        MPI_Abort(MPI_COMM_WORLD, 1);
+        exit(1);
     }
     player_t player = sensor_player_list[sid];
     if (player != -1) {
         return player;
     }
     fprintf(stderr, "Unknown player sensor %u", sid);
-    MPI_Abort(MPI_COMM_WORLD, 1);
+    exit(1);
 }
 
 
 bool ball_is_in_play(position p) {
     return p.x >= XMIN && p.x <= XMAX && p.y >= YMIN && p.y <= YMAX;
 }
-
 
 
 void readEvent(FILE *file, event *new) {
@@ -187,7 +188,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
         for (int i = 2; i < 9; ++i) {
 #else
-            for (int i = 1; i < 9; ++i) {
+        for (int i = 1; i < 9; ++i) {
 #endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
@@ -202,7 +203,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
         for (int i = 10; i < 17; ++i) {
 #else
-            for (int i = 9; i < 17; ++i) {
+        for (int i = 9; i < 17; ++i) {
 #endif
             // compute percentage for this player
             double player_possession = (double) interval_possession[i] / interval_total * 100;
@@ -237,7 +238,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
     for (int i = 2; i < 9; ++i) {
 #else
-        for (int i = 1; i < 9; ++i) {
+    for (int i = 1; i < 9; ++i) {
 #endif
         // compute percentage for this player
         double player_possession = (double) total_possession[i] / game_total * 100;
@@ -252,7 +253,7 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 #if IGNORE_GOALKEEPER
     for (int i = 10; i < 17; ++i) {
 #else
-        for (int i = 9; i < 17; ++i) {
+    for (int i = 9; i < 17; ++i) {
 #endif
         // compute percentage for this player
         double player_possession = (double) total_possession[i] / game_total * 100;
@@ -269,9 +270,9 @@ int main(int argc, char *argv[]) {
     unsigned long T = 10;
     unsigned long K = 3;
 
-    char * fullgame_path = FULLGAME_PATH;
-    char * interr_path_one = FIRST_INTERRUPTIONS;
-    char * interr_path_two = SECOND_INTERRUPTIONS;
+    char *fullgame_path = FULLGAME_PATH;
+    char *interr_path_one = FIRST_INTERRUPTIONS;
+    char *interr_path_two = SECOND_INTERRUPTIONS;
 
     while ((opt = getopt(argc, argv, "t:k:e:1:2:")) != -1) {
         switch (opt) {
@@ -315,6 +316,7 @@ int main(int argc, char *argv[]) {
     picoseconds INTERVAL = T * SECTOPIC;   // convert to picoseconds
     K = K * 1000;  // convert to millimeters
 
+    printf("Running with T = %ld, K = %ld.\n", T, K / 1000);
 
     // open dataset
     FILE *fp_game = fopen(fullgame_path, "r");
@@ -322,7 +324,7 @@ int main(int argc, char *argv[]) {
     if (fp_game == NULL) {
         printf("Error: couldn't open events file at %s.\n", fullgame_path);
         printf("Aborting.\n");
-        MPI_Abort(MPI_COMM_WORLD, 1);
+        exit(1);
     }
 
     FILE *fp_interruption = fopen(interr_path_one, "r");
@@ -330,7 +332,7 @@ int main(int argc, char *argv[]) {
     if (fp_interruption == NULL) {
         printf("Error: couldn't open interruption events file %s.\n", interr_path_one);
         printf("Aborting.\n");
-        MPI_Abort(MPI_COMM_WORLD, 1);
+        exit(1);
     }
 
     printf("Game starting..\n");
@@ -388,7 +390,6 @@ int main(int argc, char *argv[]) {
 
     // initialize interval counter
     unsigned interval = 0;
-
 
 
     while (!feof(fp_game)) {
@@ -479,7 +480,7 @@ int main(int argc, char *argv[]) {
                     if (fp_interruption == NULL) {
                         printf("Error: couldn't open interruption events file %s.\n", interr_path_two);
                         printf("Aborting.\n");
-                        MPI_Abort(MPI_COMM_WORLD, 1);
+                        exit(1);
                     }
                     // handle the first interruption manually since it is formatted differently
                     // skip csv header
