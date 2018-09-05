@@ -3,16 +3,10 @@
  *
  * @brief This file defines a process, initialized by main.c, whose job is to read game data.
  *
- *
+ * The parser reads events from the streams, keeps player positions up to date, starts possession computations
+ * by sending messages to the possession processes and triggers regular outputs by sending messages to the output
+ * process.
  */
-
-// parser:
-// apri file eventi e interruzioni
-// read evento o interruzione
-// send evento o interruzione/resume
-// if game has ended:
-// send "end of game" to onevent
-// return
 
 #include <stdio.h>
 #include <stdlib.h>

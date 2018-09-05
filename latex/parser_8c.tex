@@ -43,7 +43,7 @@ const \mbox{\hyperlink{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}{player\+\_\+
 \subsection{Detailed Description}
 This file defines a process, initialized by \mbox{\hyperlink{main_8c}{main.\+c}}, whose job is to read game data. 
 
-
+The parser reads events from the streams, keeps player positions up to date, starts possession computations by sending messages to the possession processes and triggers regular outputs by sending messages to the output process. 
 
 \subsection{Function Documentation}
 \mbox{\Hypertarget{parser_8c_ab4059b6d956e5231015b6c3a8dadf40e}\label{parser_8c_ab4059b6d956e5231015b6c3a8dadf40e}} 
@@ -66,7 +66,7 @@ a bool.
 \end{DoxyReturn}
 
 
-Definition at line 88 of file parser.\+c.
+Definition at line 82 of file parser.\+c.
 
 \mbox{\Hypertarget{parser_8c_a01fe702277fddbbefb5be63b3c683b0a}\label{parser_8c_a01fe702277fddbbefb5be63b3c683b0a}} 
 \index{parser.\+c@{parser.\+c}!get\+\_\+sensor\+\_\+player@{get\+\_\+sensor\+\_\+player}}
@@ -88,7 +88,7 @@ Id of the player as player\+\_\+t.
 \end{DoxyReturn}
 
 
-Definition at line 70 of file parser.\+c.
+Definition at line 64 of file parser.\+c.
 
 \mbox{\Hypertarget{parser_8c_abeb296b7da9357c17c7d4698c4a313a7}\label{parser_8c_abeb296b7da9357c17c7d4698c4a313a7}} 
 \index{parser.\+c@{parser.\+c}!get\+\_\+sensor\+\_\+type@{get\+\_\+sensor\+\_\+type}}
@@ -110,7 +110,7 @@ Sensor type; N\+O\+NE, B\+A\+LL, P\+L\+A\+Y\+ER or R\+E\+F\+E\+R\+EE.
 \end{DoxyReturn}
 
 
-Definition at line 52 of file parser.\+c.
+Definition at line 46 of file parser.\+c.
 
 \mbox{\Hypertarget{parser_8c_a6b4f69b75cefd464a448d7dbf87576fa}\label{parser_8c_a6b4f69b75cefd464a448d7dbf87576fa}} 
 \index{parser.\+c@{parser.\+c}!parser\+\_\+run@{parser\+\_\+run}}
@@ -143,7 +143,7 @@ Start, end and interruptions of the game are highlighted in the data received by
 \end{DoxyParams}
 
 
-Definition at line 147 of file parser.\+c.
+Definition at line 141 of file parser.\+c.
 
 \mbox{\Hypertarget{parser_8c_a1dd14eda4036f3237ebbcf382cbd50b3}\label{parser_8c_a1dd14eda4036f3237ebbcf382cbd50b3}} 
 \index{parser.\+c@{parser.\+c}!read\+Event@{read\+Event}}
@@ -164,7 +164,7 @@ Reads an event from the file and returns it as a new object.
 \end{DoxyParams}
 
 
-Definition at line 97 of file parser.\+c.
+Definition at line 91 of file parser.\+c.
 
 \mbox{\Hypertarget{parser_8c_a4da18fef04f82d61a63e0bd181ca0984}\label{parser_8c_a4da18fef04f82d61a63e0bd181ca0984}} 
 \index{parser.\+c@{parser.\+c}!read\+Interruption\+Event@{read\+Interruption\+Event}}
@@ -190,7 +190,7 @@ Reads a new interruption event from file and store read data in the new \mbox{\h
 \end{DoxyReturn}
 
 
-Definition at line 109 of file parser.\+c.
+Definition at line 103 of file parser.\+c.
 
 
 
@@ -213,7 +213,7 @@ Definition at line 109 of file parser.\+c.
 \end{DoxyCode}
 Indexes correspond to sensor ids\+: for each sensor its player id is stored. Index without an associated player id are stored as 0. 
 
-Definition at line 42 of file parser.\+c.
+Definition at line 36 of file parser.\+c.
 
 \mbox{\Hypertarget{parser_8c_a2bce9557be0b36b68488cb171112bbb3}\label{parser_8c_a2bce9557be0b36b68488cb171112bbb3}} 
 \index{parser.\+c@{parser.\+c}!sensor\+\_\+type\+\_\+list@{sensor\+\_\+type\+\_\+list}}
@@ -244,5 +244,5 @@ Definition at line 42 of file parser.\+c.
 \end{DoxyCode}
 Indexes correspond to sensor ids\+: for each sensor its type is stored. Index without an associated sensor id are stored as N\+O\+NE. 
 
-Definition at line 27 of file parser.\+c.
+Definition at line 21 of file parser.\+c.
 
