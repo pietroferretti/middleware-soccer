@@ -24,14 +24,19 @@
 
 int main(int argc, char *argv[]) {
 
+    // used to parse command line arguments
     int opt;
+    // time in seconds between outputs
     unsigned long T = 10;
+    // distance in meters where a player can be considered to have possession of the ball
     unsigned long K = 3;
 
+    // Paths to the events files
     char * fullgame_path = FULLGAME_PATH;
     char * interr_path_one = FIRST_INTERRUPTIONS;
     char * interr_path_two = SECOND_INTERRUPTIONS;
 
+    // parse command line arguments
     while ((opt = getopt(argc, argv, "t:k:e:1:2:")) != -1) {
         switch (opt) {
             case 't':
@@ -71,8 +76,9 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    picoseconds INTERVAL = T * SECTOPIC;   // convert to picoseconds
-    K = K * 1000;  // convert to millimeters
+    // convert parameters to more convenient units
+    picoseconds picoT = T * SECTOPIC;   // convert to picoseconds
+    unsigned long milliK = K * 1000;    // convert to millimeters
 
     // initialize mpi
     MPI_Init(NULL, NULL);
@@ -112,7 +118,7 @@ int main(int argc, char *argv[]) {
     MPI_Type_commit(&mpi_position_for_possession_type);
 
     // create envelope for messages sent to output
-    // message type + num_processes or player who has possession
+    // (message type) + (num_processes, or player who has possession)
     MPI_Datatype mpi_output_envelope;
     MPI_Type_contiguous(2, MPI_UINT32_T, &mpi_output_envelope);
     MPI_Type_commit(&mpi_output_envelope);
@@ -130,21 +136,21 @@ int main(int argc, char *argv[]) {
     MPI_Comm_rank(MPI_COMM_WORLD, &process_rank);
 
     if (process_rank == 0) {
-        printf("Running with T = %ld, K = %ld.\n", T, K / 1000);
+        printf("Running with T = %ld, K = %ld.\n", T, K);
     }
 
     // dispatch correct function
     switch (process_rank) {
         case PARSER_RANK:
-            parser_run(mpi_position_for_possession_type, mpi_output_envelope, world_size - POSSESSION_RANK, INTERVAL,
+            parser_run(mpi_position_for_possession_type, mpi_output_envelope, world_size - POSSESSION_RANK, picoT,
                        fullgame_path, interr_path_one, interr_path_two);
             break;
         case OUTPUT_RANK:
-            output_run(mpi_output_envelope, INTERVAL);
+            output_run(mpi_output_envelope, picoT);
             break;
         case POSSESSION_RANK:
         default:
-            possession_run(mpi_position_for_possession_type, mpi_output_envelope, K);
+            possession_run(mpi_position_for_possession_type, mpi_output_envelope, milliK);
             break;
     }
 

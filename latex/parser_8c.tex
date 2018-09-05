@@ -1,0 +1,248 @@
+\hypertarget{parser_8c}{}\section{source/parser.c File Reference}
+\label{parser_8c}\index{source/parser.\+c@{source/parser.\+c}}
+
+
+This file defines a process, initialized by \mbox{\hyperlink{main_8c}{main.\+c}}, whose job is to read game data.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\newline
+Include dependency graph for parser.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{parser_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{common_8h_a089f166159fb19f10d81c65c1d8793a2}{sensor\+\_\+type\+\_\+t}} \mbox{\hyperlink{parser_8c_abeb296b7da9357c17c7d4698c4a313a7}{get\+\_\+sensor\+\_\+type}} (\mbox{\hyperlink{common_8h_af10e2dceeefdc0af7b5bab152a6380d2}{sid\+\_\+t}} sid)
+\begin{DoxyCompactList}\small\item\em Given the sensor id it return the sensor type. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}{player\+\_\+t}} \mbox{\hyperlink{parser_8c_a01fe702277fddbbefb5be63b3c683b0a}{get\+\_\+sensor\+\_\+player}} (\mbox{\hyperlink{common_8h_af10e2dceeefdc0af7b5bab152a6380d2}{sid\+\_\+t}} sid)
+\begin{DoxyCompactList}\small\item\em Given the sensor id of a player, return the player. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{parser_8c_ab4059b6d956e5231015b6c3a8dadf40e}{ball\+\_\+is\+\_\+in\+\_\+play}} (\mbox{\hyperlink{structposition}{position}} p)
+\begin{DoxyCompactList}\small\item\em Returns T\+R\+UE if the given position is within the field. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{parser_8c_a1dd14eda4036f3237ebbcf382cbd50b3}{read\+Event}} (F\+I\+LE $\ast$file, \mbox{\hyperlink{structevent}{event}} $\ast$new)
+\begin{DoxyCompactList}\small\item\em Reads an event from the file and returns it as a new object. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{parser_8c_a4da18fef04f82d61a63e0bd181ca0984}{read\+Interruption\+Event}} (F\+I\+LE $\ast$$\ast$file, struct \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}} $\ast$new, \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} start)
+\begin{DoxyCompactList}\small\item\em Reads a new interruption event from file and store read data in the new \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}}. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{parser_8c_a6b4f69b75cefd464a448d7dbf87576fa}{parser\+\_\+run}} (M\+P\+I\+\_\+\+Datatype mpi\+\_\+position\+\_\+for\+\_\+possession\+\_\+type, M\+P\+I\+\_\+\+Datatype mpi\+\_\+output\+\_\+envelope, int possession\+\_\+processes, \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} T, char $\ast$fullgame\+\_\+path, char $\ast$interr\+\_\+path\+\_\+one, char $\ast$interr\+\_\+path\+\_\+two)
+\begin{DoxyCompactList}\small\item\em Starts the parser, which receives events from all sensors and communicates with the output and possession processes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{common_8h_a089f166159fb19f10d81c65c1d8793a2}{sensor\+\_\+type\+\_\+t}} \mbox{\hyperlink{parser_8c_a2bce9557be0b36b68488cb171112bbb3}{sensor\+\_\+type\+\_\+list}} \mbox{[}$\,$\mbox{]}
+\item 
+const \mbox{\hyperlink{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}{player\+\_\+t}} \mbox{\hyperlink{parser_8c_ad89c030cddfeca6e74b95a93b96505ab}{sensor\+\_\+player\+\_\+list}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file defines a process, initialized by \mbox{\hyperlink{main_8c}{main.\+c}}, whose job is to read game data. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{parser_8c_ab4059b6d956e5231015b6c3a8dadf40e}\label{parser_8c_ab4059b6d956e5231015b6c3a8dadf40e}} 
+\index{parser.\+c@{parser.\+c}!ball\+\_\+is\+\_\+in\+\_\+play@{ball\+\_\+is\+\_\+in\+\_\+play}}
+\index{ball\+\_\+is\+\_\+in\+\_\+play@{ball\+\_\+is\+\_\+in\+\_\+play}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{ball\+\_\+is\+\_\+in\+\_\+play()}{ball\_is\_in\_play()}}
+{\footnotesize\ttfamily bool ball\+\_\+is\+\_\+in\+\_\+play (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structposition}{position}}}]{p }\end{DoxyParamCaption})}
+
+
+
+Returns T\+R\+UE if the given position is within the field. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em p} & Ball position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a bool. 
+\end{DoxyReturn}
+
+
+Definition at line 88 of file parser.\+c.
+
+\mbox{\Hypertarget{parser_8c_a01fe702277fddbbefb5be63b3c683b0a}\label{parser_8c_a01fe702277fddbbefb5be63b3c683b0a}} 
+\index{parser.\+c@{parser.\+c}!get\+\_\+sensor\+\_\+player@{get\+\_\+sensor\+\_\+player}}
+\index{get\+\_\+sensor\+\_\+player@{get\+\_\+sensor\+\_\+player}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+sensor\+\_\+player()}{get\_sensor\_player()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}{player\+\_\+t}} get\+\_\+sensor\+\_\+player (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{common_8h_af10e2dceeefdc0af7b5bab152a6380d2}{sid\+\_\+t}}}]{sid }\end{DoxyParamCaption})}
+
+
+
+Given the sensor id of a player, return the player. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sid} & Sensor id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Id of the player as player\+\_\+t. 
+\end{DoxyReturn}
+
+
+Definition at line 70 of file parser.\+c.
+
+\mbox{\Hypertarget{parser_8c_abeb296b7da9357c17c7d4698c4a313a7}\label{parser_8c_abeb296b7da9357c17c7d4698c4a313a7}} 
+\index{parser.\+c@{parser.\+c}!get\+\_\+sensor\+\_\+type@{get\+\_\+sensor\+\_\+type}}
+\index{get\+\_\+sensor\+\_\+type@{get\+\_\+sensor\+\_\+type}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{get\+\_\+sensor\+\_\+type()}{get\_sensor\_type()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{common_8h_a089f166159fb19f10d81c65c1d8793a2}{sensor\+\_\+type\+\_\+t}} get\+\_\+sensor\+\_\+type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{common_8h_af10e2dceeefdc0af7b5bab152a6380d2}{sid\+\_\+t}}}]{sid }\end{DoxyParamCaption})}
+
+
+
+Given the sensor id it return the sensor type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em sid} & Sensor id. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Sensor type; N\+O\+NE, B\+A\+LL, P\+L\+A\+Y\+ER or R\+E\+F\+E\+R\+EE. 
+\end{DoxyReturn}
+
+
+Definition at line 52 of file parser.\+c.
+
+\mbox{\Hypertarget{parser_8c_a6b4f69b75cefd464a448d7dbf87576fa}\label{parser_8c_a6b4f69b75cefd464a448d7dbf87576fa}} 
+\index{parser.\+c@{parser.\+c}!parser\+\_\+run@{parser\+\_\+run}}
+\index{parser\+\_\+run@{parser\+\_\+run}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{parser\+\_\+run()}{parser\_run()}}
+{\footnotesize\ttfamily void parser\+\_\+run (\begin{DoxyParamCaption}\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+position\+\_\+for\+\_\+possession\+\_\+type,  }\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+output\+\_\+envelope,  }\item[{int}]{possession\+\_\+processes,  }\item[{\mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}}]{T,  }\item[{char $\ast$}]{fullgame\+\_\+path,  }\item[{char $\ast$}]{interr\+\_\+path\+\_\+one,  }\item[{char $\ast$}]{interr\+\_\+path\+\_\+two }\end{DoxyParamCaption})}
+
+
+
+Starts the parser, which receives events from all sensors and communicates with the output and possession processes. 
+
+Start, end and interruptions of the game are highlighted in the data received by the process.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mpi\+\_\+position\+\_\+for\+\_\+possession\+\_\+type} & M\+PI datatype used to send messages to the possession process \\
+\hline
+{\em mpi\+\_\+output\+\_\+envelope} & M\+PI datatype used to send messages to the output process \\
+\hline
+{\em possession\+\_\+processes} & Number of possession processes that are running, used to know buffer sizes \\
+\hline
+{\em T} & Length of time between outputs \\
+\hline
+{\em fullgame\+\_\+path} & Path for the position events file \\
+\hline
+{\em interr\+\_\+path\+\_\+one} & Path for the first game interruptions file \\
+\hline
+{\em interr\+\_\+path\+\_\+two} & Path for the second game interruptions file \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 147 of file parser.\+c.
+
+\mbox{\Hypertarget{parser_8c_a1dd14eda4036f3237ebbcf382cbd50b3}\label{parser_8c_a1dd14eda4036f3237ebbcf382cbd50b3}} 
+\index{parser.\+c@{parser.\+c}!read\+Event@{read\+Event}}
+\index{read\+Event@{read\+Event}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{read\+Event()}{readEvent()}}
+{\footnotesize\ttfamily void read\+Event (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$}]{file,  }\item[{\mbox{\hyperlink{structevent}{event}} $\ast$}]{new }\end{DoxyParamCaption})}
+
+
+
+Reads an event from the file and returns it as a new object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & An open file pointer to read from \\
+\hline
+{\em new} & A pointer to a free event buffer to write the new event to \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 97 of file parser.\+c.
+
+\mbox{\Hypertarget{parser_8c_a4da18fef04f82d61a63e0bd181ca0984}\label{parser_8c_a4da18fef04f82d61a63e0bd181ca0984}} 
+\index{parser.\+c@{parser.\+c}!read\+Interruption\+Event@{read\+Interruption\+Event}}
+\index{read\+Interruption\+Event@{read\+Interruption\+Event}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{read\+Interruption\+Event()}{readInterruptionEvent()}}
+{\footnotesize\ttfamily int read\+Interruption\+Event (\begin{DoxyParamCaption}\item[{F\+I\+LE $\ast$$\ast$}]{file,  }\item[{struct \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}} $\ast$}]{new,  }\item[{\mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}}]{start }\end{DoxyParamCaption})}
+
+
+
+Reads a new interruption event from file and store read data in the new \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em file} & An open file pointer to read from \\
+\hline
+{\em new} & A pointer to a free \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}} buffer to write the new event to \\
+\hline
+{\em start} & Start time of the current half of the game. Used as offset for the event time, as the files start from zero \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if everything went ok, non-\/zero if an error occurred 
+\end{DoxyReturn}
+
+
+Definition at line 109 of file parser.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{parser_8c_ad89c030cddfeca6e74b95a93b96505ab}\label{parser_8c_ad89c030cddfeca6e74b95a93b96505ab}} 
+\index{parser.\+c@{parser.\+c}!sensor\+\_\+player\+\_\+list@{sensor\+\_\+player\+\_\+list}}
+\index{sensor\+\_\+player\+\_\+list@{sensor\+\_\+player\+\_\+list}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{sensor\+\_\+player\+\_\+list}{sensor\_player\_list}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}{player\+\_\+t}} sensor\+\_\+player\+\_\+list\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 2, 0, 0, 4, 0, 0, 0, 6, 6, 0, 0,
+                                       0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 13, 0, 14, 0, 0, 0, 16, 0, 0, 2, 0,
+       3, 0, 0, 4,
+                                       5, 5, 0, 0, 7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 
+      15, 15, 16,
+                                       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1,
+       9, 9\}
+\end{DoxyCode}
+Indexes correspond to sensor ids\+: for each sensor its player id is stored. Index without an associated player id are stored as 0. 
+
+Definition at line 42 of file parser.\+c.
+
+\mbox{\Hypertarget{parser_8c_a2bce9557be0b36b68488cb171112bbb3}\label{parser_8c_a2bce9557be0b36b68488cb171112bbb3}} 
+\index{parser.\+c@{parser.\+c}!sensor\+\_\+type\+\_\+list@{sensor\+\_\+type\+\_\+list}}
+\index{sensor\+\_\+type\+\_\+list@{sensor\+\_\+type\+\_\+list}!parser.\+c@{parser.\+c}}
+\subsubsection{\texorpdfstring{sensor\+\_\+type\+\_\+list}{sensor\_type\_list}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{common_8h_a089f166159fb19f10d81c65c1d8793a2}{sensor\+\_\+type\+\_\+t}} sensor\+\_\+type\+\_\+list\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{NONE, NONE, NONE, NONE, BALL, NONE, NONE, NONE, BALL, NONE, BALL, NONE, BALL,
+                                          PLAYER, PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, NONE, NONE, 
+      NONE, PLAYER,
+                                          PLAYER, NONE, NONE, NONE, PLAYER, NONE, NONE, NONE, NONE, NONE, 
+      NONE, NONE,
+                                          NONE, NONE, PLAYER, NONE, PLAYER, NONE, NONE, NONE, PLAYER, NONE,
+       NONE,
+                                          PLAYER, NONE, PLAYER, NONE, NONE, PLAYER, PLAYER, PLAYER, NONE, 
+      NONE, PLAYER,
+                                          PLAYER, PLAYER, NONE, PLAYER, PLAYER, PLAYER, PLAYER, PLAYER, 
+      PLAYER, PLAYER,
+                                          PLAYER, PLAYER, NONE, PLAYER, NONE, PLAYER, PLAYER, PLAYER, NONE,
+       NONE, NONE,
+                                          NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, 
+      NONE, NONE,
+                                          NONE, NONE, NONE, NONE, NONE, NONE, PLAYER, PLAYER, PLAYER, 
+      PLAYER, NONE,
+                                          NONE, NONE, NONE, REFEREE, REFEREE\}
+\end{DoxyCode}
+Indexes correspond to sensor ids\+: for each sensor its type is stored. Index without an associated sensor id are stored as N\+O\+NE. 
+
+Definition at line 27 of file parser.\+c.
+

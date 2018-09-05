@@ -1,0 +1,50 @@
+\hypertarget{output_8h}{}\section{include/output.h File Reference}
+\label{output_8h}\index{include/output.\+h@{include/output.\+h}}
+
+
+\mbox{\hyperlink{output_8c}{output.\+c}} function declaration.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{output_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{output_8h_ac43f98545e1da1dbf0dff2d81ec06aef}{output\+\_\+run}} (M\+P\+I\+\_\+\+Datatype mpi\+\_\+output\+\_\+envelope, \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} T)
+\begin{DoxyCompactList}\small\item\em Starts the output process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{output_8c}{output.\+c}} function declaration. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{output_8h_ac43f98545e1da1dbf0dff2d81ec06aef}\label{output_8h_ac43f98545e1da1dbf0dff2d81ec06aef}} 
+\index{output.\+h@{output.\+h}!output\+\_\+run@{output\+\_\+run}}
+\index{output\+\_\+run@{output\+\_\+run}!output.\+h@{output.\+h}}
+\subsubsection{\texorpdfstring{output\+\_\+run()}{output\_run()}}
+{\footnotesize\ttfamily void output\+\_\+run (\begin{DoxyParamCaption}\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+output\+\_\+envelope,  }\item[{\mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}}]{T }\end{DoxyParamCaption})}
+
+
+
+Starts the output process. 
+
+It keeps waiting for a P\+R\+I\+N\+T\+\_\+\+M\+E\+S\+S\+A\+GE or a P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+M\+E\+S\+S\+A\+GE, from possession processes, until it receives the E\+N\+D\+\_\+\+O\+F\+\_\+\+G\+A\+ME message. After receiving a P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+M\+E\+S\+S\+A\+GE, statistics are updated; after receiving a P\+R\+I\+N\+T\+\_\+\+M\+E\+S\+S\+A\+GE, interval and cumulative statistics are printed, and interval ones are reset; after receiving the E\+N\+D\+\_\+\+O\+F\+\_\+\+G\+A\+ME message, the process exits, after waiting for any pending request. If the received message is of any other type, the process abort.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mpi\+\_\+output\+\_\+envelope} & M\+PI datatype of the received messages. \\
+\hline
+{\em T} & Length of time between outputs \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 203 of file output.\+c.
+

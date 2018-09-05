@@ -1,0 +1,91 @@
+\hypertarget{possession_8c}{}\section{source/possession.c File Reference}
+\label{possession_8c}\index{source/possession.\+c@{source/possession.\+c}}
+
+
+This file defines a process, initialized by \mbox{\hyperlink{main_8c}{main.\+c}}, whose job is to establish which player, and thus team, has the ball, for each game positions update message from the \mbox{\hyperlink{parser_8h_a6b4f69b75cefd464a448d7dbf87576fa}{parser\+\_\+run}} process.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\newline
+Include dependency graph for possession.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=307pt]{possession_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{possession_8c_a365f81df4fd3752b09a88c36aa2edfc8}{square\+Distance\+From\+Ball}} (\mbox{\hyperlink{structposition}{position}} player\+\_\+position, \mbox{\hyperlink{structposition}{position}} ball\+\_\+last\+\_\+position)
+\begin{DoxyCompactList}\small\item\em This method computes the euclidean distance\textsuperscript{2} between a specific player and the ball. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{possession_8c_ab34276d7ffa28da384e2668dcc08b6cd}{possession\+\_\+run}} (M\+P\+I\+\_\+\+Datatype mpi\+\_\+possession\+\_\+envelope, M\+P\+I\+\_\+\+Datatype mpi\+\_\+output\+\_\+envelope, unsigned long K)
+\begin{DoxyCompactList}\small\item\em Starts the possession process, which computes ball possessions given the player positions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This file defines a process, initialized by \mbox{\hyperlink{main_8c}{main.\+c}}, whose job is to establish which player, and thus team, has the ball, for each game positions update message from the \mbox{\hyperlink{parser_8h_a6b4f69b75cefd464a448d7dbf87576fa}{parser\+\_\+run}} process. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{possession_8c_ab34276d7ffa28da384e2668dcc08b6cd}\label{possession_8c_ab34276d7ffa28da384e2668dcc08b6cd}} 
+\index{possession.\+c@{possession.\+c}!possession\+\_\+run@{possession\+\_\+run}}
+\index{possession\+\_\+run@{possession\+\_\+run}!possession.\+c@{possession.\+c}}
+\subsubsection{\texorpdfstring{possession\+\_\+run()}{possession\_run()}}
+{\footnotesize\ttfamily void possession\+\_\+run (\begin{DoxyParamCaption}\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+possession\+\_\+envelope,  }\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+output\+\_\+envelope,  }\item[{unsigned long}]{K }\end{DoxyParamCaption})}
+
+
+
+Starts the possession process, which computes ball possessions given the player positions. 
+
+It keeps waiting for P\+O\+S\+I\+T\+I\+O\+N\+S\+\_\+\+M\+E\+S\+S\+A\+GE containing players or ball position updates, until receiving the E\+N\+D\+O\+F\+G\+A\+M\+E\+\_\+\+M\+E\+S\+S\+A\+GE or an unknown tag message causing the process to abort.
+
+After receiving a P\+O\+S\+I\+T\+I\+O\+N\+S\+\_\+\+M\+E\+S\+S\+A\+GE, it recomputes ball possession\+: a player is considered in possession of the ball when
+\begin{DoxyItemize}
+\item He is the player closest to the ball
+\item He is not farther than K millimeters from the ball. Then it sends an to the \mbox{\hyperlink{output_8c}{output.\+c}} process, which will use it to compute and print the game statistics.
+\end{DoxyItemize}
+
+After receiving a E\+N\+D\+O\+F\+G\+A\+M\+E\+\_\+\+M\+E\+S\+S\+A\+GE, it waits for the sending queue to clear out and abort.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mpi\+\_\+possession\+\_\+envelope} & mpi\+\_\+datatype of received message from \mbox{\hyperlink{parser_8h_a6b4f69b75cefd464a448d7dbf87576fa}{parser\+\_\+run}} process, with tag P\+O\+S\+I\+T\+I\+O\+N\+S\+\_\+\+M\+E\+S\+S\+A\+GE or E\+N\+D\+O\+F\+G\+A\+M\+E\+\_\+\+M\+E\+S\+S\+A\+GE. \\
+\hline
+{\em mpi\+\_\+output\+\_\+envelope} & mpi\+\_\+datatype of sent messages to output process. \\
+\hline
+{\em K} & Maximum distance between ball and player\+: if distance between each player and the ball is greater than k then no one has ball possession. K is in millimeters and ranges from 1000 to 5000. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 57 of file possession.\+c.
+
+\mbox{\Hypertarget{possession_8c_a365f81df4fd3752b09a88c36aa2edfc8}\label{possession_8c_a365f81df4fd3752b09a88c36aa2edfc8}} 
+\index{possession.\+c@{possession.\+c}!square\+Distance\+From\+Ball@{square\+Distance\+From\+Ball}}
+\index{square\+Distance\+From\+Ball@{square\+Distance\+From\+Ball}!possession.\+c@{possession.\+c}}
+\subsubsection{\texorpdfstring{square\+Distance\+From\+Ball()}{squareDistanceFromBall()}}
+{\footnotesize\ttfamily double square\+Distance\+From\+Ball (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structposition}{position}}}]{player\+\_\+position,  }\item[{\mbox{\hyperlink{structposition}{position}}}]{ball\+\_\+last\+\_\+position }\end{DoxyParamCaption})}
+
+
+
+This method computes the euclidean distance\textsuperscript{2} between a specific player and the ball. 
+
+$distance^2=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}$
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+\_\+position} & Position of the player we are interested in. \\
+\hline
+{\em ball\+\_\+last\+\_\+position} & Ball position. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Distance\textsuperscript{2} between player\+\_\+position and ball\+\_\+last\+\_\+position. 
+\end{DoxyReturn}
+
+
+Definition at line 26 of file possession.\+c.
+

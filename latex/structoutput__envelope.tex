@@ -1,0 +1,34 @@
+\hypertarget{structoutput__envelope}{}\section{output\+\_\+envelope Struct Reference}
+\label{structoutput__envelope}\index{output\+\_\+envelope@{output\+\_\+envelope}}
+
+
+Used to send messages to the output process.  
+
+
+
+
+{\ttfamily \#include $<$common.\+h$>$}
+
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structoutput__envelope_a750e4b5fa22d3a61c559d648d024dba3}\label{structoutput__envelope_a750e4b5fa22d3a61c559d648d024dba3}} 
+uint32\+\_\+t {\bfseries type}
+\item 
+\mbox{\Hypertarget{structoutput__envelope_a67cd433143ffcf2adb658b7f95860c11}\label{structoutput__envelope_a67cd433143ffcf2adb658b7f95860c11}} 
+uint32\+\_\+t {\bfseries content}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Used to send messages to the output process. 
+
+To avoid using multiple messages to know which M\+PI datatype the next message will be, we use a generic type that works for all the messages that we want to send, i.\+e. the print message from the parser and the result message from possession. Message types can be \mbox{\hyperlink{common_8h_a8da5798ca897bfce113cfdffeb72655f}{P\+O\+S\+I\+T\+I\+O\+N\+S\+\_\+\+M\+E\+S\+S\+A\+GE}}, \mbox{\hyperlink{common_8h_a091cde65311a49ac8f6680864db80171}{P\+R\+I\+N\+T\+\_\+\+M\+E\+S\+S\+A\+GE}}, \mbox{\hyperlink{common_8h_a04f4828ed043e0b47177dfa645656615}{P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+M\+E\+S\+S\+A\+GE}} and \mbox{\hyperlink{common_8h_aa5e8a3ac8d01eeaaf829f70e2c26c5e0}{E\+N\+D\+O\+F\+G\+A\+M\+E\+\_\+\+M\+E\+S\+S\+A\+GE}}. 
+
+Definition at line 145 of file common.\+h.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{common_8h}{common.\+h}}\end{DoxyCompactItemize}

@@ -14,17 +14,49 @@
 #include "common.h"
 
 
-//fixme ma ci serve controllare anche la z?? -> va beh, non fa mai male
+/**
+ * @brief This method computes the euclidean distance<SUP>2</SUP> between a specific player and the ball.
+ *
+ * \f$distance^2=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\f$
+ *
+ * @param player_position Position of the player we are interested in.
+ * @param ball_last_position Ball position.
+ * @return Distance<SUP>2</SUP> between player_position and ball_last_position.
+ */
 double squareDistanceFromBall(position player_position, position ball_last_position) {
-    // d = ((x2 - x1)2 + (y2 - y1)2 + (z2 - z1)2)1/2
-
     return ((player_position.x - ball_last_position.x) * (player_position.x - ball_last_position.x) +
             (player_position.y - ball_last_position.y) * (player_position.y - ball_last_position.y) +
             (player_position.z - ball_last_position.z) * (player_position.z - ball_last_position.z));
 }
 
+
+/**
+ * @brief Starts the possession process, which computes ball possessions given the player positions.
+ *
+ * It keeps waiting for POSITIONS_MESSAGE containing players or ball position
+ * updates, until receiving the ENDOFGAME_MESSAGE or an unknown tag message
+ * causing the process to abort.
+ *
+ * After receiving a POSITIONS_MESSAGE, it recomputes ball possession:
+ * a player is considered in possession of the ball when
+ * - He is the player closest to the ball
+ * - He is not farther than K millimeters from the ball.
+ * Then it sends an  to the output.c process, which will
+ * use it to compute and print the game statistics.
+ *
+ * After receiving a ENDOFGAME_MESSAGE, it waits for the sending queue to
+ * clear out and abort.
+ *
+ * @param mpi_possession_envelope mpi_datatype of received message from #parser_run
+ * process, with tag POSITIONS_MESSAGE or ENDOFGAME_MESSAGE.
+ * @param mpi_output_envelope mpi_datatype of sent messages to output process.
+ * @param K Maximum distance between ball and player: if distance between each
+ * player and the ball is greater than k then no one has ball possession.
+ * K is in millimeters and ranges from 1000 to 5000.
+ */
 void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_output_envelope, unsigned long K) {
 
+    // square the minimum distance K to compare distances without having to compute the square root
     unsigned long K2 = K * K;
 
     // variables to compute minimum distance
@@ -53,7 +85,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
 
         switch (status.MPI_TAG) {
             case POSITIONS_MESSAGE:
-
+                // snapshot of the game received from the parser process, we need to find who has possession
                 DBG(("POSSESSION: positions message received from ONEVENT, interval %d\n", data.interval_id));
 
                 // initialize variables for minimum computation
@@ -79,7 +111,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                 }
 
                 // send result to output
-
+                // find a free spot in the buffer array to hold the data we need to send
                 if (numsent < POSSESSION_BUFFER_SIZE) {
                     // get next free buffer
                     index = numsent;
@@ -101,7 +133,7 @@ void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_outpu
                 break;
 
             case ENDOFGAME_MESSAGE:
-
+                // the game has ended, close everything
                 DBG(("POSSESSION: endofgame message received from PARSER\n"));
 
                 // wait until all sends complete

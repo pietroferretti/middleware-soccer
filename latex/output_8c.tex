@@ -1,0 +1,152 @@
+\hypertarget{output_8c}{}\section{source/output.c File Reference}
+\label{output_8c}\index{source/output.\+c@{source/output.\+c}}
+
+
+This file defines a process, initialize by \mbox{\hyperlink{main_8c}{main.\+c}}, whose job is to compute and output the statistic of the game for each team and player.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}common.\+h\char`\"{}}\newline
+Include dependency graph for output.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=237pt]{output_8c__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{output_8c_ab1b9452bfe2baf53184a88e3c2f7ca8d}{print\+\_\+interval}} (int interval, \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} T)
+\begin{DoxyCompactList}\small\item\em Prints the interval header with the current game time. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{output_8c_a626f2ff222e91340bf8f672a198601a9}{print\+\_\+statistics}} (const unsigned int $\ast$interval\+\_\+possession, const unsigned int $\ast$total\+\_\+possession, int interval, \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} T)
+\begin{DoxyCompactList}\small\item\em Prints for every team and every member last interval statistic, followed by current cumulative statistics. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{output_8c_ac43f98545e1da1dbf0dff2d81ec06aef}{output\+\_\+run}} (M\+P\+I\+\_\+\+Datatype mpi\+\_\+output\+\_\+envelope, \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} T)
+\begin{DoxyCompactList}\small\item\em Starts the output process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const char $\ast$ \mbox{\hyperlink{output_8c_a4ad762fe82ecb0c253b1521711fb60d7}{player\+\_\+names}} \mbox{[}$\,$\mbox{]}
+\begin{DoxyCompactList}\small\item\em Names corresponding to each player id. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{output_8c_a301a8ad7a8b07c6201a97ffbdb871896}\label{output_8c_a301a8ad7a8b07c6201a97ffbdb871896}} 
+const \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} \mbox{\hyperlink{output_8c_a301a8ad7a8b07c6201a97ffbdb871896}{F\+I\+R\+S\+T\+\_\+\+H\+A\+L\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON}} = \mbox{\hyperlink{common_8h_a00be8e922ee8c3e14442893f3dae22e5}{F\+I\+R\+S\+T\+\_\+\+E\+ND}} -\/ \mbox{\hyperlink{common_8h_a08ada8e459d6a78ab832b804fe67f9a1}{G\+A\+M\+E\+\_\+\+S\+T\+A\+RT}}
+\begin{DoxyCompactList}\small\item\em Used to print the interval header. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{output_8c_acd8f2c0d984a9baf1cd41fd24e2cd6bd}\label{output_8c_acd8f2c0d984a9baf1cd41fd24e2cd6bd}} 
+const \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} \mbox{\hyperlink{output_8c_acd8f2c0d984a9baf1cd41fd24e2cd6bd}{S\+E\+C\+O\+N\+D\+\_\+\+H\+A\+L\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON}} = \mbox{\hyperlink{common_8h_a27f2d53d534caee2fd2b6252ef98abf8}{G\+A\+M\+E\+\_\+\+E\+ND}} -\/ \mbox{\hyperlink{common_8h_ac73ff91e5f59bf1aeff42ba4f522725a}{S\+E\+C\+O\+N\+D\+\_\+\+S\+T\+A\+RT}}
+\begin{DoxyCompactList}\small\item\em Used to print the interval header. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+
+\subsection{Detailed Description}
+This file defines a process, initialize by \mbox{\hyperlink{main_8c}{main.\+c}}, whose job is to compute and output the statistic of the game for each team and player. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{output_8c_ac43f98545e1da1dbf0dff2d81ec06aef}\label{output_8c_ac43f98545e1da1dbf0dff2d81ec06aef}} 
+\index{output.\+c@{output.\+c}!output\+\_\+run@{output\+\_\+run}}
+\index{output\+\_\+run@{output\+\_\+run}!output.\+c@{output.\+c}}
+\subsubsection{\texorpdfstring{output\+\_\+run()}{output\_run()}}
+{\footnotesize\ttfamily void output\+\_\+run (\begin{DoxyParamCaption}\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+output\+\_\+envelope,  }\item[{\mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}}]{T }\end{DoxyParamCaption})}
+
+
+
+Starts the output process. 
+
+It keeps waiting for a P\+R\+I\+N\+T\+\_\+\+M\+E\+S\+S\+A\+GE or a P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+M\+E\+S\+S\+A\+GE, from possession processes, until it receives the E\+N\+D\+\_\+\+O\+F\+\_\+\+G\+A\+ME message. After receiving a P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+M\+E\+S\+S\+A\+GE, statistics are updated; after receiving a P\+R\+I\+N\+T\+\_\+\+M\+E\+S\+S\+A\+GE, interval and cumulative statistics are printed, and interval ones are reset; after receiving the E\+N\+D\+\_\+\+O\+F\+\_\+\+G\+A\+ME message, the process exits, after waiting for any pending request. If the received message is of any other type, the process abort.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mpi\+\_\+output\+\_\+envelope} & M\+PI datatype of the received messages. \\
+\hline
+{\em T} & Length of time between outputs \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 203 of file output.\+c.
+
+\mbox{\Hypertarget{output_8c_ab1b9452bfe2baf53184a88e3c2f7ca8d}\label{output_8c_ab1b9452bfe2baf53184a88e3c2f7ca8d}} 
+\index{output.\+c@{output.\+c}!print\+\_\+interval@{print\+\_\+interval}}
+\index{print\+\_\+interval@{print\+\_\+interval}!output.\+c@{output.\+c}}
+\subsubsection{\texorpdfstring{print\+\_\+interval()}{print\_interval()}}
+{\footnotesize\ttfamily void print\+\_\+interval (\begin{DoxyParamCaption}\item[{int}]{interval,  }\item[{\mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}}]{T }\end{DoxyParamCaption})}
+
+
+
+Prints the interval header with the current game time. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em interval} & Current interval id. \\
+\hline
+{\em T} & Interval length (in picoseconds). \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 43 of file output.\+c.
+
+\mbox{\Hypertarget{output_8c_a626f2ff222e91340bf8f672a198601a9}\label{output_8c_a626f2ff222e91340bf8f672a198601a9}} 
+\index{output.\+c@{output.\+c}!print\+\_\+statistics@{print\+\_\+statistics}}
+\index{print\+\_\+statistics@{print\+\_\+statistics}!output.\+c@{output.\+c}}
+\subsubsection{\texorpdfstring{print\+\_\+statistics()}{print\_statistics()}}
+{\footnotesize\ttfamily void print\+\_\+statistics (\begin{DoxyParamCaption}\item[{const unsigned int $\ast$}]{interval\+\_\+possession,  }\item[{const unsigned int $\ast$}]{total\+\_\+possession,  }\item[{int}]{interval,  }\item[{\mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}}]{T }\end{DoxyParamCaption})}
+
+
+
+Prints for every team and every member last interval statistic, followed by current cumulative statistics. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em interval\+\_\+possession} & Array with last interval statistics for every player (each identified by a constant position in the array). \\
+\hline
+{\em total\+\_\+possession} & Array with cumulative statistics for every player (each identified by a constant position in the array). \\
+\hline
+{\em interval} & Incrementing value used to identify each interval of time. \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 74 of file output.\+c.
+
+
+
+\subsection{Variable Documentation}
+\mbox{\Hypertarget{output_8c_a4ad762fe82ecb0c253b1521711fb60d7}\label{output_8c_a4ad762fe82ecb0c253b1521711fb60d7}} 
+\index{output.\+c@{output.\+c}!player\+\_\+names@{player\+\_\+names}}
+\index{player\+\_\+names@{player\+\_\+names}!output.\+c@{output.\+c}}
+\subsubsection{\texorpdfstring{player\+\_\+names}{player\_names}}
+{\footnotesize\ttfamily const char$\ast$ player\+\_\+names\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}
+= \{\textcolor{stringliteral}{"None"},
+                              \textcolor{stringliteral}{"Nick Gertje"},
+                              \textcolor{stringliteral}{"Dennis Dotterweich"},
+                              \textcolor{stringliteral}{"Niklas Waelzlein"},
+                              \textcolor{stringliteral}{"Wili Sommer"},
+                              \textcolor{stringliteral}{"Philipp Harlass"},
+                              \textcolor{stringliteral}{"Roman Hartleb"},
+                              \textcolor{stringliteral}{"Erik Engelhardt"},
+                              \textcolor{stringliteral}{"Sandro Schneider"},
+                              \textcolor{stringliteral}{"Leon Krapf"},
+                              \textcolor{stringliteral}{"Kevin Baer"},
+                              \textcolor{stringliteral}{"Luca Ziegler"},
+                              \textcolor{stringliteral}{"Ben Mueller"},
+                              \textcolor{stringliteral}{"Vale Reitstetter"},
+                              \textcolor{stringliteral}{"Christopher Lee"},
+                              \textcolor{stringliteral}{"Leon Heinze"},
+                              \textcolor{stringliteral}{"Leo Langhans"}\}
+\end{DoxyCode}
+
+
+Names corresponding to each player id. 
+
+
+
+Definition at line 13 of file output.\+c.
+

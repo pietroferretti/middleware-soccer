@@ -1,0 +1,217 @@
+\hypertarget{common_8h}{}\section{include/common.h File Reference}
+\label{common_8h}\index{include/common.\+h@{include/common.\+h}}
+
+
+Common constants and definitions.  
+
+
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$mpi.\+h$>$}\newline
+Include dependency graph for common.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=196pt]{common_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{common_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structposition}{position}}
+\begin{DoxyCompactList}\small\item\em Position coordinates in the game field. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structevent}{event}}
+\begin{DoxyCompactList}\small\item\em Event from sensor. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}}
+\begin{DoxyCompactList}\small\item\em Interruption event. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structposition__event}{position\+\_\+event}}
+\begin{DoxyCompactList}\small\item\em Shows a game snapshot. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structoutput__envelope}{output\+\_\+envelope}}
+\begin{DoxyCompactList}\small\item\em Used to send messages to the output process. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_a399dd27310d6f9c62ea851a7c0b6a7f0}\label{common_8h_a399dd27310d6f9c62ea851a7c0b6a7f0}} 
+\#define \mbox{\hyperlink{common_8h_a399dd27310d6f9c62ea851a7c0b6a7f0}{P\+R\+G\+D\+E\+B\+UG}}~0
+\begin{DoxyCompactList}\small\item\em Enables additional debug output. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a32adf79142f0a426b5e782fb7cd4cad3}\label{common_8h_a32adf79142f0a426b5e782fb7cd4cad3}} 
+\#define {\bfseries D\+BG}(x)~/$\ast$nothing$\ast$/
+\item 
+\mbox{\Hypertarget{common_8h_ac7dea2ffa0e506889c3d37c9aab67c6c}\label{common_8h_ac7dea2ffa0e506889c3d37c9aab67c6c}} 
+\#define \mbox{\hyperlink{common_8h_ac7dea2ffa0e506889c3d37c9aab67c6c}{F\+U\+L\+L\+G\+A\+M\+E\+\_\+\+P\+A\+TH}}~\char`\"{}../datasets/full-\/game\char`\"{}
+\begin{DoxyCompactList}\small\item\em Default path for the position events file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a705285bc2f2bdb3bd454ce8e8edf9057}\label{common_8h_a705285bc2f2bdb3bd454ce8e8edf9057}} 
+\#define \mbox{\hyperlink{common_8h_a705285bc2f2bdb3bd454ce8e8edf9057}{S\+E\+C\+T\+O\+P\+IC}}~1000000000000
+\begin{DoxyCompactList}\small\item\em Conversion factor from seconds to picosends. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a5d1cf9a07c953e550f102d2152f33b0a}\label{common_8h_a5d1cf9a07c953e550f102d2152f33b0a}} 
+\#define \mbox{\hyperlink{common_8h_a5d1cf9a07c953e550f102d2152f33b0a}{P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+B\+U\+F\+F\+E\+R\+\_\+\+S\+I\+ZE}}~1
+\begin{DoxyCompactList}\small\item\em Dimension of the results buffer to increase pipelining. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a2fbe87a531354f51f8e3ea5815e82745}\label{common_8h_a2fbe87a531354f51f8e3ea5815e82745}} 
+\#define \mbox{\hyperlink{common_8h_a2fbe87a531354f51f8e3ea5815e82745}{I\+G\+N\+O\+R\+E\+\_\+\+G\+O\+A\+L\+K\+E\+E\+P\+ER}}~0
+\begin{DoxyCompactList}\small\item\em Set to 1 to remove the goalkeepers from the statistics. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_a296fcf8956da16b4d0bf37dd7bfacc8b}\label{common_8h_a296fcf8956da16b4d0bf37dd7bfacc8b}} 
+\#define \mbox{\hyperlink{common_8h_a296fcf8956da16b4d0bf37dd7bfacc8b}{F\+I\+R\+S\+T\+\_\+\+I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+NS}}~\char`\"{}../datasets/referee-\/events/Game Interruption/1st Half.\+csv\char`\"{}
+\begin{DoxyCompactList}\small\item\em Default path for the game interruptions file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a99fae0dc2cdd4564a69701fb63ef71f1}\label{common_8h_a99fae0dc2cdd4564a69701fb63ef71f1}} 
+\#define \mbox{\hyperlink{common_8h_a99fae0dc2cdd4564a69701fb63ef71f1}{S\+E\+C\+O\+N\+D\+\_\+\+I\+N\+T\+E\+R\+R\+U\+P\+T\+I\+O\+NS}}~\char`\"{}../datasets/referee-\/events/Game Interruption/2nd Half.\+csv\char`\"{}
+\begin{DoxyCompactList}\small\item\em Default path for the game interruptions file. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_a6aee779504f876f9bed834f36b392da9}\label{common_8h_a6aee779504f876f9bed834f36b392da9}} 
+\#define \mbox{\hyperlink{common_8h_a6aee779504f876f9bed834f36b392da9}{X\+M\+IN}}~0
+\begin{DoxyCompactList}\small\item\em Field dimensions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a0312cb6d6cbc719075d4e5380c387ab3}\label{common_8h_a0312cb6d6cbc719075d4e5380c387ab3}} 
+\#define \mbox{\hyperlink{common_8h_a0312cb6d6cbc719075d4e5380c387ab3}{X\+M\+AX}}~52483
+\begin{DoxyCompactList}\small\item\em Field dimensions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_aa025181dff552575490c5148a493ff65}\label{common_8h_aa025181dff552575490c5148a493ff65}} 
+\#define \mbox{\hyperlink{common_8h_aa025181dff552575490c5148a493ff65}{Y\+M\+IN}}~(-\/33960)
+\begin{DoxyCompactList}\small\item\em Field dimensions. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a610d6ad95b18966b70b6845de2a9c56b}\label{common_8h_a610d6ad95b18966b70b6845de2a9c56b}} 
+\#define \mbox{\hyperlink{common_8h_a610d6ad95b18966b70b6845de2a9c56b}{Y\+M\+AX}}~33965
+\begin{DoxyCompactList}\small\item\em Field dimensions. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_a08ada8e459d6a78ab832b804fe67f9a1}\label{common_8h_a08ada8e459d6a78ab832b804fe67f9a1}} 
+\#define \mbox{\hyperlink{common_8h_a08ada8e459d6a78ab832b804fe67f9a1}{G\+A\+M\+E\+\_\+\+S\+T\+A\+RT}}~10753295594424116
+\begin{DoxyCompactList}\small\item\em Beginnings and ends of each half of the game. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a00be8e922ee8c3e14442893f3dae22e5}\label{common_8h_a00be8e922ee8c3e14442893f3dae22e5}} 
+\#define \mbox{\hyperlink{common_8h_a00be8e922ee8c3e14442893f3dae22e5}{F\+I\+R\+S\+T\+\_\+\+E\+ND}}~12557295594424116
+\begin{DoxyCompactList}\small\item\em Beginnings and ends of each half of the game. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_ac73ff91e5f59bf1aeff42ba4f522725a}\label{common_8h_ac73ff91e5f59bf1aeff42ba4f522725a}} 
+\#define \mbox{\hyperlink{common_8h_ac73ff91e5f59bf1aeff42ba4f522725a}{S\+E\+C\+O\+N\+D\+\_\+\+S\+T\+A\+RT}}~13086639146403495
+\begin{DoxyCompactList}\small\item\em Beginnings and ends of each half of the game. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a27f2d53d534caee2fd2b6252ef98abf8}\label{common_8h_a27f2d53d534caee2fd2b6252ef98abf8}} 
+\#define \mbox{\hyperlink{common_8h_a27f2d53d534caee2fd2b6252ef98abf8}{G\+A\+M\+E\+\_\+\+E\+ND}}~14879639146403495
+\begin{DoxyCompactList}\small\item\em Beginnings and ends of each half of the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_a7a4a826a4a196d697aeb6257969fe233}\label{common_8h_a7a4a826a4a196d697aeb6257969fe233}} 
+\#define \mbox{\hyperlink{common_8h_a7a4a826a4a196d697aeb6257969fe233}{P\+A\+R\+S\+E\+R\+\_\+\+R\+A\+NK}}~0
+\begin{DoxyCompactList}\small\item\em Process identifiers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a3c6391770df18e1b2b4da8b2408fab24}\label{common_8h_a3c6391770df18e1b2b4da8b2408fab24}} 
+\#define \mbox{\hyperlink{common_8h_a3c6391770df18e1b2b4da8b2408fab24}{O\+U\+T\+P\+U\+T\+\_\+\+R\+A\+NK}}~1
+\begin{DoxyCompactList}\small\item\em Process identifiers. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a938d3ae0f97952c11c7eacce1d463f39}\label{common_8h_a938d3ae0f97952c11c7eacce1d463f39}} 
+\#define \mbox{\hyperlink{common_8h_a938d3ae0f97952c11c7eacce1d463f39}{P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+R\+A\+NK}}~2
+\begin{DoxyCompactList}\small\item\em Process identifiers. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+\textbf{ }\par
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_a8da5798ca897bfce113cfdffeb72655f}\label{common_8h_a8da5798ca897bfce113cfdffeb72655f}} 
+\#define \mbox{\hyperlink{common_8h_a8da5798ca897bfce113cfdffeb72655f}{P\+O\+S\+I\+T\+I\+O\+N\+S\+\_\+\+M\+E\+S\+S\+A\+GE}}~0
+\begin{DoxyCompactList}\small\item\em Message type identifiers, defined as integers for use with M\+PI. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a091cde65311a49ac8f6680864db80171}\label{common_8h_a091cde65311a49ac8f6680864db80171}} 
+\#define \mbox{\hyperlink{common_8h_a091cde65311a49ac8f6680864db80171}{P\+R\+I\+N\+T\+\_\+\+M\+E\+S\+S\+A\+GE}}~1
+\begin{DoxyCompactList}\small\item\em Message type identifiers, defined as integers for use with M\+PI. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a04f4828ed043e0b47177dfa645656615}\label{common_8h_a04f4828ed043e0b47177dfa645656615}} 
+\#define \mbox{\hyperlink{common_8h_a04f4828ed043e0b47177dfa645656615}{P\+O\+S\+S\+E\+S\+S\+I\+O\+N\+\_\+\+M\+E\+S\+S\+A\+GE}}~2
+\begin{DoxyCompactList}\small\item\em Message type identifiers, defined as integers for use with M\+PI. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_aa5e8a3ac8d01eeaaf829f70e2c26c5e0}\label{common_8h_aa5e8a3ac8d01eeaaf829f70e2c26c5e0}} 
+\#define \mbox{\hyperlink{common_8h_aa5e8a3ac8d01eeaaf829f70e2c26c5e0}{E\+N\+D\+O\+F\+G\+A\+M\+E\+\_\+\+M\+E\+S\+S\+A\+GE}}~3
+\begin{DoxyCompactList}\small\item\em Message type identifiers, defined as integers for use with M\+PI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+\subsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_af10e2dceeefdc0af7b5bab152a6380d2}\label{common_8h_af10e2dceeefdc0af7b5bab152a6380d2}} 
+typedef uint32\+\_\+t \mbox{\hyperlink{common_8h_af10e2dceeefdc0af7b5bab152a6380d2}{sid\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Sensor id type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}\label{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}} 
+typedef uint32\+\_\+t \mbox{\hyperlink{common_8h_a7236ef194cc4c2220b9f7dc5e4777f22}{player\+\_\+t}}
+\begin{DoxyCompactList}\small\item\em Player type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}\label{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}} 
+typedef uint64\+\_\+t \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}
+\begin{DoxyCompactList}\small\item\em Picoseconds type. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structposition}{position}} \mbox{\hyperlink{common_8h_a27f891824b3867d5b8b0be7426002623}{position}}
+\begin{DoxyCompactList}\small\item\em Position coordinates in the game field. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structevent}{event}} \mbox{\hyperlink{common_8h_aed6db9834a774a2a7322cbe3e889a663}{event}}
+\begin{DoxyCompactList}\small\item\em Event from sensor. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}} \mbox{\hyperlink{common_8h_ad6587a779617aa61dba1bc2fed881298}{interruption\+\_\+event}}
+\begin{DoxyCompactList}\small\item\em Interruption event. \end{DoxyCompactList}\item 
+typedef struct \mbox{\hyperlink{structposition__event}{position\+\_\+event}} \mbox{\hyperlink{common_8h_adca5bead1943655023d990c0a2aea7df}{position\+\_\+event}}
+\begin{DoxyCompactList}\small\item\em Shows a game snapshot. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{common_8h_a089f166159fb19f10d81c65c1d8793a2}\label{common_8h_a089f166159fb19f10d81c65c1d8793a2}} 
+enum \mbox{\hyperlink{common_8h_a089f166159fb19f10d81c65c1d8793a2}{sensor\+\_\+type\+\_\+t}} \{ {\bfseries P\+L\+A\+Y\+ER}, 
+{\bfseries R\+E\+F\+E\+R\+EE}, 
+{\bfseries B\+A\+LL}, 
+{\bfseries N\+O\+NE}
+ \}
+\begin{DoxyCompactList}\small\item\em Each sensor registers data from a specific P\+L\+A\+Y\+ER, from the R\+E\+F\+E\+R\+EE or from the B\+A\+LL; N\+O\+NE as default case. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Common constants and definitions. 
+
+This file contains type definitions and global constants used by all processes. 
+
+\subsection{Typedef Documentation}
+\mbox{\Hypertarget{common_8h_aed6db9834a774a2a7322cbe3e889a663}\label{common_8h_aed6db9834a774a2a7322cbe3e889a663}} 
+\index{common.\+h@{common.\+h}!event@{event}}
+\index{event@{event}!common.\+h@{common.\+h}}
+\subsubsection{\texorpdfstring{event}{event}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structevent}{event}}  \mbox{\hyperlink{structevent}{event}}}
+
+
+
+Event from sensor. 
+
+Each event is characterized by\+:
+\begin{DoxyItemize}
+\item the id of the sensor which has generated it,
+\item a timestamp,
+\item the registered position. 
+\end{DoxyItemize}\mbox{\Hypertarget{common_8h_ad6587a779617aa61dba1bc2fed881298}\label{common_8h_ad6587a779617aa61dba1bc2fed881298}} 
+\index{common.\+h@{common.\+h}!interruption\+\_\+event@{interruption\+\_\+event}}
+\index{interruption\+\_\+event@{interruption\+\_\+event}!common.\+h@{common.\+h}}
+\subsubsection{\texorpdfstring{interruption\+\_\+event}{interruption\_event}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}}  \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}}}
+
+
+
+Interruption event. 
+
+Each \mbox{\hyperlink{structinterruption__event}{interruption\+\_\+event}} is characterized by\+: the timestamps of beginning and end of the interruption. During an interruption event statistics are not updated. \mbox{\Hypertarget{common_8h_a27f891824b3867d5b8b0be7426002623}\label{common_8h_a27f891824b3867d5b8b0be7426002623}} 
+\index{common.\+h@{common.\+h}!position@{position}}
+\index{position@{position}!common.\+h@{common.\+h}}
+\subsubsection{\texorpdfstring{position}{position}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structposition}{position}}  \mbox{\hyperlink{structposition}{position}}}
+
+
+
+Position coordinates in the game field. 
+
+x, y, z describe the position of the sensor in mm and the origin is the middle of a full size football field. \mbox{\Hypertarget{common_8h_adca5bead1943655023d990c0a2aea7df}\label{common_8h_adca5bead1943655023d990c0a2aea7df}} 
+\index{common.\+h@{common.\+h}!position\+\_\+event@{position\+\_\+event}}
+\index{position\+\_\+event@{position\+\_\+event}!common.\+h@{common.\+h}}
+\subsubsection{\texorpdfstring{position\+\_\+event}{position\_event}}
+{\footnotesize\ttfamily typedef struct \mbox{\hyperlink{structposition__event}{position\+\_\+event}}  \mbox{\hyperlink{structposition__event}{position\+\_\+event}}}
+
+
+
+Shows a game snapshot. 
+
+It is characterized by\+:
+\begin{DoxyItemize}
+\item an array with every player position,
+\item the ball position,
+\item the specific id of the interval in which the snapshot was taken. 
+\end{DoxyItemize}

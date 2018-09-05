@@ -10,18 +10,7 @@
 
 
 /**
- * @brief This method computes the euclidean distance<SUP>2</SUP> between a specific player and the ball.
- *
- * \f$distance^2=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2+(z_2-z_1)^2}\f$
- *
- * @param player_position Position of the player we are interested in.
- * @param ball_last_position Ball position.
- * @return Distance<SUP>2</SUP> between player_position and ball_last_position.
- */
-double squareDistanceFromBall(position player_position, position ball_last_position);
-
-/**
- * @brief Compute ball possessions until the end of the game.
+ * @brief Starts the possession process, which computes ball possessions given the player positions.
  *
  * It keeps waiting for POSITIONS_MESSAGE containing players or ball position
  * updates, until receiving the ENDOFGAME_MESSAGE or an unknown tag message
@@ -42,8 +31,10 @@ double squareDistanceFromBall(position player_position, position ball_last_posit
  * @param mpi_output_envelope mpi_datatype of sent messages to output process.
  * @param K Maximum distance between ball and player: if distance between each
  * player and the ball is greater than k then no one has ball possession.
- * K ranging from 1000 to 5000.
+ * K is in millimeters and ranges from 1000 to 5000.
  */
 void possession_run(MPI_Datatype mpi_possession_envelope, MPI_Datatype mpi_output_envelope, unsigned long K);
 
 #endif //MIDDLEWARE_SOCCER_POSSESSION_H
+
+//double squareDistanceFromBall(position player_position, position ball_last_position);

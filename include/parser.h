@@ -9,46 +9,20 @@
 #define MIDDLEWARE_SOCCER_PARSER_H
 
 /**
- * @brief It receives events from all sensors and communicates with output and possession processes.
+ * @brief Starts the parser, which receives events from all sensors and communicates with the output and possession processes.
  *
  * Start, end and interruptions of the game are highlighted in the data received by the process.
  *
- * @param mpi_position_for_possession_type
- * @param mpi_output_envelope
- * @param possession_processes
- * @param INTERVAL
+ * @param mpi_position_for_possession_type MPI datatype used to send messages to the possession process
+ * @param mpi_output_envelope MPI datatype used to send messages to the output process
+ * @param possession_processes Number of possession processes that are running, used to know buffer sizes
+ * @param T Length of time between outputs
+ * @param fullgame_path Path for the position events file
+ * @param interr_path_one Path for the first game interruptions file
+ * @param interr_path_two Path for the second game interruptions file
  */
 void
 parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_output_envelope, int possession_processes,
-           picoseconds INTERVAL, char * fullgame_path, char * interr_path_one, char * interr_path_two);
-// FIXME sistemare la documentazione
-
-/**
- * @brief Given the sensor id it return the sensor type.
- * @param sid Sensor id.
- * @return Sensor type; NONE, BALL, PLAYER or REFEREE.
- */
-//sensor_type_t get_sensor_type(sid_t sid);
-//
-///**
-// * @brief Returns TRUE if the given position is within the field.
-// * @param p Ball position.
-// *
-// */
-//bool ball_is_in_play(position p);
-//
-///**
-// * @brief It reads a new event from file and store read data in the new event.
-// * object.
-// *
-// */
-//void readEvent(FILE *file, event *new);
-//
-///**
-// * @brief It reads a new interruption event from file and store read data in the new interruption_event.
-// * @param start Start time of the first of second half of the game, it's used to choose which file to read from.
-// */
-//void readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start);
-
+           picoseconds T, char *fullgame_path, char *interr_path_one, char *interr_path_two);
 
 #endif //MIDDLEWARE_SOCCER_PARSER_H

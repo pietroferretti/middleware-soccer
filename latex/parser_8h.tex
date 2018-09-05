@@ -1,0 +1,60 @@
+\hypertarget{parser_8h}{}\section{include/parser.h File Reference}
+\label{parser_8h}\index{include/parser.\+h@{include/parser.\+h}}
+
+
+\mbox{\hyperlink{parser_8c}{parser.\+c}} function declaration.  
+
+
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=174pt]{parser_8h__dep__incl}
+\end{center}
+\end{figure}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{parser_8h_a6b4f69b75cefd464a448d7dbf87576fa}{parser\+\_\+run}} (M\+P\+I\+\_\+\+Datatype mpi\+\_\+position\+\_\+for\+\_\+possession\+\_\+type, M\+P\+I\+\_\+\+Datatype mpi\+\_\+output\+\_\+envelope, int possession\+\_\+processes, \mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}} T, char $\ast$fullgame\+\_\+path, char $\ast$interr\+\_\+path\+\_\+one, char $\ast$interr\+\_\+path\+\_\+two)
+\begin{DoxyCompactList}\small\item\em Starts the parser, which receives events from all sensors and communicates with the output and possession processes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\mbox{\hyperlink{parser_8c}{parser.\+c}} function declaration. 
+
+
+
+\subsection{Function Documentation}
+\mbox{\Hypertarget{parser_8h_a6b4f69b75cefd464a448d7dbf87576fa}\label{parser_8h_a6b4f69b75cefd464a448d7dbf87576fa}} 
+\index{parser.\+h@{parser.\+h}!parser\+\_\+run@{parser\+\_\+run}}
+\index{parser\+\_\+run@{parser\+\_\+run}!parser.\+h@{parser.\+h}}
+\subsubsection{\texorpdfstring{parser\+\_\+run()}{parser\_run()}}
+{\footnotesize\ttfamily void parser\+\_\+run (\begin{DoxyParamCaption}\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+position\+\_\+for\+\_\+possession\+\_\+type,  }\item[{M\+P\+I\+\_\+\+Datatype}]{mpi\+\_\+output\+\_\+envelope,  }\item[{int}]{possession\+\_\+processes,  }\item[{\mbox{\hyperlink{common_8h_aa141e5aeed9e5c126c44e1e0ca46a917}{picoseconds}}}]{T,  }\item[{char $\ast$}]{fullgame\+\_\+path,  }\item[{char $\ast$}]{interr\+\_\+path\+\_\+one,  }\item[{char $\ast$}]{interr\+\_\+path\+\_\+two }\end{DoxyParamCaption})}
+
+
+
+Starts the parser, which receives events from all sensors and communicates with the output and possession processes. 
+
+Start, end and interruptions of the game are highlighted in the data received by the process.
+
+
+\begin{DoxyParams}{Parameters}
+{\em mpi\+\_\+position\+\_\+for\+\_\+possession\+\_\+type} & M\+PI datatype used to send messages to the possession process \\
+\hline
+{\em mpi\+\_\+output\+\_\+envelope} & M\+PI datatype used to send messages to the output process \\
+\hline
+{\em possession\+\_\+processes} & Number of possession processes that are running, used to know buffer sizes \\
+\hline
+{\em T} & Length of time between outputs \\
+\hline
+{\em fullgame\+\_\+path} & Path for the position events file \\
+\hline
+{\em interr\+\_\+path\+\_\+one} & Path for the first game interruptions file \\
+\hline
+{\em interr\+\_\+path\+\_\+two} & Path for the second game interruptions file \\
+\hline
+\end{DoxyParams}
+
+
+Definition at line 147 of file parser.\+c.
+

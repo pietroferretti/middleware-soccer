@@ -44,7 +44,11 @@ const player_t sensor_player_list[] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1,
                                        5, 5, 0, 0, 7, 7, 8, 0, 9, 9, 10, 10, 11, 11, 12, 12, 13, 0, 14, 0, 15, 15, 16,
                                        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 9, 9};
 
-
+/**
+ * @brief Given the sensor id it return the sensor type.
+ * @param sid Sensor id.
+ * @return Sensor type; NONE, BALL, PLAYER or REFEREE.
+ */
 sensor_type_t get_sensor_type(sid_t sid) {
     if (sid >= 107) {
         fprintf(stderr, "Wrong sensor id %u in get_sensor_type", sid);
@@ -58,6 +62,11 @@ sensor_type_t get_sensor_type(sid_t sid) {
     MPI_Abort(MPI_COMM_WORLD, 1);
 }
 
+/**
+ * @brief Given the sensor id of a player, return the player.
+ * @param sid Sensor id.
+ * @return Id of the player as player_t.
+ */
 player_t get_sensor_player(sid_t sid) {
     if (sid >= 101) {
         fprintf(stderr, "Wrong sensor id %u in get_sensor_player", sid);
@@ -71,24 +80,35 @@ player_t get_sensor_player(sid_t sid) {
     MPI_Abort(MPI_COMM_WORLD, 1);
 }
 
-
+/**
+ * @brief Returns TRUE if the given position is within the field.
+ * @param p Ball position.
+ * @return a bool.
+ */
 bool ball_is_in_play(position p) {
     return p.x >= XMIN && p.x <= XMAX && p.y >= YMIN && p.y <= YMAX;
 }
 
-
+/**
+ * @brief Reads an event from the file and returns it as a new object.
+ * @param file An open file pointer to read from
+ * @param new A pointer to a free event buffer to write the new event to
+ */
 void readEvent(FILE *file, event *new) {
     fscanf(file, "%u,%lu,%d,%d,%d,%*s\n", &new->sid, &new->ts, &new->p.x,
            &new->p.y, &new->p.z);
 }
 
-
+/**
+ * @brief Reads a new interruption event from file and store read data in the new interruption_event.
+ * @param file An open file pointer to read from
+ * @param new A pointer to a free interruption_event buffer to write the new event to
+ * @param start Start time of the current half of the game. Used as offset for the event time, as the files start from zero
+ * @return 0 if everything went ok, non-zero if an error occurred
+ */
 int readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
-    // TODO docs everywhere
-    // file = file pointer con cursore aggiornato
-    // new = struct dove mettere il risultato
-    // start = l'offset da aggiungere al timestamp dell'evento (parte da 0 nel file)
 
+    // temporary variables to parse the file
     picoseconds minutes;
     double seconds;
 
@@ -111,14 +131,26 @@ int readInterruptionEvent(FILE **file, struct interruption_event *new, picosecon
     }
 }
 
-
+/**
+ * @brief Starts the parser, which receives events from all sensors and communicates with the output and possession processes.
+ *
+ * Start, end and interruptions of the game are highlighted in the data received by the process.
+ *
+ * @param mpi_position_for_possession_type MPI datatype used to send messages to the possession process
+ * @param mpi_output_envelope MPI datatype used to send messages to the output process
+ * @param possession_processes Number of possession processes that are running, used to know buffer sizes
+ * @param T Length of time between outputs
+ * @param fullgame_path Path for the position events file
+ * @param interr_path_one Path for the first game interruptions file
+ * @param interr_path_two Path for the second game interruptions file
+ */
 void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_output_envelope,
-                int possession_processes, picoseconds INTERVAL, char *fullgame_path,
+                int possession_processes, picoseconds T, char *fullgame_path,
                 char *interr_path_one, char *interr_path_two) {
 
     DBG(("----------------- PARSER -----------------\n"));
 
-    // open dataset
+    // open datasets
     FILE *fp_game = fopen(fullgame_path, "r");
 
     if (fp_game == NULL) {
@@ -137,19 +169,22 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
 
     printf("Game starting..\n");
 
-    // TODO mettere in ordine variabili ecc.
-
-    // event cursor
+    // event cursor, this will be used to iterate over events
     event current_event;
 
+    // used to iterate over the interruptions
     interruption_event next_interruption;
+
+    // fetch the first interruption
+    // we have to handle the first interruption manually since it is formatted differently
+
+    // temporary variables to parse file
     picoseconds minutes;
     double seconds;
 
-    // handle the first interruption manually since it is formatted differently
     // discard headers
     fscanf(fp_interruption, "%*s\n");
-    fscanf(fp_interruption, "%*s %*s %*s\n");
+    fscanf(fp_interruption, "%*s %*s %*s\n");     // beginning is at exactly 0 seconds
     fscanf(fp_interruption, "%*29c:%lu:%lf;%*s\n", &minutes, &seconds);
 
     next_interruption.start = GAME_START;
@@ -160,52 +195,63 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
     DBG(("\nend interr %lu", next_interruption.end));
 
     // initialize variables used to check when the interval_id has ended
-    picoseconds interval_ends;
-    interval_ends = GAME_START + INTERVAL;
+    picoseconds interval_ends;        // timestamp of the end of this interval, when this interval's statistics will be printed out
+    interval_ends = GAME_START + T;   // inizialize starting from the beginning of the game
 
-    // initialization of ball and players positions
-    position center;
-    center.x = 0;
-    center.y = 0, center.z = 0;
+    // initialization of ball and players updated positions
+    position center;   // position at the center of the field, used as placeholder
+    center.x, center.y, center.z = 0;
+
+    // players updated positions
     position players[17] = {center, center, center, center, center, center, center, center, center, center, center,
                             center, center, center, center, center, center};
 
-
+    // buffer used to hold data sent to possession via MPI
     position_event send_data[possession_processes];
+    // buffer used to hold data sent to output via MPI
     output_envelope send_output;
-    send_output.type = PRINT_MESSAGE;
+    send_output.type = PRINT_MESSAGE;  // set type of message to output to print; it won't be changed until the end of the gmae
 
-
-//    interval id for possession process
+    // variable to keep track of the current interval
     int interval_id = 0;
+    // this counts the number of possession tasks started for the current interval
     unsigned possession_counter = 0;
 
-// mpi variables
+    //  MPI variables
+    // buffer to hold MPI Requests to send messages to the possession processes
     MPI_Request possession_request[possession_processes];
+    // buffer to hold MPI Requests to send messages to the output process
     MPI_Request print_request;
-
+    // auxiliary variable to index possession_request
     int req_index;
-
+    // temporary variable to send a message to a process matching req_index
+    int possession_process_index;
+    // auxiliary variable to inspect the results of WaitAny calls
     MPI_Status status;
+    // variable to keep track of how many cells have already been used in possession_request
     int numsent = 0;
+    // variable to keep track if print_request has already been used
     int first_print = 1;
 
-    int possession_process_index;
-
+    // used to wrap up the first half of the game only one time
     int first_half_ended = 0;
 
+    // start main loop
     while (!feof(fp_game)) {
 
         // fetch one update
         readEvent(fp_game, &current_event);
 
+        // check if the game has started yet
         if (current_event.ts < GAME_START) {
             // skip until the game starts
             DBG(("PARSER: skipping, game not started yet\n"));
             continue;
         }
 
+        // check if we are in the half-time break
         if (current_event.ts > FIRST_END && current_event.ts < SECOND_START) {
+            // check if this is the first time we are here
             if (!first_half_ended) {
                 // print final statistics for the first half
                 first_half_ended = 1;
@@ -230,7 +276,7 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
 
                 // reset interval to after the break
                 interval_id++;
-                interval_ends = SECOND_START + INTERVAL;
+                interval_ends = SECOND_START + T;
                 possession_counter = 0;
             }
             // skip until the second half starts
@@ -238,10 +284,12 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
             continue;
         }
 
+        // check if the game has ended
         if (current_event.ts > GAME_END) {
             // the game has ended
             DBG(("\nPARSER: END OF GAME"));
 
+            // send end-of-game to all possession processes
             DBG(("\nPARSER: SENDING end-of-game msg to all POSSESSION processes"));
             for (int j = 0; j < possession_processes; ++j) {
                 // get any free request buffer
@@ -271,9 +319,11 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
             return;
         }
 
+        // check if an interval between outputs has ended
         if (current_event.ts > interval_ends) {
             // an interval has ended, print statistics
 
+            // check if the request buffer for print has already been used
             if (!first_print) {
                 // wait for the request buffer to be available
                 DBG(("\nPARSER: waiting for previous print_request"));
@@ -293,17 +343,20 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
 
             // reset interval
             interval_id++;
-            interval_ends += INTERVAL;
+            interval_ends += T;
             possession_counter = 0;
         }
 
+        // check if we currently are in a game interruption
         if (current_event.ts >= next_interruption.start && current_event.ts <= next_interruption.end) {
             // skip until the game restarts
             DBG(("PARSER: skipping, interruption\n"));
             continue;
         }
 
+        // check if an interruption has just ended
         if (current_event.ts > next_interruption.end) {
+            // the interruption has just ended
             // fetch the next interruption from the stream
             DBG(("\nGame resume at %lu", next_interruption.end));
             // choose the correct offset to add to the event
@@ -348,8 +401,10 @@ void parser_run(MPI_Datatype mpi_position_for_possession_type, MPI_Datatype mpi_
 
             case BALL:
                 if (ball_is_in_play(current_event.p)) {
-                    // update ball position and send everything to possession
+                    // update ball position and start the possession computation
+                    // i.e. by sending all positions to the possession process
 
+                    // check how much of the request buffer has already been used
                     if (numsent < possession_processes) {
                         // we can use the request buffer sequentially
                         req_index = numsent;
