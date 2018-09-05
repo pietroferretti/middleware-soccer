@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.8.8)  4 SEP 2018 21:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2018.8.8)  5 SEP 2018 11:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -130,57 +130,80 @@ Package: longtable 2014/10/28 v4.11 Multi-page Table package (DPC)
 \c@LT@chunks=\count98
 \LT@p@ftn=\toks20
 )
+(/usr/share/texlive/texmf-dist/tex/latex/tabu/tabu.sty
+Package: tabu 2011/02/26 v2.8 - flexible LaTeX tabulars (FC)
 
-! LaTeX Error: File `tabu.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
+(/usr/share/texlive/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box32
+\sift@deathcycles=\count99
+\@vwid@loff=\dimen108
+\@vwid@roff=\dimen109
+)
+\c@taburow=\count100
+\tabu@nbcols=\count101
+\tabu@cnt=\count102
+\tabu@Xcol=\count103
+\tabu@alloc=\count104
+\tabu@nested=\count105
+\tabu@target=\dimen110
+\tabu@spreadtarget=\dimen111
+\tabu@naturalX=\dimen112
+\tabucolX=\dimen113
+\tabu@Xsum=\dimen114
+\extrarowdepth=\dimen115
+\abovetabulinesep=\dimen116
+\belowtabulinesep=\dimen117
+\tabustrutrule=\dimen118
+\tabu@thebody=\toks21
+\tabu@footnotes=\toks22
+\tabu@box=\box33
+\tabu@arstrutbox=\box34
+\tabu@hleads=\box35
+\tabu@vleads=\box36
+\tabu@cellskip=\skip53
+)
 (/usr/share/texlive/texmf-dist/tex/latex/tools/tabularx.sty
 Package: tabularx 2016/02/03 v2.11 `tabularx' package (DPC)
-\TX@col@width=\dimen108
-\TX@old@table=\dimen109
-\TX@old@col=\dimen110
-\TX@target=\dimen111
-\TX@delta=\dimen112
-\TX@cols=\count99
-\TX@ftn=\toks21
+\TX@col@width=\dimen119
+\TX@old@table=\dimen120
+\TX@old@col=\dimen121
+\TX@target=\dimen122
+\TX@delta=\dimen123
+\TX@cols=\count106
+\TX@ftn=\toks23
 )
-
-! LaTeX Error: File `multirow.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-\xrefbox=\box32
-\xreflength=\skip53
+(/usr/share/texlive/texmf-dist/tex/latex/multirow/multirow.sty
+\bigstrutjot=\dimen124
 )
+\xrefbox=\box37
+\xreflength=\skip54
+)
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
 
-! LaTeX Error: File `adjustbox.sty' not found.
+(/usr/share/texlive/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
 
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks24
+\XKV@tempa@toks=\toks25
 
-Enter file name: 
+(/usr/share/texlive/texmf-dist/tex/generic/xkeyval/keyval.tex))
+\XKV@depth=\count107
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+)
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2012/05/16 v1.0 Trim and clip general TeX material
 
-! LaTeX Error: Unknown option `export' for package `adjustbox'.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.8 \usepackage
-               {graphicx}
-? 
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
-Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
-\KV@toks@=\toks22
-)
 (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2016/05/09 v1.0r Standard LaTeX Graphics (DPC,SPQR)
 
@@ -192,13 +215,35 @@ File: graphics.cfg 2016/01/02 v1.10 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 96.
 )
-\Gin@req@height=\dimen113
-\Gin@req@width=\dimen114
+\Gin@req@height=\dimen125
+\Gin@req@width=\dimen126
 )
+(/usr/share/texlive/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+\collectedbox=\box38
+)
+\tc@llx=\dimen127
+\tc@lly=\dimen128
+\tc@urx=\dimen129
+\tc@ury=\dimen130
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+
+(/usr/share/texlive/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen131
+\adjbox@Height=\dimen132
+\adjbox@Depth=\dimen133
+\adjbox@Totalheight=\dimen134
+
+(/usr/share/texlive/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count108
+))
 (/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2015/03/17 v1.2c Input encoding file
-\inpenc@prehook=\toks23
-\inpenc@posthook=\toks24
+\inpenc@prehook=\toks26
+\inpenc@posthook=\toks27
 
 (/usr/share/texlive/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2017/01/28 v1.1t UTF-8 support for inputenc
@@ -518,33 +563,27 @@ Package: makeidx 2014/09/29 v1.0m Standard LaTeX package
 )
 (/usr/share/texlive/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2016/04/07 v1.8p multicolumn formatting (FMi)
-\c@tracingmulticols=\count100
-\mult@box=\box33
-\multicol@leftmargin=\dimen115
-\c@unbalance=\count101
-\c@collectmore=\count102
-\doublecol@number=\count103
-\multicoltolerance=\count104
-\multicolpretolerance=\count105
-\full@width=\dimen116
-\page@free=\dimen117
-\premulticols=\dimen118
-\postmulticols=\dimen119
-\multicolsep=\skip54
-\multicolbaselineskip=\skip55
-\partial@page=\box34
-\last@line=\box35
-\maxbalancingoverflow=\dimen120
-\mult@rightbox=\box36
-\mult@grightbox=\box37
-\mult@gfirstbox=\box38
-\mult@firstbox=\box39
-\@tempa=\box40
-\@tempa=\box41
-\@tempa=\box42
-\@tempa=\box43
-\@tempa=\box44
-\@tempa=\box45
+\c@tracingmulticols=\count109
+\mult@box=\box39
+\multicol@leftmargin=\dimen135
+\c@unbalance=\count110
+\c@collectmore=\count111
+\doublecol@number=\count112
+\multicoltolerance=\count113
+\multicolpretolerance=\count114
+\full@width=\dimen136
+\page@free=\dimen137
+\premulticols=\dimen138
+\postmulticols=\dimen139
+\multicolsep=\skip55
+\multicolbaselineskip=\skip56
+\partial@page=\box40
+\last@line=\box41
+\maxbalancingoverflow=\dimen140
+\mult@rightbox=\box42
+\mult@grightbox=\box43
+\mult@gfirstbox=\box44
+\mult@firstbox=\box45
 \@tempa=\box46
 \@tempa=\box47
 \@tempa=\box48
@@ -556,14 +595,20 @@ Package: multicol 2016/04/07 v1.8p multicolumn formatting (FMi)
 \@tempa=\box54
 \@tempa=\box55
 \@tempa=\box56
-\c@columnbadness=\count106
-\c@finalcolumnbadness=\count107
-\last@try=\dimen121
-\multicolovershoot=\dimen122
-\multicolundershoot=\dimen123
-\mult@nat@firstbox=\box57
-\colbreak@box=\box58
-\mc@col@check@num=\count108
+\@tempa=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\c@columnbadness=\count115
+\c@finalcolumnbadness=\count116
+\last@try=\dimen141
+\multicolovershoot=\dimen142
+\multicolundershoot=\dimen143
+\mult@nat@firstbox=\box63
+\colbreak@box=\box64
+\mc@col@check@num=\count117
 )
 (/usr/share/texlive/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2017/04/05 v2.0i Standard LaTeX package
@@ -745,27 +790,16 @@ Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/amsfonts.sty
 Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
-\@emptytoks=\toks25
+\@emptytoks=\toks28
 \symAMSa=\mathgroup5
 \symAMSb=\mathgroup6
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
 (Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-
-! LaTeX Error: File `sectsty.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-! Undefined control sequence.
-l.25 \allsectionsfont
-                     {%
-? 
-
-LaTeX Font Warning: Font shape `T1/cmr/bc/n' undefined
-(Font)              using `T1/cmr/m/n' instead on input line 26.
-
+(/usr/share/texlive/texmf-dist/tex/latex/sectsty/sectsty.sty
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
+les
+)
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
@@ -779,56 +813,80 @@ Package ifvtex Info: VTeX not detected.
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count109
-\Gm@cntv=\count110
-\c@Gm@tempcnt=\count111
-\Gm@bindingoffset=\dimen124
-\Gm@wd@mp=\dimen125
-\Gm@odd@mp=\dimen126
-\Gm@even@mp=\dimen127
-\Gm@layoutwidth=\dimen128
-\Gm@layoutheight=\dimen129
-\Gm@layouthoffset=\dimen130
-\Gm@layoutvoffset=\dimen131
-\Gm@dimlist=\toks26
+\Gm@cnth=\count118
+\Gm@cntv=\count119
+\c@Gm@tempcnt=\count120
+\Gm@bindingoffset=\dimen144
+\Gm@wd@mp=\dimen145
+\Gm@odd@mp=\dimen146
+\Gm@even@mp=\dimen147
+\Gm@layoutwidth=\dimen148
+\Gm@layoutheight=\dimen149
+\Gm@layouthoffset=\dimen150
+\Gm@layoutvoffset=\dimen151
+\Gm@dimlist=\toks29
 )
 (/usr/share/texlive/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
-\fancy@headwidth=\skip56
-\f@ncyO@elh=\skip57
-\f@ncyO@erh=\skip58
-\f@ncyO@olh=\skip59
-\f@ncyO@orh=\skip60
-\f@ncyO@elf=\skip61
-\f@ncyO@erf=\skip62
-\f@ncyO@olf=\skip63
-\f@ncyO@orf=\skip64
+\fancy@headwidth=\skip57
+\f@ncyO@elh=\skip58
+\f@ncyO@erh=\skip59
+\f@ncyO@olh=\skip60
+\f@ncyO@orh=\skip61
+\f@ncyO@elf=\skip62
+\f@ncyO@erf=\skip63
+\f@ncyO@olf=\skip64
+\f@ncyO@orf=\skip65
 )
 (/usr/share/texlive/texmf-dist/tex/latex/natbib/natbib.sty
 Package: natbib 2010/09/13 8.31b (PWD, AO)
-\bibhang=\skip65
-\bibsep=\skip66
+\bibhang=\skip66
+\bibsep=\skip67
 LaTeX Info: Redefining \cite on input line 694.
-\c@NAT@ctr=\count112
+\c@NAT@ctr=\count121
 )
-
-! LaTeX Error: File `tocloft.sty' not found.
-
-Type X to quit or <RETURN> to proceed,
-or enter new name. (Default extension: sty)
-
-Enter file name: 
-
-! LaTeX Error: Unknown option `titles' for package `tocloft'.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.89 \setcounter
-                {tocdepth}{3}
-? 
+(/usr/share/texlive/texmf-dist/tex/latex/tocloft/tocloft.sty
+Package: tocloft 2013/05/02 v2.3f parameterised ToC, etc., typesetting
+Package tocloft Info: The document has chapter divisions on input line 44.
+\cftparskip=\skip68
+\cftbeforetoctitleskip=\skip69
+\cftaftertoctitleskip=\skip70
+\cftbeforepartskip=\skip71
+\cftpartnumwidth=\skip72
+\cftpartindent=\skip73
+\cftbeforechapskip=\skip74
+\cftchapindent=\skip75
+\cftchapnumwidth=\skip76
+\cftbeforesecskip=\skip77
+\cftsecindent=\skip78
+\cftsecnumwidth=\skip79
+\cftbeforesubsecskip=\skip80
+\cftsubsecindent=\skip81
+\cftsubsecnumwidth=\skip82
+\cftbeforesubsubsecskip=\skip83
+\cftsubsubsecindent=\skip84
+\cftsubsubsecnumwidth=\skip85
+\cftbeforeparaskip=\skip86
+\cftparaindent=\skip87
+\cftparanumwidth=\skip88
+\cftbeforesubparaskip=\skip89
+\cftsubparaindent=\skip90
+\cftsubparanumwidth=\skip91
+\cftbeforeloftitleskip=\skip92
+\cftafterloftitleskip=\skip93
+\cftbeforefigskip=\skip94
+\cftfigindent=\skip95
+\cftfignumwidth=\skip96
+\c@lofdepth=\count122
+\c@lotdepth=\count123
+\cftbeforelottitleskip=\skip97
+\cftafterlottitleskip=\skip98
+\cftbeforetabskip=\skip99
+\cfttabindent=\skip100
+\cfttabnumwidth=\skip101
+)
 \@indexfile=\write3
 \openout3 = `refman.idx'.
+
 
 Writing index file refman.idx
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hyperref.sty
@@ -883,16 +941,16 @@ Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
 )
-\@linkdim=\dimen132
-\Hy@linkcounter=\count113
-\Hy@pagecounter=\count114
+\@linkdim=\dimen152
+\Hy@linkcounter=\count124
+\Hy@pagecounter=\count125
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/pd1enc.def
 File: pd1enc.def 2018/02/06 v6.86b Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-\Hy@SavedSpaceFactor=\count115
+\Hy@SavedSpaceFactor=\count126
 
 (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/hyperref.cfg
 File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
@@ -913,17 +971,17 @@ Package: rerunfilecheck 2016/05/16 v1.8 Rerun checks for auxiliary files (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 82.
 ))
-\c@Hy@tempcnt=\count116
+\c@Hy@tempcnt=\count127
 
 (/usr/share/texlive/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip10
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 5115.
-\XeTeXLinkMargin=\dimen133
-\Fld@menulength=\count117
-\Field@Width=\dimen134
-\Fld@charsize=\dimen135
+\XeTeXLinkMargin=\dimen153
+\Fld@menulength=\count128
+\Field@Width=\dimen154
+\Fld@charsize=\dimen155
 Package hyperref Info: Hyper figures OFF on input line 6369.
 Package hyperref Info: Link nesting OFF on input line 6374.
 Package hyperref Info: Hyper index ON on input line 6377.
@@ -933,17 +991,17 @@ Package hyperref Info: Link coloring with OCG OFF on input line 6394.
 Package hyperref Info: PDF/A mode OFF on input line 6399.
 LaTeX Info: Redefining \ref on input line 6439.
 LaTeX Info: Redefining \pageref on input line 6443.
-\Hy@abspage=\count118
-\c@Item=\count119
-\c@Hfootnote=\count120
+\Hy@abspage=\count129
+\c@Item=\count130
+\c@Hfootnote=\count131
 )
 Package hyperref Info: Driver: hpdftex.
 
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/hpdftex.def
 File: hpdftex.def 2018/02/06 v6.86b Hyperref driver for pdfTeX
-\Fld@listcount=\count121
-\c@bookmark@seq@number=\count122
-\Hy@SectionHShift=\skip67
+\Fld@listcount=\count132
+\c@bookmark@seq@number=\count133
+\Hy@SectionHShift=\skip102
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 105.
 Package hyperref Info: Option `unicode' set `true' on input line 105.
@@ -959,23 +1017,22 @@ Package: caption 2016/02/21 v3.3-144 Customizing captions (AR)
 (/usr/share/texlive/texmf-dist/tex/latex/caption/caption3.sty
 Package: caption3 2016/05/22 v1.7-166 caption3 kernel (AR)
 Package caption3 Info: TeX engine: e-TeX on input line 67.
-\captionmargin=\dimen136
-\captionmargin@=\dimen137
-\captionwidth=\dimen138
-\caption@tempdima=\dimen139
-\caption@indent=\dimen140
-\caption@parindent=\dimen141
-\caption@hangindent=\dimen142
+\captionmargin=\dimen156
+\captionmargin@=\dimen157
+\captionwidth=\dimen158
+\caption@tempdima=\dimen159
+\caption@indent=\dimen160
+\caption@parindent=\dimen161
+\caption@hangindent=\dimen162
 )
-\c@ContinuedFloat=\count123
+\c@ContinuedFloat=\count134
 Package caption Info: float package is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: longtable package is loaded.
 
 (/usr/share/texlive/texmf-dist/tex/latex/caption/ltcaption.sty
 Package: ltcaption 2013/06/09 v1.4-94 longtable captions (AR)
-))
-No file refman.aux.
+)) (./refman.aux)
 \openout1 = `refman.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 117.
@@ -1011,17 +1068,17 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count124
-\scratchdimen=\dimen143
-\scratchbox=\box59
-\nofMPsegments=\count125
-\nofMParguments=\count126
-\everyMPshowfont=\toks27
-\MPscratchCnt=\count127
-\MPscratchDim=\dimen144
-\MPnumerator=\count128
-\makeMPintoPDFobject=\count129
-\everyMPtoPDFconversion=\toks28
+\scratchcounter=\count135
+\scratchdimen=\dimen163
+\scratchbox=\box65
+\nofMPsegments=\count136
+\nofMParguments=\count137
+\everyMPshowfont=\toks30
+\MPscratchCnt=\count138
+\MPscratchDim=\dimen164
+\MPnumerator=\count139
+\makeMPintoPDFobject=\count140
+\everyMPtoPDFconversion=\toks31
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -1073,7 +1130,7 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\AtBeginShipoutBox=\box60
+\AtBeginShipoutBox=\box66
 Package backref Info: ** backref set up for natbib ** on input line 117.
 Package hyperref Info: Link coloring ON on input line 117.
 (/usr/share/texlive/texmf-dist/tex/latex/hyperref/nameref.sty
@@ -1082,11 +1139,13 @@ Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
 (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count130
+\c@section@level=\count141
 )
 LaTeX Info: Redefining \ref on input line 117.
 LaTeX Info: Redefining \pageref on input line 117.
 LaTeX Info: Redefining \nameref on input line 117.
+
+(./refman.out) (./refman.out)
 \@outlinefile=\write4
 \openout4 = `refman.out'.
 
@@ -1100,8 +1159,7 @@ LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 12.9599pt on input line 128.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
 (Font)              scaled to size 10.79993pt on input line 130.
-
-[1
+ [1
 
 
 {/usr/share/texlive/texmf-dist/fonts/map/pdftex/updmap/pdftex.map}] [2
@@ -1113,13 +1171,43 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 135.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 22.39185pt on input line 135.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 22.39185pt on input line 135.
+ (./refman.toc
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 8.99994pt on input line 1.
+LaTeX Font Info:    Try loading font information for U+wasy on input line 1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
+File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 1.
+
+(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+LaTeX Font Info:    Font shape `T1/phv/m/n' will be
+(Font)              scaled to size 6.29996pt on input line 8.
+ [1
+
+]
+LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 60.
+LaTeX Font Info:    Font shape `T1/phv/b/n' will be
+(Font)              scaled to size 6.29996pt on input line 60.
+ [2])
 \tf@toc=\write5
 \openout5 = `refman.toc'.
 
-
-[1
-
-] [2
+ [3]
+[4
 
 ]
 Package hyperref Info: Option `pageanchor' set `true' on input line 138.
@@ -1131,83 +1219,22 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <20.74> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 141.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 18.66588pt on input line 141.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 18.66588pt on input line 141.
 (./annotated.tex
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 1.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 12.9599pt on input line 1.
-LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 6.29996pt on input line 2.
-LaTeX Font Info:    Try loading font information for U+wasy on input line 2.
- (/usr/share/texlive/texmf-dist/tex/latex/wasysym/uwasy.fd
-File: uwasy.fd 2003/10/30 v2.0 Wasy-2 symbol font definitions
-)
-LaTeX Font Info:    Try loading font information for U+msa on input line 2.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 2.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 3.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 8.99994pt on input line 3.
-
-
-LaTeX Warning: Reference `structevent' on page 1 undefined on input line 3.
-
-
-LaTeX Warning: Reference `structinterruption__event' on page 1 undefined on inp
-ut line 4.
-
-
-LaTeX Warning: Reference `structposition' on page 1 undefined on input line 5.
-
-
-LaTeX Warning: Reference `structposition__event' on page 1 undefined on input l
-ine 6.
-
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 12.9599pt on input line 1.
 ) [1
 
-]
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <7> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 143.
-LaTeX Font Info:    Font shape `T1/phv/b/n' will be
-(Font)              scaled to size 6.29996pt on input line 143.
- [2
+] [2
 
 ]
 Chapter 2.
-(./files.tex
-
-LaTeX Warning: Reference `common_8h' on page 3 undefined on input line 3.
-
-
-LaTeX Warning: Reference `output_8h' on page 3 undefined on input line 4.
-
-
-LaTeX Warning: Reference `parser_8h' on page 3 undefined on input line 5.
-
-
-LaTeX Warning: Reference `possession_8h' on page 3 undefined on input line 6.
-
-
-LaTeX Warning: Reference `main_8c' on page 3 undefined on input line 7.
-
-
-LaTeX Warning: Reference `output_8c' on page 3 undefined on input line 8.
-
-
-LaTeX Warning: Reference `parser_8c' on page 3 undefined on input line 9.
-
-
-LaTeX Warning: Reference `possession_8c' on page 3 undefined on input line 10.
-
-) [3] [4
+(./files.tex) [3] [4
 
 ]
 Chapter 3.
@@ -1216,7 +1243,7 @@ LaTeX Font Info:    Try loading font information for T1+pcr on input line 10.
  (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
 )
-<structevent__coll__graph.pdf, id=70, 136.51pt x 167.62625pt>
+<structevent__coll__graph.pdf, id=405, 136.51pt x 167.62625pt>
 File: structevent__coll__graph.pdf Graphic file (type pdf)
 
 <use structevent__coll__graph.pdf>
@@ -1226,6 +1253,8 @@ LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
 (Font)              Font shape `T1/phv/b/n' tried instead on input line 21.
 LaTeX Font Info:    Font shape `T1/phv/b/n' will be
 (Font)              scaled to size 10.79993pt on input line 21.
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 10.79993pt on input line 21.
 LaTeX Font Info:    Try loading font information for TS1+phv on input line 24.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ts1phv.fd
@@ -1233,2426 +1262,164 @@ File: ts1phv.fd 2001/06/04 scalable font definitions for TS1/phv.
 )
 LaTeX Font Info:    Font shape `TS1/phv/m/n' will be
 (Font)              scaled to size 8.99994pt on input line 24.
- [5 <./structevent__coll__graph.pdf>]) (./structinterruption__event.tex) (./str
-uctposition.tex
-[6]) (./structposition__event.tex
-<structposition__event__coll__graph.pdf, id=110, 169.63374pt x 178.6675pt>
+ [5 <./structevent__coll__graph.pdf>]) (./structinterruption__event.tex
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 6.29996pt on input line 1.
+)
+(./structoutput__envelope.tex [6]) (./structposition.tex)
+(./structposition__event.tex
+<structposition__event__coll__graph.pdf, id=448, 169.63374pt x 178.6675pt>
 File: structposition__event__coll__graph.pdf Graphic file (type pdf)
 
 <use structposition__event__coll__graph.pdf>
 Package pdftex.def Info: structposition__event__coll__graph.pdf used on input l
 ine 18.
 (pdftex.def)             Requested size: 169.0pt x 178.0073pt.
- [7 <./structposition__event__coll__graph.pdf>]) [8]
+ [7]) [8 <./structposition__event__coll__graph.pdf>]
 Chapter 4.
-(./common_8h.tex <common_8h__incl.pdf, id=143, 196.735pt x 156.585pt>
+(./common_8h.tex <common_8h__incl.pdf, id=486, 196.735pt x 156.585pt>
 File: common_8h__incl.pdf Graphic file (type pdf)
 
 <use common_8h__incl.pdf>
-Package pdftex.def Info: common_8h__incl.pdf used on input line 15.
+Package pdftex.def Info: common_8h__incl.pdf used on input line 14.
 (pdftex.def)             Requested size: 196.0pt x 155.99922pt.
 
-<common_8h__dep__incl.pdf, id=144, 517.935pt x 156.585pt>
+<common_8h__dep__incl.pdf, id=487, 517.935pt x 156.585pt>
 File: common_8h__dep__incl.pdf Graphic file (type pdf)
 
 <use common_8h__dep__incl.pdf>
-Package pdftex.def Info: common_8h__dep__incl.pdf used on input line 23.
+Package pdftex.def Info: common_8h__dep__incl.pdf used on input line 21.
 (pdftex.def)             Requested size: 350.0pt x 105.81932pt.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 8.09995pt on input line 30.
+(Font)              scaled to size 8.09995pt on input line 28.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <9> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 30.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 28.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 30.
+(Font)              scaled to size 8.09995pt on input line 28.
  [9
 
  <./common_8h__incl.pdf> <./common_8h__dep__incl.pdf
 
 pdfTeX warning: pdflatex (file ./common_8h__dep__incl.pdf): PDF inclusion: mult
 iple pdfs with page group included in a single page
->]
+>] [10]
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <7> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 137.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 118.
 LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 6.29996pt on input line 137.
- [10]
+(Font)              scaled to size 6.29996pt on input line 118.
+ [11]
+LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
+(Font)              scaled to size 8.99994pt on input line 170.
 LaTeX Font Info:    Font shape `T1/phv/m/n' will be
-(Font)              scaled to size 7.19995pt on input line 150.
- [11]) (./output_8h.tex
-<output_8h__dep__incl.pdf, id=244, 175.65625pt x 156.585pt>
+(Font)              scaled to size 7.19995pt on input line 171.
+) (./output_8h.tex
+<output_8h__dep__incl.pdf, id=598, 175.65625pt x 156.585pt>
 File: output_8h__dep__incl.pdf Graphic file (type pdf)
 
 <use output_8h__dep__incl.pdf>
 Package pdftex.def Info: output_8h__dep__incl.pdf used on input line 12.
 (pdftex.def)             Requested size: 175.0pt x 156.01117pt.
-LaTeX Font Info:    Font shape `TS1/phv/m/it' in size <9> not available
-(Font)              Font shape `TS1/phv/m/sl' tried instead on input line 19.
-LaTeX Font Info:    Font shape `TS1/phv/m/sl' will be
-(Font)              scaled to size 8.09995pt on input line 19.
- [12 <./output_8h__dep__incl.pdf>]
+ [12]
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <8> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 36.
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 32.
 LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <7> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 36.
-
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-LaTeX Font Info:    Font shape `T1/phv/bc/n' will be
-(Font)              scaled to size 8.99994pt on input line 45.
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 45--45
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@echunk ->\crcr \LT@save@row 
-                                \cr \egroup \global \setbox \@ne \lastbox \u...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 45--45
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.45 \begin{DoxyParams}{Parameters}
-                                   
-? 
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <10> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 46.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 8.99994pt on input line 46.
-! Misplaced alignment tab character &.
-l.46 {\em mpi\+\_\+output\+\_\+envelope} &
-                                           mpi\+\_\+datatype of received mes...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.47 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 45 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.48 \end{DoxyParams}
-                     
-? 
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 64--64
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 64--64
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.64 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.65 {\em interval} &
-                      Current interval id. \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.66 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 65--66
-
- []
-
-[13]
-! Misplaced alignment tab character &.
-l.67 {\em T} &
-               Interval length (in picoseconds). \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.68 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 67--68
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 64 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.69 \end{DoxyParams}
-                     
-? 
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 85--85
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 85--85
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.85 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.86 {\em interval\+\_\+possession} &
-                                      Array with last interval statistics fo...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.87 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 86--87
-
- []
-
-! Misplaced alignment tab character &.
-l.88 {\em total\+\_\+possession} &
-                                   Array with cumulative statistics for ever...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.89 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 88--89
-
- []
-
-! Misplaced alignment tab character &.
-l.90 {\em interval} &
-                      Incrementing value used to identify each interval of t...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.91 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 90--91
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 85 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.92 \end{DoxyParams}
-                     
-? 
-) (./parser_8h.tex <parser_8h__dep__incl.pdf, id=282, 174.6525pt x 156.585pt>
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 32.
+ [13 <./output_8h__dep__incl.pdf>])
+(./parser_8h.tex <parser_8h__dep__incl.pdf, id=624, 174.6525pt x 156.585pt>
 File: parser_8h__dep__incl.pdf Graphic file (type pdf)
 
 <use parser_8h__dep__incl.pdf>
 Package pdftex.def Info: parser_8h__dep__incl.pdf used on input line 12.
 (pdftex.def)             Requested size: 174.0pt x 156.00879pt.
- [14]
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 41--41
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.41 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.42 ...tion\+\_\+for\+\_\+possession\+\_\+type} &
-                                                   \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.43 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 42--43
-
- []
-
-[15 <./parser_8h__dep__incl.pdf>]
-! Misplaced alignment tab character &.
-l.44 {\em mpi\+\_\+output\+\_\+envelope} &
-                                           \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.45 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 44--45
-
- []
-
-! Misplaced alignment tab character &.
-l.46 {\em possession\+\_\+processes} &
-                                       \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.47 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 46--47
-
- []
-
-! Misplaced alignment tab character &.
-l.48 {\em I\+N\+T\+E\+R\+V\+AL} &
-                                  \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.49 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 48--49
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 41 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.50 \end{DoxyParams}
-                     
-? 
-) (./possession_8h.tex
-<possession_8h__dep__incl.pdf, id=314, 198.7425pt x 156.585pt>
+ [14 <./parser_8h__dep__incl.pdf>])
+(./possession_8h.tex
+<possession_8h__dep__incl.pdf, id=646, 198.7425pt x 156.585pt>
 File: possession_8h__dep__incl.pdf Graphic file (type pdf)
 
 <use possession_8h__dep__incl.pdf>
 Package pdftex.def Info: possession_8h__dep__incl.pdf used on input line 12.
 (pdftex.def)             Requested size: 198.0pt x 156.004pt.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <6> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 19.
-LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
-(Font)              scaled to size 5.39996pt on input line 19.
- [16 <./possession_8h__dep__incl.pdf>]
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.51 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.52 {\em mpi\+\_\+possession\+\_\+envelope} &
-                                               mpi\+\_\+datatype of received...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.53 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 52--53
-
- []
-
-! Misplaced alignment tab character &.
-l.54 {\em mpi\+\_\+output\+\_\+envelope} &
-                                           mpi\+\_\+datatype of sent message...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.55 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 54--55
-
- []
-
-! Misplaced alignment tab character &.
-l.56 {\em K} &
-               Maximum distance between ball and player\+: if distance betwe...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.57 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--57
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 51 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.58 \end{DoxyParams}
-                     
-? 
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 76--76
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 76--76
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.76 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.77 {\em player\+\_\+position} &
-                                  Position of the player we are interested i...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.78 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 77--78
-
- []
-
-! Misplaced alignment tab character &.
-l.79 {\em ball\+\_\+last\+\_\+position} &
-                                          Ball position. \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.80 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 76 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.81 \end{DoxyParams}
-                     
-? 
-[17]
-Underfull \hbox (badness 10000) detected at line 82
-[][][]
- []
-
-) (./main_8c.tex <main_8c__incl.pdf, id=348, 686.565pt x 212.795pt>
+ [15 <./possession_8h__dep__incl.pdf>])
+(./main_8c.tex [16] <main_8c__incl.pdf, id=678, 686.565pt x 212.795pt>
 File: main_8c__incl.pdf Graphic file (type pdf)
 
 <use main_8c__incl.pdf>
-Package pdftex.def Info: main_8c__incl.pdf used on input line 21.
+Package pdftex.def Info: main_8c__incl.pdf used on input line 20.
 (pdftex.def)             Requested size: 350.0pt x 108.47855pt.
-) (./output_8c.tex [18 <./main_8c__incl.pdf>]
-<output_8c__incl.pdf, id=368, 237.88875pt x 212.795pt>
+) (./output_8c.tex
+<output_8c__incl.pdf, id=680, 237.88875pt x 212.795pt>
 File: output_8c__incl.pdf Graphic file (type pdf)
 
 <use output_8c__incl.pdf>
-Package pdftex.def Info: output_8c__incl.pdf used on input line 15.
+Package pdftex.def Info: output_8c__incl.pdf used on input line 14.
 (pdftex.def)             Requested size: 237.0pt x 212.00868pt.
- [19 <./output_8c__incl.pdf>]
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
+ [17 <./main_8c__incl.pdf>] [18 <./output_8c__incl.pdf>] [19]) (./parser_8c.tex
 
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--59
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--59
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.59 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.60 {\em mpi\+\_\+output\+\_\+envelope} &
-                                           mpi\+\_\+datatype of received mes...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.61 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 60--61
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 59 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.62 \end{DoxyParams}
-                     
-? 
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 78--78
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 78--78
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.78 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.79 {\em interval} &
-                      Current interval id. \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.80 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
-
- []
-
-! Misplaced alignment tab character &.
-l.81 {\em T} &
-               Interval length (in picoseconds). \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.82 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--82
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 78 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.83 \end{DoxyParams}
-                     
-? 
-[20]
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 99--99
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 99--99
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.99 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.100 {\em interval\+\_\+possession} &
-                                       Array with last interval statistics f...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.101 \hline
-            
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 100--101
-
- []
-
-! Misplaced alignment tab character &.
-l.102 {\em total\+\_\+possession} &
-                                    Array with cumulative statistics for eve...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.103 \hline
-            
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 102--103
-
- []
-
-! Misplaced alignment tab character &.
-l.104 {\em interval} &
-                       Incrementing value used to identify each interval of ...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.105 \hline
-            
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 104--105
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 99 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.106 \end{DoxyParams}
-                      
-? 
-[21]) (./parser_8c.tex <parser_8c__incl.pdf, id=414, 390.45876pt x 212.795pt>
+<parser_8c__incl.pdf, id=744, 390.45876pt x 212.795pt>
 File: parser_8c__incl.pdf Graphic file (type pdf)
 
 <use parser_8c__incl.pdf>
-Package pdftex.def Info: parser_8c__incl.pdf used on input line 17.
+Package pdftex.def Info: parser_8c__incl.pdf used on input line 16.
 (pdftex.def)             Requested size: 350.0pt x 190.75392pt.
- [22 <./parser_8c__incl.pdf>]
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 68--68
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 68--68
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.68 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.69 ...tion\+\_\+for\+\_\+possession\+\_\+type} &
-                                                   \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.70 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--70
-
- []
-
-! Misplaced alignment tab character &.
-l.71 {\em mpi\+\_\+output\+\_\+envelope} &
-                                           \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.72 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 71--72
-
- []
-
-! Misplaced alignment tab character &.
-l.73 {\em possession\+\_\+processes} &
-                                       \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.74 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 73--74
-
- []
-
-! Misplaced alignment tab character &.
-l.75 {\em I\+N\+T\+E\+R\+V\+AL} &
-                                  \\
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.76 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 75--76
-
+ [20] [21 <./parser_8c__incl.pdf>]
+Underfull \hbox (badness 10000) detected at line 64
+[][][]
  []
 
 
-! LaTeX Error: \begin{DoxyParams} on input line 68 ended by \end{longtabu}.
+Underfull \hbox (badness 10000) detected at line 86
+[][][]
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.77 \end{DoxyParams}
-                     
-? 
-[23]) (./possession_8c.tex
-<possession_8c__incl.pdf, id=466, 325.215pt x 212.795pt>
+[22]
+Underfull \hbox (badness 10000) detected at line 108
+[][][]
+ []
+
+[23]
+Underfull \hbox (badness 10000) detected at line 188
+[][][]
+ []
+
+[24]) (./possession_8c.tex
+<possession_8c__incl.pdf, id=830, 308.15125pt x 212.795pt>
 File: possession_8c__incl.pdf Graphic file (type pdf)
 
 <use possession_8c__incl.pdf>
-Package pdftex.def Info: possession_8c__incl.pdf used on input line 17.
-(pdftex.def)             Requested size: 324.0pt x 212.01518pt.
- [24] [25 <./possession_8c__incl.pdf>]
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--56
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 56--56
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.56 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced alignment tab character &.
-l.57 {\em mpi\+\_\+possession\+\_\+envelope} &
-                                               mpi\+\_\+datatype of received...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.58 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 57--58
-
- []
-
-! Misplaced alignment tab character &.
-l.59 {\em mpi\+\_\+output\+\_\+envelope} &
-                                           mpi\+\_\+datatype of sent message...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.60 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 59--60
-
- []
-
-! Misplaced alignment tab character &.
-l.61 {\em K} &
-               Maximum distance between ball and player\+: if distance betwe...
-
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.62 \hline
-           
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 61--62
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 56 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.63 \end{DoxyParams}
-                     
-? 
-! Undefined control sequence.
-\\DoxyParams [#1]#2->\tabulinesep 
-                                  =1mm\par \ifthenelse {\equal {#1}{}}{\begi...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-! LaTeX Error: Environment longtabu undefined.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \omit.
-\multispan ->\omit 
-                   \@multispan 
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? 
-! Misplaced \span.
-\sp@n ->\span 
-              \omit \advance \@multicnt \m@ne 
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-? y
-Type <return> to proceed, S to scroll future error messages,
-R to run without stopping, Q to run quietly,
-I to insert something, E to edit your file,
-1 or ... or 9 to ignore the next 1 to 9 tokens of input,
-H for help, X to quit.
-? r
-OK, entering \nonstopmode...
-! Misplaced \omit.
-\sp@n ->\span \omit 
-                    \advance \@multicnt \m@ne 
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-I expect to see \omit only after tab marks or the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 81--81
-
- []
-
-! Misplaced \crcr.
-\LT@echunk ->\crcr 
-                   \LT@save@row \cr \egroup \global \setbox \@ne \lastbox \u...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \cr.
-\LT@echunk ->\crcr \LT@save@row \cr 
-                                    \egroup \global \setbox \@ne \lastbox \u...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-I can't figure out why you would want to use a tab mark
-or \cr or \span just now. If something like a right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Extra }, or forgotten \endgroup.
-\LT@echunk ->\crcr \LT@save@row \cr \egroup 
-                                            \global \setbox \@ne \lastbox \u...
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Extra }, or forgotten \endgroup.
-\LT@echunk ...etbox \@ne \lastbox \unskip \egroup 
-                                                  
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-I've deleted a group-closing symbol because it seems to be
-spurious, as in `$x}$'. But perhaps the } is legitimate and
-you forgot something else, as in `\hbox{$x}'. In such cases
-the way to recover is to insert both the forgotten and the
-deleted material, e.g., by typing `I$}'.
-
-! Undefined control sequence.
-\LT@end@hd@ft ...ox \z@ \LT@get@widths \LT@bchunk 
-                                                  
-l.81 \begin{DoxyParams}{Parameters}
-                                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
-! Misplaced alignment tab character &.
-l.82 {\em player\+\_\+position} &
-                                  Position of the player we are interested i...
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.83 \hline
-           
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 82--83
-
- []
-
-! Misplaced alignment tab character &.
-l.84 {\em ball\+\_\+last\+\_\+position} &
-                                          Ball position. \\
-I can't figure out why you would want to use a tab mark
-here. If you just want an ampersand, the remedy is
-simple: Just type `I\&' now. But if some right brace
-up above has ended a previous alignment prematurely,
-you're probably due for more error messages, and you
-might try typing `S' now just to see what is salvageable.
-
-! Misplaced \noalign.
-\hline ->\noalign 
-                  {\ifnum 0=`}\fi \let \hskip \vskip \let \vrule \hrule \let...
-l.85 \hline
-           
-I expect to see \noalign only after the \cr of
-an alignment. Proceed, and I'll ignore this case.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 84--85
-
- []
-
-
-! LaTeX Error: \begin{DoxyParams} on input line 81 ended by \end{longtabu}.
-
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.86 \end{DoxyParams}
-                     
-Your command was ignored.
-Type  I <command> <return>  to replace it with another command,
-or  <return>  to continue without it.
-
-[26]
-Underfull \hbox (badness 10000) detected at line 87
+Package pdftex.def Info: possession_8c__incl.pdf used on input line 15.
+(pdftex.def)             Requested size: 307.0pt x 212.01518pt.
+LaTeX Font Info:    Font shape `T1/phv/m/it' in size <6> not available
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 22.
+LaTeX Font Info:    Font shape `T1/phv/m/sl' will be
+(Font)              scaled to size 5.39996pt on input line 22.
+ [25 <./possession_8c__incl.pdf>] [26]
+Underfull \hbox (badness 10000) detected at line 85
 [][][]
  []
 
 ) [27] [28
 
-]
-No file refman.ind.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 169.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 169.
-(./refman.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 169.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 169.
+] (./refman.ind [29
 
 
-Package rerunfilecheck Warning: File `refman.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `refman.out':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  59E3A6DEA531F8B8DBB8C40248DE79C4;12120.
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 169.
+])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 170.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 170.
+ (./refman.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 170.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 170.
+Package rerunfilecheck Info: File `refman.out' has not changed.
+(rerunfilecheck)             Checksum: BDFF3525968461A36F0FA7A4F3E86930;12632.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 170.
  ) 
 Here is how much of TeX's memory you used:
- 13439 strings out of 494941
- 192717 string characters out of 6180919
- 279357 words of memory out of 5000000
- 16299 multiletter control sequences out of 15000+600000
- 64131 words of font info for 91 fonts, out of 8000000 for 9000
+ 15268 strings out of 494941
+ 220314 string characters out of 6180919
+ 313406 words of memory out of 5000000
+ 18052 multiletter control sequences out of 15000+600000
+ 71950 words of font info for 95 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 48i,15n,43p,814b,512s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 53i,15n,92p,826b,632s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist
@@ -3667,10 +1434,10 @@ e/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist
 /fonts/type1/urw/helvetic/uhvb8ac.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvet
 ic/uhvro8a.pfb>
-Output written on refman.pdf (32 pages, 228535 bytes).
+Output written on refman.pdf (35 pages, 249254 bytes).
 PDF statistics:
- 607 PDF objects out of 1000 (max. 8388607)
- 520 compressed objects within 6 object streams
- 195 named destinations out of 1000 (max. 500000)
- 56 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1030 PDF objects out of 1200 (max. 8388607)
+ 930 compressed objects within 10 object streams
+ 214 named destinations out of 1000 (max. 500000)
+ 560 words of extra memory for PDF output out of 10000 (max. 10000000)
 
