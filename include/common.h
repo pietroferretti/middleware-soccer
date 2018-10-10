@@ -21,15 +21,6 @@
 #define DBG(x) /*nothing*/
 #endif
 
-/// Default path for the position events file
-#define FULLGAME_PATH "../datasets/full-game"
-
-/// Default path for the game interruptions file
-//@{
-#define FIRST_INTERRUPTIONS "../datasets/referee-events/Game Interruption/1st Half.csv"
-#define SECOND_INTERRUPTIONS "../datasets/referee-events/Game Interruption/2nd Half.csv"
-//@}
-
 /// Field dimensions
 //@{
 #define XMIN 0
@@ -38,7 +29,7 @@
 #define YMAX 33965
 //@}
 
-/// Conversion factor from seconds to picosends.
+/// Conversion factor from seconds to picoseconds.
 #define SECTOPIC 1000000000000
 
 /// Beginnings and ends of each half of the game

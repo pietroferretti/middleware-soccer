@@ -77,7 +77,6 @@ void readEvent(FILE *file, event *new) {
 
 
 int readInterruptionEvent(FILE **file, struct interruption_event *new, picoseconds start) {
-    // TODO docs everywhere
     // file = file pointer con cursore aggiornato
     // new = struct dove mettere il risultato
     // start = l'offset da aggiungere al timestamp dell'evento (parte da 0 nel file)
@@ -265,16 +264,32 @@ void print_statistics(const unsigned int *interval_possession, const unsigned in
 }
 
 
+void print_usage(const char * program_name) {
+    printf("Usage: %s [-t <interval>] [-k <distance>] [-e <path to full-game>]\n", program_name);
+    printf("          [-1 <path to interruptions (1st half)>] [-2 <path to interruptions (2nd half)>]\n");
+    printf("Example: %s -e datasets/full-game -1 datasets/referee-events/Game\\ Interruption/1st\\ Half.csv", program_name);
+    printf(" -2 datasets/referee-events/Game\\ Interruption/2nd\\ Half.csv -t 60 -k 5\n");
+}
+
+
 int main(int argc, char *argv[]) {
+    // used to parse command line arguments
     int opt;
-    unsigned long T = 10;
-    unsigned long K = 3;
+    // time in seconds between outputs
+    unsigned long T;
+    // distance in meters where a player can be considered to have possession of the ball
+    unsigned long K;
 
-    char *fullgame_path = FULLGAME_PATH;
-    char *interr_path_one = FIRST_INTERRUPTIONS;
-    char *interr_path_two = SECOND_INTERRUPTIONS;
+    // paths to the events files
+    char * fullgame_path;
+    char * interr_path_one;
+    char * interr_path_two;
 
-    while ((opt = getopt(argc, argv, "t:k:e:1:2:")) != -1) {
+    // counter to check which arguments have been passed
+    int args_read = 0;
+
+    // parse command line arguments
+    while ((opt = getopt(argc, argv, "t:k:e:1:2:h")) != -1) {
         switch (opt) {
             case 't':
                 // value for the interval T
@@ -284,6 +299,7 @@ int main(int argc, char *argv[]) {
                     printf("T must be an integer between 1 and 60!\n");
                     exit(1);
                 }
+                args_read |= 1;
                 break;
             case 'k':
                 // value for the distance K
@@ -293,25 +309,36 @@ int main(int argc, char *argv[]) {
                     printf("K must be an integer between 1 and 5!\n");
                     exit(1);
                 }
+                args_read |= 2;
                 break;
             case 'e':
                 // path to the events file ("full-game")
                 fullgame_path = optarg;
+                args_read |= 4;
                 break;
             case '1':
                 // path to the first interruption events file (".../Game Interruption/1st Half.csv")
                 interr_path_one = optarg;
+                args_read |= 8;
                 break;
             case '2':
                 // path to the second interruption events file (".../Game Interruption/2nd Half.csv")
                 interr_path_two = optarg;
+                args_read |= 16;
                 break;
+            case 'h':
             default:
-                printf("Usage: %s [-t <interval>] [-k <distance>] [-e <path to full-game>]\n", argv[0]);
-                printf("          [-1 <path to interruptions (1st half)>] [-2 <path to interruptions (2nd half)>]\n");
+                print_usage(argv[0]);
                 exit(1);
         }
     }
+
+    // check if all arguments have been passed
+    if (args_read != (1 | 2 | 4 | 8 | 16)) {
+        print_usage(argv[0]);
+        exit(1);
+    }
+
 
     picoseconds INTERVAL = T * SECTOPIC;   // convert to picoseconds
     K = K * 1000;  // convert to millimeters
